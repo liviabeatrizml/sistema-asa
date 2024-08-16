@@ -50,6 +50,7 @@ CREATE TABLE Agendamento (
     FOREIGN KEY (horario_id) REFERENCES HorarioDisponivel(id_horario)
 );
 
+
 CREATE TABLE RelatorioServico (
     id_relatorio INT AUTO_INCREMENT PRIMARY KEY,
     diagnostico TEXT,
