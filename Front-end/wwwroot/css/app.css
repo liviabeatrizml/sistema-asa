@@ -1,5 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root{
+    --black-color: #1E1E1E;
+    --blue-ufersa: #243E64;
+    --white: #FAF9F6;
+    --border-color: #000000;
+    --placeholder-color: #C3C3C3;
+}
+
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--black-color);
 }
 
 h1:focus {
@@ -7,17 +19,29 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: var(--blue-ufersa);
+    text-decoration: none;
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: var(--white);
+    background-color: var(--blue-ufersa);
+    border-color: var(--blue-ufersa);
+}
+
+.btn-secundary {
+    color: var(--blue-ufersa);
+    background-color: white;
+    border: 2px solid var(--blue-ufersa);
+}
+
+.btn-secundary:hover{
+    color: var(--blue-ufersa);
+    background-color: var(--white);
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem var(--white), 0 0 0 0.25rem var(--blue-ufersa);
 }
 
 .content {
@@ -100,4 +124,67 @@ a, .btn-link {
 
 code {
     color: #c02d76;
+}
+
+.container-form{
+    width: 407px;
+    margin: 0px;
+    box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+}
+
+.border-radius-30{
+    border-radius: 30px;
+}
+
+.border-radius-20{
+    border-radius: 20px;
+}
+
+.border-radius-10{
+    border-radius: 10px;
+}
+
+.weight-700{
+    font-weight: 700;
+}
+
+.weight-500{
+    font-weight: 500;
+}
+
+.paragraph-size{
+    font-size: 1.1em;
+}
+
+.button-size{
+    font-size: 1.5em;
+}
+
+.custom-input{
+    height: 56px;
+    border-width: 3px;
+    border-color: var(--border-color);
+}
+
+.custom-input::placeholder{
+    color: var(--placeholder-color);
+}
+
+.custom-input:focus {
+    border-color: var(--border-color);
+    box-shadow: 0 0 5px var(--border-color);
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+.password-container .toggle-password {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
 }

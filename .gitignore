@@ -1,0 +1,21 @@
+# Ignore arquivos de build
+bin/
+obj/
+
+# Ignore arquivos gerados do Blazor
+*.wasm
+*.dll
+*.pdb
+*.js.map
+*.js
+*.dat
+*.cache
+*.json
+*.txt
+*.editorconfig
+*.cs
+*.exe
+*.props
+
+# Ignore o pacote de dependências
+node_modules/
