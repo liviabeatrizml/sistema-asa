@@ -10,25 +10,39 @@
 
 html, body {
     font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--black-color);
+    text-align: justify;
 }
 
 @media (min-width: 320px) and (max-width: 1023px) {
-    html, body{
-        font-size: 11px;
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1439px) {
     html, body{
         font-size: 12px;
     }
 }
 
+@media (max-width: 767px) {
+    header{
+        text-align: center;
+        padding: 0px !important; 
+    }
+
+    footer > div{
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        font-size: 0.6rem !important;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    html, body{
+        font-size: 15px;
+    }
+}
+
 @media (min-width: 1440px) and (max-width: 1919px) {
     html, body{
-        font-size: 13px;
+        font-size: 16px;
     }
 }
 
