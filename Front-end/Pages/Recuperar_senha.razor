@@ -1,0 +1,70 @@
+@page "/recuperar-senha"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Recuperar Senha</PageTitle>
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div class="container-form bg-white border-radius-20">
+    
+        <h1 class="display-5 weight-700 pb-4">Recuperar senha</h1>
+    
+    
+        <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+    
+            <ValidationMessage For="@(() => user.Email)" />
+            <div class="mb-3 py-1">
+                <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="user.Email" placeholder="Email"/>
+            </div>
+    
+        <p class="paragraph-size weight-500 py-2">Enviaremos um código de verificação a este e-mail, caso seja associado a uma conta ASA.</p>
+
+            <div class="d-grid gap-2 py-4">
+                <button type="submit" class="btn btn-primary weight-700 button-size border-radius-30" style="height: 4rem;">Avançar</button>
+            </div>
+    
+        </EditForm>
+    
+        <div style="display: flex; align-items: center; text-align: center;" class="pb-4">
+            <hr style="flex-grow: 1; border: none; border-top: 1px solid #D9D9D9; margin: 0 10px;">
+            <span style="color: #D9D9D9;">ou</span>
+            <hr style="flex-grow: 1; border: none; border-top: 1px solid #D9D9D9; margin: 0 10px;">
+        </div>
+    
+        <div class="d-grid gap-2 py-2">
+            <a href="/registrar" class="btn btn-secondary weight-700 button-size border-radius-30" style="display: flex; align-items: center; justify-content: center; height: 4rem; align-items: center;">Cadastre-se</a>
+        </div>
+    
+        <div class="d-grid gap-2 py-2">
+            <a href="/entrar" class="weight-700 button-size border-radius-30 black underline gray-underline-black" style="display: flex; align-items: center; justify-content: center; height: 4rem; align-items: center;">Entrar</a>
+        </div>
+    
+    </div>
+</div>
+
+@code{
+    public class User
+    {
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Password { get; set; }
+    }
+
+    private User user = new User();
+    private bool submitted = false;
+
+    private void HandleValidSubmit()
+    {
+        submitted = true;
+        // Lógica para lidar com os dados do formulário
+    }
+
+    private bool isPasswordVisible = false;
+
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+}

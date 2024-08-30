@@ -5,7 +5,7 @@
     --blue-ufersa: #243E64;
     --white: #FAF9F6;
     --border-color: #000000;
-    --placeholder-color: #C3C3C3;
+    --cinza-escuro: #C3C3C3;
 }
 
 html, body {
@@ -186,7 +186,7 @@ code {
 }
 
 .custom-input::placeholder{
-    color: var(--placeholder-color);
+    color: var(--cinza-escuro);
 }
 
 .custom-input:focus {
@@ -204,4 +204,16 @@ code {
     position: absolute;
     right: 15px;
     cursor: pointer;
+}
+
+.underline:hover{
+    text-decoration: underline;
+}
+
+.gray-underline-black{
+    color: var(--cinza-escuro);
+}
+
+.gray-underline-black:hover{
+    color: var(--black-color);
 }
