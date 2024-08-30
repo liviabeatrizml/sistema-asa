@@ -23,14 +23,14 @@
                 <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="user.Password" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
                 <ValidationMessage For="@(() => user.Password)" />
                 <span class="toggle-password" @onclick="TogglePasswordVisibility">
-                    <img src="@(isPasswordVisible ? "..\\css\\images\\eye-off.svg" : "..\\css\\images\\eye-on.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-off.svg" : "..\\css\\images\\eye-on.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
                 </span>
             </div>
     
             <a href="#" class="weight-700 paragraph-size">Esqueceu sua senha?</a>
     
             <div class="d-grid gap-2 py-5">
-                <button type="submit" class="btn btn-primary weight-700 button-size border-radius-30" style="height: 64px;">Entrar</button>
+                <button type="submit" class="btn btn-primary weight-700 button-size border-radius-30" style="height: 4rem;">Entrar</button>
             </div>
     
         </EditForm>
@@ -44,7 +44,7 @@
         <p class="paragraph-size weight-500">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
     
         <div class="d-grid gap-2 py-2">
-            <button type="submit" class="btn btn-secundary weight-700 button-size border-radius-30" style="height: 64px;">Cadastre-se Agora</button>
+            <a href="/register" class="btn btn-secondary weight-700 button-size border-radius-30" style="display: flex; align-items: center; justify-content: center; height: 4rem; align-items: center;">Cadastre-se Agora</a>
         </div>
     
     </div>
@@ -52,10 +52,15 @@
 
 @code{
     public class User
-{
-    public string Email { get; set; }
-    public string Password { get; set; }
-}
+    {
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        [EmailAddress(ErrorMessage = "Por favor, insira um endereço de email válido.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        [MinLength(6, ErrorMessage = "A senha deve ter pelo menos 6 caracteres.")]
+        public string Password { get; set; }
+    }
 
     private User user = new User();
     private bool submitted = false;

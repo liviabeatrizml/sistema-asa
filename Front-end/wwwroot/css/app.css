@@ -10,8 +10,26 @@
 
 html, body {
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: var(--black-color);
+}
+
+@media (min-width: 320px) and (max-width: 1023px) {
+    html, body{
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    html, body{
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+    html, body{
+        font-size: 14px;
+    }
 }
 
 h1:focus {
@@ -29,13 +47,13 @@ a, .btn-link {
     border-color: var(--blue-ufersa);
 }
 
-.btn-secundary {
+.btn-secondary {
     color: var(--blue-ufersa);
     background-color: white;
     border: 2px solid var(--blue-ufersa);
 }
 
-.btn-secundary:hover{
+.btn-secondary:hover{
     color: var(--blue-ufersa);
     background-color: var(--white);
 }
@@ -127,22 +145,22 @@ code {
 }
 
 .container-form{
-    width: 407px;
+    width: 25.438rem;
     margin: 0px;
     box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.2);
     padding: 30px;
 }
 
 .border-radius-30{
-    border-radius: 30px;
+    border-radius: 1.875rem;
 }
 
 .border-radius-20{
-    border-radius: 20px;
+    border-radius: 1.25rem;
 }
 
 .border-radius-10{
-    border-radius: 10px;
+    border-radius: 0.625rem;
 }
 
 .weight-700{
@@ -162,7 +180,7 @@ code {
 }
 
 .custom-input{
-    height: 56px;
+    height: 3.5rem;
     border-width: 3px;
     border-color: var(--border-color);
 }
@@ -181,7 +199,6 @@ code {
     display: flex;
     align-items: center;
 }
-
 
 .password-container .toggle-password {
     position: absolute;
