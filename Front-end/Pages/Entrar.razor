@@ -12,18 +12,17 @@
     
         <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator />
-        <ValidationSummary />
     
+            <ValidationMessage For="@(() => user.Email)" />
             <div class="mb-3 ">
                 <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="user.Email" placeholder="Email"/>
-                <ValidationMessage For="@(() => user.Email)" />
             </div>
 
+            <ValidationMessage For="@(() => user.Password)" />
             <div class="password-container mb-3">
                 <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="user.Password" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
-                <ValidationMessage For="@(() => user.Password)" />
                 <span class="toggle-password" @onclick="TogglePasswordVisibility">
-                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-off.svg" : "..\\css\\images\\eye-on.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-on.svg" : "..\\css\\images\\eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
                 </span>
             </div>
     
@@ -58,7 +57,7 @@
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo Senha é obrigatório.")]
-        [MinLength(6, ErrorMessage = "A senha deve ter pelo menos 6 caracteres.")]
+        [MinLength(8, ErrorMessage = "A senha deve ter pelo menos 8 caracteres.")]
         public string Password { get; set; }
     }
 
