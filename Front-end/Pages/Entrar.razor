@@ -3,7 +3,9 @@
 
 <PageTitle>Entrar</PageTitle>
 
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+<Header />
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; margin-bottom: 9.375rem;">
     <div class="container-form bg-white border-radius-20">
     
         <h1 class="display-5 weight-700">Entrar</h1>
@@ -26,7 +28,7 @@
                 </span>
             </div>
     
-            <a href="#" class="weight-700 paragraph-size">Esqueceu sua senha?</a>
+            <a href="/recuperar-senha" class="weight-700 paragraph-size underline">Esqueceu sua senha?</a>
     
             <div class="d-grid gap-2 py-5">
                 <button type="submit" class="btn btn-primary weight-700 button-size border-radius-30" style="height: 4rem;">Entrar</button>
@@ -43,21 +45,21 @@
         <p class="paragraph-size weight-500">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
     
         <div class="d-grid gap-2 py-2">
-            <a href="/register" class="btn btn-secondary weight-700 button-size border-radius-30" style="display: flex; align-items: center; justify-content: center; height: 4rem; align-items: center;">Cadastre-se Agora</a>
+            <a href="/registrar" class="btn btn-secondary weight-700 button-size border-radius-30 a-button">Cadastre-se Agora</a>
         </div>
     
     </div>
 </div>
 
+<Footer />
+
 @code{
     public class User
     {
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
-        [EmailAddress(ErrorMessage = "Por favor, insira um endereço de email válido.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo Senha é obrigatório.")]
-        [MinLength(8, ErrorMessage = "A senha deve ter pelo menos 8 caracteres.")]
         public string Password { get; set; }
     }
 

@@ -1,1 +1,73 @@
-<header class="py-3" style="padding-left: 6rem;"><a href="#"><img src="..\css\images\logo.svg" alt="Logo"></a></header>
+@inject NavigationManager Navigation
+
+<header class="pt-3" style="padding-left: 6.188rem; padding-right: 6.188rem;">
+    
+    <a href="/"><img src="..\css\images\logo.svg" alt="Logo"></a>
+
+    @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "")
+    {
+        <div class="menu-home">
+            <a href="/" @onmouseover="agendaColor" @onmouseout="agendaColor"><img src="@(agendaHover ? "..\\css\\images\\agenda.svg" : "..\\css\\images\\agenda-hover.svg")" alt="Agenda"></a>
+            <a href="/" @onmouseover="servicoColor" @onmouseout="servicoColor"><img src="@(servicoHover ? "..\\css\\images\\servico.svg" : "..\\css\\images\\servico-hover.svg")"  alt="Serviço"></a>
+            <a href="/" @onmouseover="avisosColor" @onmouseout="avisosColor"><img src="@(avisosHover ? "..\\css\\images\\avisos.svg" : "..\\css\\images\\avisos-hover.svg")"  alt="Avisos"></a>
+
+            <div class="menu-divider"></div>
+
+            <a href="/" @onmouseover="relatarColor" @onmouseout="relatarColor"><img src="@(relatarHover ? "..\\css\\images\\relatar.svg" : "..\\css\\images\\relatar-hover.svg")"  alt="Relatar"></a>
+        </div>
+    }
+    
+</header>
+
+<style>
+
+    header{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .menu-home{
+        display: flex;
+        text-align: right;
+    }
+
+    .menu-home a{
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .menu-divider {
+    border-left: 2px solid #C3C3C3;
+    margin: 0 20px;
+    }
+
+</style>
+
+@code{
+    private bool agendaHover = true;
+
+    private void agendaColor()
+    {
+        agendaHover = !agendaHover;
+    }
+    private bool servicoHover = true;
+
+    private void servicoColor()
+    {
+        servicoHover = !servicoHover;
+    }
+    private bool avisosHover = true;
+
+    private void avisosColor()
+    {
+        avisosHover = !avisosHover;
+    }
+    private bool relatarHover = true;
+
+    private void relatarColor()
+    {
+        relatarHover = !relatarHover;
+    }
+}

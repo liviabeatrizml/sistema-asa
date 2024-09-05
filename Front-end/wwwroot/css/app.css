@@ -55,6 +55,14 @@ a, .btn-link {
     text-decoration: none;
 }
 
+.a-button{
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    height: 4rem; 
+    align-items: center;
+}
+
 .btn-primary {
     color: var(--white);
     background-color: var(--blue-ufersa);
@@ -166,15 +174,15 @@ code {
 }
 
 .border-radius-30{
-    border-radius: 1.875rem;
+    border-radius: 30px;
 }
 
 .border-radius-20{
-    border-radius: 1.25rem;
+    border-radius: 20px;
 }
 
 .border-radius-10{
-    border-radius: 0.625rem;
+    border-radius: 10px;
 }
 
 .weight-700{
