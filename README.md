@@ -73,7 +73,7 @@ Agora você pode rodar a aplicação com o seguinte comando:
 dotnet run
 ```
 
-O back-end estará disponível em `http://localhost:5000`.
+O back-end estará disponível em `http://localhost:3000`.
 
 ## 🧩 Pacotes e Dependências
 
