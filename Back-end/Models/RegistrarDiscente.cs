@@ -1,0 +1,33 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Back_end.Models
+{
+    public class RegistrarDiscente
+    {
+        [Required]
+        [StringLength(70)]
+        public string Nome { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(255)]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(99, MinimumLength = 6)]
+        public string Senha { get; set; }
+
+        [Required]
+        public int Matricula { get; set; }
+
+        [Required]
+        public int Telefone { get; set; }
+
+        [Required]
+        [StringLength(14)]
+        public string Cpf { get; set; }
+
+        [StringLength(100)]
+        public string Curso { get; set; }
+    }
+}

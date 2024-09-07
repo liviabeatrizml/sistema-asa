@@ -1,0 +1,83 @@
+# Compiled files
+*.dll
+*.exe
+*.so
+*.dylib
+*.pyc
+*.o
+*.a
+*.out
+
+# Debug and Release folders
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+*.tlog
+
+# IDE specific files
+.vscode/
+.idea/
+*.sln.ide
+
+# ASP.NET specific
+appsettings.*.json
+
+# Rider-specific files
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Package management
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Entity Framework migrations
+Migrations/
+
+# ASP.NET generated files
+Generated_Code/
+wwwroot/
+node_modules/
+
+# Docker related
+*.container*
+Dockerfile
+docker-compose.yml
+
+# Sensitive information
+.env
+secrets.json
+secrets/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+desktop.ini
+
+# Dependency directories
+node_modules/
+npm-debug.log*
+
+# Recycle Bin used by Visual Studio Code
+.vscode/
+.history/
