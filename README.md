@@ -1,4 +1,4 @@
-# 📚 **Sistema de Agendamento de Serviços Acadêmicos - ASA**
+# 📚 **Sistema de Agendamento de Serviços Acadêmicos**
 
 ## ❓ Apresentação 
 
@@ -60,7 +60,7 @@ Conheça a equipe do **Sistema de Agendamento de Serviços Acadêmicos**:
 
 | Membros da equipe | Principal função | 
 |--------------------|------------------------------| 
-| [Antonio Cauê Oliveira Morais](https://github.com/AntonioCaue) | Desenvolvimento Back-end | 
+| [Antonio Cauê Oliveira Morais](https://github.com/AntonioCaue) | Desenvolvedor Back-end | 
 | [Cristiana de Paulo](https://github.com/cristiana0) | Analista de Requisitos | 
 | [Eriky Abreu Veloso](https://github.com/ErikyAbreu) | Tech lead: design | 
 | [Francisco Renan Leite da Costa](https://github.com/RenanCosta2) | Tech lead: front-end |
