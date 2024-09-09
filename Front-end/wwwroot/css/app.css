@@ -3,10 +3,10 @@
 :root{
     --black-color: #1E1E1E;
     --blue-ufersa: #243E64;
-    --verde-ufersa: #99CC33;
+    --green-ufersa: #99CC33;
     --white: #FAF9F6;
     --border-color: #000000;
-    --cinza-escuro: #C3C3C3;
+    --black-gray: #C3C3C3;
 }
 
 html, body {
@@ -209,7 +209,7 @@ code {
 }
 
 .custom-input::placeholder{
-    color: var(--cinza-escuro);
+    color: var(--black-gray);
 }
 
 .custom-input:focus {
@@ -234,7 +234,7 @@ code {
 }
 
 .gray-underline-black{
-    color: var(--cinza-escuro);
+    color: var(--black-gray);
 }
 
 .gray-underline-black:hover{
@@ -242,9 +242,9 @@ code {
 }
 
 .text-gray{
-    color: var(--cinza-escuro);
+    color: var(--black-gray);
 }
 
 .text-green{
-    color: var(--verde-ufersa);
+    color: var(--green-ufersa);
 }
