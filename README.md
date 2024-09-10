@@ -50,7 +50,7 @@ O sistema é construído com uma arquitetura cliente-servidor, utilizando as seg
 
 ## 🔗 Links Úteis
 
-- [Apresentação](https://github.com/liviabeatrizml/sistema-de-agendamento-de-servicos-academicos/tree/main/Artefatos/Apresentação_V&V_Metodos.pdf)
+- [Apresentação](https://github.com/liviabeatrizml/sistema-de-agendamento-de-servicos-academicos/blob/main/Artefatos/Apresentacao_ASA.pdf)
 - [Artefatos](https://github.com/liviabeatrizml/sistema-de-agendamento-de-servicos-academicos/tree/main/Artefatos)
 - [Artigo](https://github.com/liviabeatrizml/sistema-de-agendamento-de-servicos-academicos/blob/main/Artefatos/Artigo_Projeto_ASA.pdf)
 
