@@ -16,6 +16,11 @@ html, body {
     text-align: justify;
 }
 
+.page {
+    position: relative;
+    display: flex;
+}
+
 @media (min-width: 320px) and (max-width: 1023px) {
     html, body{
         font-size: 12px;
@@ -198,7 +203,7 @@ code {
     font-size: 1.1em;
 }
 
-.button-size{
+.px24{
     font-size: 1.5em;
 }
 
