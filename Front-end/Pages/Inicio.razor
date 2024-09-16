@@ -9,7 +9,7 @@
             <Header />
             <main class="page" style="padding-left: 6.188rem; padding-right: 6.188rem; padding-top: 20px; justify-content: space-between;">
 
-                <div>
+                <div style="display: flex; justify-content: space-between; width: 100%;">
 
                     <div style="width: 42.5rem; height: 23.5rem; background: linear-gradient(109.09deg, #243E64 40.1%, #3E5C89 100%); border-radius: 10px; box-shadow: 0px 4px 4px 0px #00000040; display: flex; position: relative;">
 
@@ -29,26 +29,38 @@
 
                     </div>
 
-                    <div style="padding-top: 30px; padding-bottom: 30px;">
-                        <h1 style="padding-left: 20px;" class="px24 weight-700">Serviços</h1>
-                    </div>
+                    <div>
+                        <h1 style="padding-left: 20px;" class="px24 weight-700">Compromissos</h1>
 
-                    <div  style="padding-top: 30px; padding-bottom: 30px;">
-                        <h1 style="padding-left: 20px;" class="px24 weight-700">Informações</h1>
+                        @for(int i = 0; i < 4; i++){
+                            <div style="display: flex; padding-top: 15px">
+                                <img src="..\\css\\images\\compromisso-ex.svg">
+                                <div style="padding-left: 15px;">
+                                    <h2 class="weight-600 paragraph-size">Psicóloga</h2>
+                                    <div>
+                                        <div style="display: flex; padding-top: 2px;">
+                                            <div class="compromisso">
+                                                <img src="..\\css\\images\\calendario.svg">
+                                                <span style="color: var(--black-gray); padding-left: 8px;">22-08-2024</span>
+                                            </div>
+                                            <div class="compromisso">
+                                                <img src="..\\css\\images\\relogio.svg">
+                                                <span style="color: var(--black-gray); padding-left: 8px;">04:00 PM</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        }
                     </div>
 
                 </div>
 
                 <div>
 
-                    <div>
-                        <h1 style="padding-left: 20px;" class="px24 weight-700">Compromissos</h1>
-                    </div>
-
-                    <div>
-                        calendário
-                    </div>
-
+                    
                 </div>
 
             </main>

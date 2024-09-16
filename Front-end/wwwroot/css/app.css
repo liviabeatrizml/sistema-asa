@@ -195,6 +195,10 @@ code {
     font-weight: 700;
 }
 
+.weight-600{
+    font-weight: 600;
+}
+
 .weight-500{
     font-weight: 500;
 }
@@ -256,4 +260,11 @@ code {
 
 .text-green{
     color: var(--green-ufersa);
+}
+
+.compromisso{
+    display: flex; 
+    align-items: center; 
+    font-size: 0.75rem; 
+    padding-right: 15px;
 }
