@@ -1,6 +1,7 @@
 # Ignore arquivos de build
 bin/
 obj/
+Back-end/
 
 # Ignore arquivos gerados do Blazor
 *.wasm
