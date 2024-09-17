@@ -70,4 +70,4 @@ Agora você pode rodar os testes com o seguinte comando:
 dotnet test
 ```
 
-Isso executará todos os testes definidos no projeto. O NUnit irá reportar os resultados dos testes no terminal.
+Isso executará todos os testes definidos no projeto.
