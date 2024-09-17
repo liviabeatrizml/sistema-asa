@@ -7,7 +7,7 @@
 
         <div style="padding-top: 29px; border-radius: 15px 0px 0px 15px; width: 100%; background-color: white;">
             <Header />
-            <main class="page" style="padding-left: 6.188rem; padding-right: 6.188rem; padding-top: 20px; justify-content: space-between;">
+            <main class="page" style="padding-left: 6.188rem; padding-right: 6.188rem; padding-top: 20px; justify-content: space-between; display: flex; flex-wrap: wrap;">
 
                 <div style="display: flex; justify-content: space-between; width: 100%;">
 
@@ -39,11 +39,11 @@
                                     <h2 class="weight-600 paragraph-size">Psicóloga</h2>
                                     <div>
                                         <div style="display: flex; padding-top: 2px;">
-                                            <div class="compromisso">
+                                            <div class="compromise">
                                                 <img src="..\\css\\images\\calendario.svg">
                                                 <span style="color: var(--black-gray); padding-left: 8px;">22-08-2024</span>
                                             </div>
-                                            <div class="compromisso">
+                                            <div class="compromise">
                                                 <img src="..\\css\\images\\relogio.svg">
                                                 <span style="color: var(--black-gray); padding-left: 8px;">04:00 PM</span>
                                             </div>
@@ -59,6 +59,27 @@
                 </div>
 
                 <div>
+
+                    <div>
+
+                        <h1 style="padding: 30px 20px;" class="px24 weight-700">Serviços</h1>
+
+                        <div style="display: flex;  width: 42.5rem; overflow: auto; scrollbar-width: none;">
+                            @for(int i = 1; i < 5; i++){
+                                <div class="service">
+                                    <img class="@(i == 1 ? "background-service-active" : "background-service")" src="..\css\images\img-servico@(i).svg">
+                                    <div class="service-people">
+                                        <div style="padding-left: 10px;">
+                                            <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px;">Lívia Beatriz</h3>
+                                            <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">Psicóloga</p>
+                                        </div>
+                                        <img src="..\\css\\images\\servico-ex.svg">
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
 
                     
                 </div>
