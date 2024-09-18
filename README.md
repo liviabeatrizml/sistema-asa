@@ -13,7 +13,7 @@ Os testes são responsáveis por validar e verificar o comportamento adequado do
 
 ## 📦 Estrutura de Pastas
 
-- `/testeDeSistema`: Contém os arquivos de teste automatizados.
+- `/testeDeSistema`: Contém os arquivos de teste.
 
 ## 🚀 Como Configurar e Executar os Testes
 
@@ -69,5 +69,3 @@ Agora você pode rodar os testes com o seguinte comando:
 ```bash
 dotnet test
 ```
-
-Isso executará todos os testes definidos no projeto.
