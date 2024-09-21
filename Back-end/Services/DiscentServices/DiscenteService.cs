@@ -124,7 +124,7 @@ namespace Back_end.Services
         // Método para verificar se um email já está cadastrado
         public async Task<bool> EmailJaCadastradoAsync(string email)
         {
-            return await _context.Discentes.AnyAsync(d => d.Email == email) 
+            return await _context.Discentes.AnyAsync(d => d.Email == email)
                    || await _context.Profissionais.AnyAsync(p => p.Email == email);
         }
 

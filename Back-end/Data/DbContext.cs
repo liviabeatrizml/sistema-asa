@@ -8,8 +8,9 @@ namespace Back_end.Data
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options) { }
 
         public DbSet<Discente> Discentes { get; set; }
-
         public DbSet<Profissional> Profissionais { get; set; }
-
+        public DbSet<ServicoDisponivel> ServicosDisponiveis { get; set; }
+        public DbSet<HorarioDisponivel> HorarioDisponivel { get; set; }
+        public DbSet<Agendamento> Agendamento { get; set; }
     }
 }

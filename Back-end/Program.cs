@@ -7,17 +7,18 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ConfiguraÁ„o da string de conex„o
+// Configura√ß√£o da string de conex√£o
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Adicionando o contexto do banco de dados
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-// Adicionando os serviÁos
+// Adicionando os servi√ßos
 builder.Services.AddScoped<IDiscenteService, DiscenteService>();
+builder.Services.AddScoped<IAgendamentoService, AgendamentoService>(); // Adicionando AgendamentoService
 
-// ConfiguraÁ„o de autenticaÁ„o JWT
+// Configura√ß√£o de autentica√ß√£o JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -36,17 +37,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Adicionar controladores ao contÍiner de injeÁ„o de dependÍncia
+// Adicionar controladores ao cont√™iner de inje√ß√£o de depend√™ncia
 builder.Services.AddControllers();
 
-// ConfiguraÁ„o do Swagger
+// Configura√ß√£o do Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Minha API",
         Version = "v1",
-        Description = "DescriÁ„o da Minha API",
+        Description = "Descri√ß√£o da Minha API",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
             Name = "Seu Nome",
@@ -57,14 +58,14 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// ConfiguraÁ„o do pipeline de requisiÁıes HTTP
+// Configura√ß√£o do pipeline de requisi√ß√µes HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-        c.RoutePrefix = string.Empty; // Deixa o Swagger disponÌvel na raiz
+        c.RoutePrefix = string.Empty; // Deixa o Swagger dispon√≠vel na raiz
     });
 }
 else
@@ -81,6 +82,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers(); // ConfiguraÁ„o para usar controladores
+app.MapControllers(); // Configura√ß√£o para usar controladores
 
 app.Run();
