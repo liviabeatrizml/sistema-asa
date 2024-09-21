@@ -9,5 +9,7 @@ namespace Back_end.Data
 
         public DbSet<Discente> Discentes { get; set; }
 
+        public DbSet<Profissional> Profissionais { get; set; }
+
     }
 }

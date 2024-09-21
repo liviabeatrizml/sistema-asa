@@ -24,6 +24,9 @@ namespace Back_end.Services
         // Método para registrar um novo discente
         public async Task<Discente> RegistrarDiscenteAsync(RegistrarDiscente registro)
         {
+            // Verificação de nulidade
+            if (registro == null) throw new ArgumentNullException(nameof(registro));
+
             // Criptografar a senha e gerar o salt
             var (senhaCriptografada, salt) = CriptografarSenha(registro.Senha);
 
@@ -48,15 +51,26 @@ namespace Back_end.Services
         // Método para login de discente
         public async Task<string> LoginDiscenteAsync(LoginDiscente login)
         {
+            // Verificação de nulidade
+            if (login == null) throw new ArgumentNullException(nameof(login));
+
+            // Buscar o discente no banco de dados
             var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == login.Email);
 
-            if (discente == null || !VerificarSenha(login.Senha, discente.Senha, discente.Salt))
+            // Garantir que o discente não seja nulo e que os campos de senha e salt estejam preenchidos
+            if (discente == null || string.IsNullOrEmpty(discente.Senha) || string.IsNullOrEmpty(discente.Salt))
             {
-                return null; // Retorna null se o login falhar
+                return null; // Retorna null se os dados estiverem ausentes ou inválidos
+            }
+
+            // Verificar a senha
+            if (!VerificarSenha(login.Senha, discente.Senha, discente.Salt))
+            {
+                return null; // Retorna null se a verificação de senha falhar
             }
 
             // Gerar o token JWT
-            return GerarTokenJwt(discente);
+            return GerarTokenJwt(discente.IdDiscente.ToString(), discente.Email ?? string.Empty);
         }
 
         // Método para criptografar a senha com salt
@@ -83,13 +97,13 @@ namespace Back_end.Services
             }
         }
 
-        // Método para gerar o token JWT
-        private string GerarTokenJwt(Discente discente)
+        // Método para gerar o token JWT (agora genérico para Discente e Profissional)
+        private string GerarTokenJwt(string id, string email)
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, discente.IdDiscente.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, discente.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, id),
+                new Claim(JwtRegisteredClaimNames.Email, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -108,9 +122,121 @@ namespace Back_end.Services
         }
 
         // Método para verificar se um email já está cadastrado
-        public Task<bool> EmailJaCadastradoAsync(string email)
+        public async Task<bool> EmailJaCadastradoAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Discentes.AnyAsync(d => d.Email == email) 
+                   || await _context.Profissionais.AnyAsync(p => p.Email == email);
+        }
+
+        public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
+        {
+            // Verificação de nulidade
+            if (registro == null) throw new ArgumentNullException(nameof(registro));
+
+            var (senhaCriptografada, salt) = CriptografarSenha(registro.Senha);
+
+            var profissional = new Profissional
+            {
+                Nome = registro.Nome,
+                Email = registro.Email,
+                Senha = senhaCriptografada,
+                Salt = salt,
+            };
+
+            _context.Profissionais.Add(profissional);
+            await _context.SaveChangesAsync();
+
+            return profissional;
+        }
+
+        public async Task<string> LoginProfissionalAsync(LoginProfissional login)
+        {
+            // Verificação de nulidade
+            if (login == null) throw new ArgumentNullException(nameof(login));
+
+            var profissional = await _context.Profissionais
+                .SingleOrDefaultAsync(p => p.Email == login.Email);
+
+            // Garantir que os campos não sejam nulos antes de usá-los
+            if (profissional == null || string.IsNullOrEmpty(profissional.Senha) || string.IsNullOrEmpty(profissional.Salt))
+            {
+                return null; // Retorna null se o login falhar devido a valores inválidos
+            }
+
+            if (!VerificarSenha(login.Senha, profissional.Senha, profissional.Salt))
+            {
+                return null; // Retorna null se a verificação de senha falhar
+            }
+
+            // Gerar o token JWT
+            string idProfissional = profissional.IdProfissional.ToString();
+            string email = profissional.Email ?? string.Empty;  // Garantir que o email não seja nulo
+
+            return GerarTokenJwt(idProfissional, email);
+        }
+
+        public async Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil)
+        {
+            // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
+            var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == atualizarPerfil.Email);
+            var usuarioProfissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == atualizarPerfil.Email);
+
+            if (usuarioDiscente != null)
+            {
+                // Verificando valores de campos string e int separadamente
+                if (!string.IsNullOrEmpty(atualizarPerfil.Nome)) // Verifique se a string não está nula ou vazia
+                {
+                    usuarioDiscente.Nome = atualizarPerfil.Nome;
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else if (usuarioProfissional != null)
+            {
+                // Profissional pode não ter a propriedade Telefone, então você não a atribui aqui
+                if (!string.IsNullOrEmpty(atualizarPerfil.Nome)) // Verifique se a string não está nula ou vazia
+                {
+                    usuarioProfissional.Nome = atualizarPerfil.Nome;
+                }
+
+                // Não há campo Telefone em Profissional, então isso não é necessário aqui
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false; // Nenhum usuário encontrado
+        }
+
+        public async Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha)
+        {
+            // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
+            var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == alterarSenha.Email);
+            var usuarioProfissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == alterarSenha.Email);
+
+            if (usuarioDiscente != null && VerificarSenha(alterarSenha.SenhaAtual, usuarioDiscente.Senha, usuarioDiscente.Salt))
+            {
+                var (novaSenhaCriptografada, novoSalt) = CriptografarSenha(alterarSenha.NovaSenha);
+
+                usuarioDiscente.Senha = novaSenhaCriptografada;
+                usuarioDiscente.Salt = novoSalt;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else if (usuarioProfissional != null && VerificarSenha(alterarSenha.SenhaAtual, usuarioProfissional.Senha, usuarioProfissional.Salt))
+            {
+                var (novaSenhaCriptografada, novoSalt) = CriptografarSenha(alterarSenha.NovaSenha);
+
+                usuarioProfissional.Senha = novaSenhaCriptografada;
+                usuarioProfissional.Salt = novoSalt;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false; // Nenhum usuário encontrado ou senha incorreta
         }
     }
 }
