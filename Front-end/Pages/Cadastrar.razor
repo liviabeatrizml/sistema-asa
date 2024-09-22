@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
 @inject DiscenteService DiscenteService
+@using System.Text.RegularExpressions
 
 <PageTitle>Cadastrar</PageTitle>
 
@@ -58,21 +59,25 @@
             <EditForm Model="@infosUser" OnValidSubmit="@RegistrarDiscente">
             <DataAnnotationsValidator />
         
+                <ValidationMessage For="@(() => infosUser.Nome)" />
                 <div class="mb-3">
-                    <span class="paragraph-size px-2">Nome <span style="color: var(--cinza-escuro);">*</span></span>
+                    <span class="paragraph-size px-2">Nome <span style="color: var(--black-gray);">*</span></span>
                     <InputText id="nome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Nome"/>
                 </div>
+                <ValidationMessage For="@(() => infosUser.Sobrenome)" />
                 <div class="mb-3">
-                    <span class="paragraph-size px-2">Sobrenome <span style="color: var(--cinza-escuro);">*</span></span>
+                    <span class="paragraph-size px-2">Sobrenome <span style="color: var(--black-gray);">*</span></span>
                     <InputText id="sobrenome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Sobrenome"/>
                 </div>
+                <ValidationMessage For="@(() => infosUser.Matricula)" />
                 <div class="mb-3">
-                    <span class="paragraph-size px-2">Matrícula <span style="color: var(--cinza-escuro);">*</span></span>
-                    <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Matricula"/>
+                    <span class="paragraph-size px-2">Matrícula <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Matricula" maxlength="10"/>
                 </div>
+                <ValidationMessage For="@(() => infosUser.Cpf)" />
                 <div class="mb-3">
-                    <span class="paragraph-size px-2">Telefone</span>
-                    <InputText id="telefone" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Telefone"/>
+                    <span class="paragraph-size px-2">CPF <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="cpf" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Cpf" @oninput="FormatarCPF" maxlength="14" />
                 </div>
         
                 <div class="d-grid gap-2 py-2">
@@ -93,6 +98,7 @@
     public class User
     {
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@.*ufersa\.edu\.br$", ErrorMessage = "O Email deve ser do domínio @ufersa.edu.br.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo Senha é obrigatório.")]
@@ -108,9 +114,40 @@
         public string Sobrenome { get; set; }
 
         [Required(ErrorMessage = "O campo Matrícula é obrigatório.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "A Matrícula deve ter exatamente 10 dígitos.")]
         public string Matricula { get; set; }
 
-        public string Telefone { get; set; }
+        [Required(ErrorMessage = "O campo CPF é obrigatório.")]
+        [RegularExpression(@"^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$", ErrorMessage = "O formato deve ser 000.000.000-00.")]
+        public string Cpf { get; set; }
+    }
+    private void FormatarCPF(ChangeEventArgs e)
+    {
+        string input = e.Value?.ToString() ?? string.Empty;
+
+        string cpf = Regex.Replace(input, @"\D", "");
+
+        // Limita a 11 caracteres
+        if (cpf.Length > 11)
+        {
+            cpf = cpf.Substring(0, 11);
+        }
+
+        // Aplica a formatação
+        if (cpf.Length > 9)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{3})(\d{2})", "$1.$2.$3-$4");
+        }
+        else if (cpf.Length > 5)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{2})", "$1.$2-$3");
+        }
+        else if (cpf.Length > 2)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d+)", "$1.$2");
+        }
+
+        infosUser.Cpf = cpf;
     }
 
     private User user = new User();
@@ -138,6 +175,7 @@
         }
     }
 
+
     private bool submitted = false;
 
     private async Task RegistrarDiscente()
@@ -149,9 +187,8 @@
             Nome = infosUser.Nome,
             Email = user.Email,
             Senha = user.Password,
-            Matricula = 4387943,
-            Telefone = 7548904,
-            Cpf = "8903879",
+            Matricula = int.TryParse(infosUser.Matricula, out var matricula) ? matricula : 0,
+            Cpf = infosUser.Cpf,
             Curso = "Curso"
         };
 
