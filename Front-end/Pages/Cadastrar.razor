@@ -1,6 +1,7 @@
 @page "/cadastrar"
 @using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
+@inject DiscenteService DiscenteService
 
 <PageTitle>Cadastrar</PageTitle>
 
@@ -54,7 +55,7 @@
         
             </EditForm>
         } else{
-            <EditForm Model="@infosUser" OnValidSubmit="@HandleValidSubmit">
+            <EditForm Model="@infosUser" OnValidSubmit="@RegistrarDiscente">
             <DataAnnotationsValidator />
         
                 <div class="mb-3">
@@ -67,15 +68,15 @@
                 </div>
                 <div class="mb-3">
                     <span class="paragraph-size px-2">Matrícula <span style="color: var(--cinza-escuro);">*</span></span>
-                    <InputText id="nome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Matricula"/>
+                    <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Matricula"/>
                 </div>
                 <div class="mb-3">
                     <span class="paragraph-size px-2">Telefone</span>
-                    <InputText id="nome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Telefone"/>
+                    <InputText id="telefone" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Telefone"/>
                 </div>
         
                 <div class="d-grid gap-2 py-2">
-                    <button type="submit" href="/inicio" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Continuar</button>
+                    <button type="submit" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Continuar</button>
                 </div>
         
             </EditForm>
@@ -127,7 +128,7 @@
     private bool HasNumber() => user.Password?.Any(char.IsDigit) ?? false;
     private bool HasSpecialCharacter() => user.Password?.Any(ch => !char.IsLetterOrDigit(ch)) ?? false;
 
-    private void AcceptAndRegisterValidSubmit()
+    private async Task AcceptAndRegisterValidSubmit()
     {
         if(HasMinimumLength() && HasNumber() && HasSpecialCharacter()){
 
@@ -139,9 +140,35 @@
 
     private bool submitted = false;
 
-    private void HandleValidSubmit()
+    private async Task RegistrarDiscente()
     {
         submitted = true;
-        Navigation.NavigateTo("/inicio");
+
+        var modelDiscente = new DiscenteRegistroModel
+        {
+            Nome = infosUser.Nome,
+            Email = user.Email,
+            Senha = user.Password,
+            Matricula = 4387943,
+            Telefone = 7548904,
+            Cpf = "8903879",
+            Curso = "Curso"
+        };
+
+        var result = await DiscenteService.RegistrarDiscente(modelDiscente);
+
+        if (result.IsSuccessStatusCode)
+            {
+                FirstAcceptAndRegister = true;
+                Navigation.NavigateTo("/inicio");
+            }
+            else
+            {
+                FirstAcceptAndRegister = false;
+                var errorMessage = await result.Content.ReadAsStringAsync();
+
+                // Exibir a mensagem de erro no console
+                Console.WriteLine($"Erro ao registrar: {errorMessage}");
+            }
     }
 }

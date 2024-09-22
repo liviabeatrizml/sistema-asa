@@ -7,17 +7,17 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração da string de conexão
+// Configuraï¿½ï¿½o da string de conexï¿½o
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Adicionando o contexto do banco de dados
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-// Adicionando os serviços
+// Adicionando os serviï¿½os
 builder.Services.AddScoped<IDiscenteService, DiscenteService>();
 
-// Configuração de autenticação JWT
+// Configuraï¿½ï¿½o de autenticaï¿½ï¿½o JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -36,17 +36,28 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Adicionar controladores ao contêiner de injeção de dependência
+// Adicionar controladores ao contï¿½iner de injeï¿½ï¿½o de dependï¿½ncia
 builder.Services.AddControllers();
 
-// Configuração do Swagger
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+
+// Configuraï¿½ï¿½o do Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Minha API",
         Version = "v1",
-        Description = "Descrição da Minha API",
+        Description = "Descriï¿½ï¿½o da Minha API",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
             Name = "Seu Nome",
@@ -57,14 +68,16 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configuração do pipeline de requisições HTTP
+app.UseCors("AllowAll");
+
+// Configuraï¿½ï¿½o do pipeline de requisiï¿½ï¿½es HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-        c.RoutePrefix = string.Empty; // Deixa o Swagger disponível na raiz
+        c.RoutePrefix = string.Empty; // Deixa o Swagger disponï¿½vel na raiz
     });
 }
 else
@@ -81,6 +94,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers(); // Configuração para usar controladores
+app.MapControllers(); // Configuraï¿½ï¿½o para usar controladores
 
 app.Run();
