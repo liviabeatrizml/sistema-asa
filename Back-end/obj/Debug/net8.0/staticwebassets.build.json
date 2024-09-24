@@ -1,0 +1,50 @@
+{
+  "Version": 1,
+  "Hash": "TpPb8kq9vXWKzaW9hAEQN+dkaxahBe51jrgAGJa9X9U=",
+  "Source": "Back-end",
+  "BasePath": "_content/Back-end",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Back-end.styles.css",
+      "SourceId": "Back-end",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "BasePath": "_content/Back-end",
+      "RelativePath": "Back-end.styles.css",
+      "AssetKind": "All",
+      "AssetMode": "CurrentProject",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ApplicationBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Back-end.styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Back-end.bundle.scp.css",
+      "SourceId": "Back-end",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "BasePath": "_content/Back-end",
+      "RelativePath": "Back-end.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Back-end.bundle.scp.css"
+    }
+  ]
+}

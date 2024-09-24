@@ -1,0 +1,108 @@
+@page "/entrar"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager Navigation
+@inject DiscenteService DiscenteService
+
+<PageTitle>Entrar</PageTitle>
+
+<Header />
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; margin-bottom: 9.375rem;">
+    <div class="container-form bg-white border-radius-20">
+    
+        <h1 class="display-5 weight-700">Entrar</h1>
+    
+        <p class="paragraph-size weight-500">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+    
+        <EditForm Model="@user" OnValidSubmit="@Login">
+        <DataAnnotationsValidator />
+    
+
+            <ValidationMessage For="@(() => user.Email)" />
+            <div class="mb-3 ">
+                <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="user.Email" placeholder="Email"/>
+            </div>
+
+            <ValidationMessage For="@(() => user.Password)" />
+            <div class="password-container mb-3">
+                <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="user.Password" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-on.svg" : "..\\css\\images\\eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+
+    
+            <a href="/recuperar-senha" class="weight-700 paragraph-size underline">Esqueceu sua senha?</a>
+    
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="text-danger py-3">
+                    @errorMessage
+                </div>
+            }
+            <div class="d-grid gap-2 py-5">
+                <button type="submit" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Entrar</button>
+            </div>
+    
+        </EditForm>
+    
+        <div style="display: flex; align-items: center; text-align: center;" class="pb-4">
+            <hr style="flex-grow: 1; border: none; border-top: 1px solid #D9D9D9; margin: 0 10px;">
+            <span style="color: #D9D9D9;">ou</span>
+            <hr style="flex-grow: 1; border: none; border-top: 1px solid #D9D9D9; margin: 0 10px;">
+        </div>
+    
+        <p class="paragraph-size weight-500">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+    
+        <div class="d-grid gap-2 py-2">
+            <a href="/cadastrar" class="btn btn-secondary weight-700 px24 border-radius-30 a-button">Cadastre-se Agora</a>
+        </div>
+    
+    </div>
+</div>
+
+<Footer />
+
+@code{
+    public class User
+    {
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Password { get; set; }
+    }
+
+    private User user = new User();
+    private bool submitted = false;
+    private string errorMessage;
+
+    private async Task Login()
+    {   
+        submitted = true;
+
+        var loginModel = new DiscenteLoginModel
+        {
+            Email = user.Email,
+            Senha = user.Password
+        };
+        
+        var result = await DiscenteService.LoginDiscente(loginModel);
+
+        if (result.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/inicio");
+            }
+            else
+            {
+                errorMessage = "Email e/ou senha inválidos";
+            }
+    }
+
+    private bool isPasswordVisible = false;
+
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+}

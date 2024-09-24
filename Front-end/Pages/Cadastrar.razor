@@ -1,0 +1,211 @@
+@page "/cadastrar"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager Navigation
+@inject DiscenteService DiscenteService
+@using System.Text.RegularExpressions
+
+<PageTitle>Cadastrar</PageTitle>
+
+<Header />
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; margin-bottom: 9.375rem;">
+    <div class="container-form bg-white border-radius-20">
+
+            <h1 class="display-5 weight-700">Cadastre-se</h1>
+        
+            <p class="paragraph-size weight-500">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+
+        @if(!FirstAcceptAndRegister){
+        
+            <EditForm Model="@user" OnValidSubmit="@AcceptAndRegisterValidSubmit">
+            <DataAnnotationsValidator />
+        
+                <ValidationMessage For="@(() => user.Email)" />
+                <div class="mb-3 ">
+                    <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="user.Email" placeholder="Email"/>
+                </div>
+
+                <ValidationMessage For="@(() => user.Password)" />
+                <div class="password-container mb-3">
+                    <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="user.Password" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
+                    <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                        <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-on.svg" : "..\\css\\images\\eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                    </span>
+                </div>
+
+                <div style="color: var(--cinza-escuro);" class="paragraph-size py-1">
+                    <div class="py-1">
+                        <img src="@(HasMinimumLength() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasMinimumLength() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                        <span class="@(!HasMinimumLength() ? "text-gray" : "text-green")">Mínimo 8 caracteres</span>
+                    </div>
+                    <div class="py-1">
+                        <img src="@(HasNumber() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasNumber() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                        <span class="@(!HasNumber() ? "text-gray" : "text-green")">Número</span>
+                    </div>
+                    <div class="py-1">
+                        <img src="@(HasSpecialCharacter() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasSpecialCharacter() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                        <span class="@(!HasSpecialCharacter() ? "text-gray" : "text-green")">Caractere especial</span>
+                    </div>
+                </div>
+
+                <p class="paragraph-size weight-500 py-4" style="text-align: center;">Ao clicar em Aceite e cadastre-se, você aceita os <b style="text-decoration: underline;">Termos de Uso</b> e as <b style="text-decoration: underline;">Políticas de Privacidade</b></p>
+        
+                <div class="d-grid gap-2 py-2">
+                    <button type="submit" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Aceite e cadastre-se</button>
+                </div>
+        
+            </EditForm>
+        } else{
+            <EditForm Model="@infosUser" OnValidSubmit="@RegistrarDiscente">
+            <DataAnnotationsValidator />
+        
+                <ValidationMessage For="@(() => infosUser.Nome)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">Nome <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="nome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Nome"/>
+                </div>
+                <ValidationMessage For="@(() => infosUser.Sobrenome)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">Sobrenome <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="sobrenome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Sobrenome"/>
+                </div>
+                <ValidationMessage For="@(() => infosUser.Matricula)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">Matrícula <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Matricula" maxlength="10"/>
+                </div>
+                <ValidationMessage For="@(() => infosUser.Cpf)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">CPF <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="cpf" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Cpf" @oninput="FormatarCPF" maxlength="14" />
+                </div>
+        
+                <div class="d-grid gap-2 py-2">
+                    <button type="submit" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Continuar</button>
+                </div>
+        
+            </EditForm>
+        }
+    
+    
+    
+    </div>
+</div>
+
+<Footer />
+
+@code{
+    public class User
+    {
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@.*ufersa\.edu\.br$", ErrorMessage = "O Email deve ser do domínio @ufersa.edu.br.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Password { get; set; }
+    }
+    public class InfosUser
+    {
+
+        [Required(ErrorMessage = "O campo Nome é obrigatório.")]
+        public string Nome { get; set; }
+
+        [Required(ErrorMessage = "O campo Sobrenome é obrigatório.")]
+        public string Sobrenome { get; set; }
+
+        [Required(ErrorMessage = "O campo Matrícula é obrigatório.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "A Matrícula deve ter exatamente 10 dígitos.")]
+        public string Matricula { get; set; }
+
+        [Required(ErrorMessage = "O campo CPF é obrigatório.")]
+        [RegularExpression(@"^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$", ErrorMessage = "O formato deve ser 000.000.000-00.")]
+        public string Cpf { get; set; }
+    }
+    private void FormatarCPF(ChangeEventArgs e)
+    {
+        string input = e.Value?.ToString() ?? string.Empty;
+
+        string cpf = Regex.Replace(input, @"\D", "");
+
+        // Limita a 11 caracteres
+        if (cpf.Length > 11)
+        {
+            cpf = cpf.Substring(0, 11);
+        }
+
+        // Aplica a formatação
+        if (cpf.Length > 9)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{3})(\d{2})", "$1.$2.$3-$4");
+        }
+        else if (cpf.Length > 5)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{2})", "$1.$2-$3");
+        }
+        else if (cpf.Length > 2)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d+)", "$1.$2");
+        }
+
+        infosUser.Cpf = cpf;
+    }
+
+    private User user = new User();
+    private InfosUser infosUser = new InfosUser();
+
+    private bool isPasswordVisible = false;
+
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+
+    private bool FirstAcceptAndRegister = false;
+    private bool HasMinimumLength() => user.Password?.Length >= 8;
+    private bool HasNumber() => user.Password?.Any(char.IsDigit) ?? false;
+    private bool HasSpecialCharacter() => user.Password?.Any(ch => !char.IsLetterOrDigit(ch)) ?? false;
+
+    private async Task AcceptAndRegisterValidSubmit()
+    {
+        if(HasMinimumLength() && HasNumber() && HasSpecialCharacter()){
+
+            FirstAcceptAndRegister = true;
+        } else{
+            FirstAcceptAndRegister = false;
+        }
+    }
+
+
+    private bool submitted = false;
+
+    private async Task RegistrarDiscente()
+    {
+        submitted = true;
+
+        var modelDiscente = new DiscenteRegistroModel
+        {
+            Nome = infosUser.Nome + " " + infosUser.Sobrenome,
+            Email = user.Email,
+            Senha = user.Password,
+            Matricula = int.TryParse(infosUser.Matricula, out var matricula) ? matricula : 0,
+            Cpf = infosUser.Cpf,
+            Curso = "Curso"
+        };
+
+        var result = await DiscenteService.RegistrarDiscente(modelDiscente);
+
+        if (result.IsSuccessStatusCode)
+            {
+                FirstAcceptAndRegister = true;
+                Navigation.NavigateTo("/inicio");
+            }
+            else
+            {
+                FirstAcceptAndRegister = false;
+                var errorMessage = await result.Content.ReadAsStringAsync();
+
+                // Exibir a mensagem de erro no console
+                Console.WriteLine($"Erro ao registrar: {errorMessage}");
+            }
+    }
+}

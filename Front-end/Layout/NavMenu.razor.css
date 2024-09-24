@@ -1,0 +1,51 @@
+.nav-item {
+    font-size: 1.375rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item ::deep a {
+        color: var(--black-gray);
+        height: 3rem;
+        display: flex;
+        align-items: center;
+    }
+
+.nav-item ::deep a.active {
+    color: white;
+}
+
+.nav-link:not(.active) .vertical-bar {
+    opacity: 0; /* Ou use opacity: 0 para esconder completamente */
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler {
+        display: none;
+    }
+
+    .collapse {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+    
+    .nav-scrollable {
+        /* Allow sidebar to scroll for tall menus */
+        height: calc(100vh);
+        overflow-y: auto;
+    }
+}
+
+.vertical-bar {
+    width: 3px;
+    height: 90%;
+    background-color: currentColor;
+    border-radius: 10px;
+}
