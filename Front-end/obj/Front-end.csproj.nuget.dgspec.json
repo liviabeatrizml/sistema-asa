@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj": {}
+    "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj": {
+    "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj",
+        "projectUniqueName": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj",
         "projectName": "Front-end",
-        "projectPath": "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj",
-        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\obj\\",
+        "projectPath": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj",
+        "packagesPath": "C:\\Users\\renan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\renan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,6 +46,18 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Blazorise": {
+              "target": "Package",
+              "version": "[1.1.4, )"
+            },
+            "Blazorise.Bootstrap": {
+              "target": "Package",
+              "version": "[1.1.4, )"
+            },
+            "Blazorise.Icons.FontAwesome": {
+              "target": "Package",
+              "version": "[1.1.4, )"
+            },
             "Microsoft.AspNetCore.Components.WebAssembly": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -66,6 +78,10 @@
               "target": "Package",
               "version": "[8.0.8, )",
               "autoReferenced": true
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[4.10.0, )"
             }
           },
           "imports": [
