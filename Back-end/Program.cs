@@ -7,17 +7,18 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura��o da string de conex�o
+// Configuração da string de conexão
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Adicionando o contexto do banco de dados
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-// Adicionando os servi�os
+// Adicionando os serviços
 builder.Services.AddScoped<IDiscenteService, DiscenteService>();
+builder.Services.AddScoped<IAgendamentoService, AgendamentoService>(); // Adicionando AgendamentoService
 
-// Configura��o de autentica��o JWT
+// Configuração de autenticação JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -36,7 +37,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Adicionar controladores ao cont�iner de inje��o de depend�ncia
+// Adicionar controladores ao contêiner de injeção de dependência
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
@@ -57,7 +58,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Minha API",
         Version = "v1",
-        Description = "Descri��o da Minha API",
+        Description = "Descrição da Minha API",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
             Name = "Seu Nome",
@@ -77,7 +78,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-        c.RoutePrefix = string.Empty; // Deixa o Swagger dispon�vel na raiz
+        c.RoutePrefix = string.Empty; // Deixa o Swagger disponível na raiz
     });
 }
 else
@@ -94,6 +95,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers(); // Configura��o para usar controladores
+app.MapControllers(); // Configuração para usar controladores
 
 app.Run();
