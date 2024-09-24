@@ -184,7 +184,7 @@
 
         var modelDiscente = new DiscenteRegistroModel
         {
-            Nome = infosUser.Nome,
+            Nome = infosUser.Nome + " " + infosUser.Sobrenome,
             Email = user.Email,
             Senha = user.Password,
             Matricula = int.TryParse(infosUser.Matricula, out var matricula) ? matricula : 0,
