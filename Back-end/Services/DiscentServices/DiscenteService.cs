@@ -10,8 +10,16 @@ using Back_end.Helpers;
 
 namespace Back_end.Services
 {
+    /// <summary>
+    /// Responsavel por gerenciar as operações relacionadas ao usuario
+    /// </summary>
     public class DiscenteService : IDiscenteService
     {
+        /// <summary>
+        /// Atributo privado que representa o contexto do banco de dados
+        /// </summary>
+        /// <param name="context">Construtor que recebe o banco de dados</param>
+        /// <param name="config">Construtor que recebe o banco de dados</param>
         private readonly ApiDbContext _context;
         private readonly IConfiguration _config;
 
@@ -21,6 +29,12 @@ namespace Back_end.Services
             _config = config;
         }
 
+        /// <summary>
+        /// Recebe as informações do discente e registra no banco de dados
+        /// </summary>
+        /// <param name="registro">Representa um parametro do tipo registrardiscente</param>
+        /// <returns>Retorna o registro do usuario</returns>
+        /// <exception cref="ArgumentNullException">Exceção para tratar informações nulas</exception>
         // Método para registrar um novo discente
         public async Task<Discente> RegistrarDiscenteAsync(RegistrarDiscente registro)
         {
@@ -48,6 +62,12 @@ namespace Back_end.Services
             return discente;
         }
 
+        /// <summary>
+        /// Recebe as informações do discente e faz a validação do usuario
+        /// </summary>
+        /// <param name="login">Representa um parametro do tipo logindiscente</param>
+        /// <returns>Se for verdadeiro entra no sistema, se for falso da erro</returns>
+        /// <exception cref="ArgumentNullException">Exceção para tratar informações nulas</exception>
         // Método para login de discente
         public async Task<string> LoginDiscenteAsync(LoginDiscente login)
         {
@@ -73,6 +93,11 @@ namespace Back_end.Services
             return GerarTokenJwt(discente.IdDiscente.ToString(), discente.Email ?? string.Empty);
         }
 
+        /// <summary>
+        /// Criptografa a senha a partir do algoritmo HMACSHA512
+        /// </summary>
+        /// <param name="senha">Representa um parametro do tipo senhadiscente</param>
+        /// <returns>Retorna a senha criptografada</returns>
         // Método para criptografar a senha com salt
         private (string senhaCriptografada, string salt) CriptografarSenha(string senha)
         {
@@ -85,6 +110,13 @@ namespace Back_end.Services
             }
         }
 
+        /// <summary>
+        /// Verifica a senha fornecida corresponde a senha no banco de dados
+        /// </summary>
+        /// <param name="senha">Representa um parametro do tipo senhadiscente</param>
+        /// <param name="senhaCriptografada">Senha criptografada</param>
+        /// <param name="salt">Variavel utilizada para fazer comparação de Hash</param>
+        /// <returns>Retorna verdadeiro se a senha estiver no banco de dados, e se nao retorna falso</returns>
         // Método para verificar a senha usando o salt
         private bool VerificarSenha(string senha, string senhaCriptografada, string salt)
         {
@@ -97,6 +129,12 @@ namespace Back_end.Services
             }
         }
 
+        /// <summary>
+        /// Gera token jwt para autenticar discentes e profissionais
+        /// </summary>
+        /// <param name="id">id do usuario ou profissional</param>
+        /// <param name="email">email do usuario ou profissional</param>
+        /// <returns>Retorna o id do usuario definido a partir de uma chave simetrica definido nas variaveis do sistema</returns>
         // Método para gerar o token JWT (agora genérico para Discente e Profissional)
         private string GerarTokenJwt(string id, string email)
         {
@@ -121,6 +159,11 @@ namespace Back_end.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        /// <summary>
+        /// Verifica se o email ja foi cadastrado
+        /// </summary>
+        /// <param name="email">email do usuario ou profissional</param>
+        /// <returns>Retorna verdadeiro caso o email ja tiver no banco de dados</returns>
         // Método para verificar se um email já está cadastrado
         public async Task<bool> EmailJaCadastradoAsync(string email)
         {
@@ -128,6 +171,12 @@ namespace Back_end.Services
                    || await _context.Profissionais.AnyAsync(p => p.Email == email);
         }
 
+        /// <summary>
+        /// Recebe as informações do profissional e registra no banco de dados
+        /// </summary>
+        /// <param name="registro">Representa um parametro do tipo registrarprofissional</param>
+        /// <returns>Retorna o registro do profissional</returns>
+        /// <exception cref="ArgumentNullException">Exceção para tratar informações nulas</exception>
         public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
         {
             // Verificação de nulidade
@@ -149,6 +198,12 @@ namespace Back_end.Services
             return profissional;
         }
 
+        /// <summary>
+        /// Recebe as informações do profissional e faz a sua validação
+        /// </summary>
+        /// <param name="login">Representa um parametro do ipo loginprofissional</param>
+        /// <returns>Se for verdadeiro entra no sistema, se for falso da erro</returns>
+        /// <exception cref="ArgumentNullException">Exceção para tratar informações nulas</exception>
         public async Task<string> LoginProfissionalAsync(LoginProfissional login)
         {
             // Verificação de nulidade
@@ -175,6 +230,11 @@ namespace Back_end.Services
             return GerarTokenJwt(idProfissional, email);
         }
 
+        /// <summary>
+        /// Atualiza o perfil do discente ou profissional do sistema
+        /// </summary>
+        /// <param name="atualizarPerfil">Eh um parametro que recebe a model atualizarperfil</param>
+        /// <returns>Se verdadeiro ele atualiza as informações do perfil</returns>
         public async Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil)
         {
             // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
@@ -209,6 +269,11 @@ namespace Back_end.Services
             return false; // Nenhum usuário encontrado
         }
 
+        /// <summary>
+        /// Permite que o discente ou profissional altere sua senha
+        /// </summary>
+        /// <param name="alterarSenha">Eh um parametro que recebe a model alterarsenha</param>
+        /// <returns>Retorna se verdadeiro a senha sera alterada, se não, não altera</returns>
         public async Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha)
         {
             // Buscando em ambas as tabelas: Discentes e Profissionais separadamente

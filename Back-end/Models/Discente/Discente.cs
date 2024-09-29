@@ -2,7 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_end.Models
-{
+{   
+    /// <summary>
+    /// Representação da tabela Discente no banco de dados em model
+    /// </summary>
     [Table("discente")]
     public class Discente
     {

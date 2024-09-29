@@ -4,7 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_end.Models
 {
-public class Agendamento
+    /// <summary>
+    /// Representação da tabela Agendamento no banco de dados em model
+    /// </summary>
+    public class Agendamento
     {
         [Key]
         [Column("id_agendamento")]
