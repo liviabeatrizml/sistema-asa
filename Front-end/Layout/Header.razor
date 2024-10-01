@@ -6,10 +6,10 @@
 
     @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "")
     {
-        <div class="menu-home">
+        <div class="menu-inicio">
+            <a href="/" @onmouseover="inicioColor" @onmouseout="inicioColor"><img src="@(inicioHover ? "..\\css\\images\\inicio.svg" : "..\\css\\images\\inicio-hover.svg")"  alt="Inicio"></a>
             <a href="/" @onmouseover="agendaColor" @onmouseout="agendaColor"><img src="@(agendaHover ? "..\\css\\images\\agenda.svg" : "..\\css\\images\\agenda-hover.svg")" alt="Agenda"></a>
             <a href="/" @onmouseover="servicoColor" @onmouseout="servicoColor"><img src="@(servicoHover ? "..\\css\\images\\servico.svg" : "..\\css\\images\\servico-hover.svg")"  alt="Serviço"></a>
-            <a href="/" @onmouseover="avisosColor" @onmouseout="avisosColor"><img src="@(avisosHover ? "..\\css\\images\\avisos.svg" : "..\\css\\images\\avisos-hover.svg")"  alt="Avisos"></a>
 
             <div class="menu-divider"></div>
 
@@ -28,12 +28,12 @@
         justify-content: space-between;
     }
 
-    .menu-home{
+    .menu-inicio{
         display: flex;
         text-align: right;
     }
 
-    .menu-home a{
+    .menu-inicio a{
         padding-left: 17px;
         padding-right: 17px;
     }
@@ -58,11 +58,11 @@
     {
         servicoHover = !servicoHover;
     }
-    private bool avisosHover = true;
+    private bool inicioHover = true;
 
-    private void avisosColor()
+    private void inicioColor()
     {
-        avisosHover = !avisosHover;
+        inicioHover = !inicioHover;
     }
     private bool relatarHover = true;
 
