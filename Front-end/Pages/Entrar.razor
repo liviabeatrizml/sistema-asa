@@ -2,6 +2,8 @@
 @using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
 @inject DiscenteService DiscenteService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Entrar</PageTitle>
 
@@ -17,7 +19,6 @@
         <EditForm Model="@user" OnValidSubmit="@Login">
         <DataAnnotationsValidator />
     
-
             <ValidationMessage For="@(() => user.Email)" />
             <div class="mb-3 ">
                 <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="user.Email" placeholder="Email"/>
@@ -31,7 +32,6 @@
                 </span>
             </div>
 
-    
             <a href="/recuperar-senha" class="weight-700 paragraph-size underline">Esqueceu sua senha?</a>
     
             @if (!string.IsNullOrEmpty(errorMessage))
@@ -90,13 +90,23 @@
         var result = await DiscenteService.LoginDiscente(loginModel);
 
         if (result.IsSuccessStatusCode)
+        {
+            var token = await result.Content.ReadAsStringAsync();
+
+            // Armazena o token no localStorage
+            await localStorage.SetItemAsync("authToken", token);
+
+            if (AuthenticationStateProvider is CustomAuthStateProvider customAuthStateProvider)
             {
-                Navigation.NavigateTo("/inicio");
+                customAuthStateProvider.NotifyUserAuthentication(token);
             }
-            else
-            {
-                errorMessage = "Email e/ou senha inválidos";
-            }
+
+            Navigation.NavigateTo("/inicio");
+        }
+        else
+        {
+            errorMessage = "Email e/ou senha inválidos";
+        }
     }
 
     private bool isPasswordVisible = false;
