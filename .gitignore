@@ -8,7 +8,6 @@ Back-end/
 *.dll
 *.pdb
 *.js.map
-*.js
 *.dat
 *.cache
 *.json
