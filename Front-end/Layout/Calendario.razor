@@ -2,10 +2,10 @@
     <div class="header">
         <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DataAtual.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DataAtual.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
         <div>
-            <svg @onclick="() => MudarMes(-1)" style="cursor: pointer;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg @onclick="() => MudarMes(-1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 18L9 12L15 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <svg @onclick="() => MudarMes(1)" style="cursor: pointer;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg @onclick="() => MudarMes(1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 18L15 12L9 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
@@ -39,7 +39,7 @@
     }
     <div class="horizontal-bar final-calendario"></div>
     <div class="agendar-relatar">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -52,7 +52,7 @@
             <path d="M16 18H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M12 16V12" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M12 8H11.99" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -101,8 +101,8 @@
 
 <style>
     .calendario {
-        width: 305px;
-        height: 460px;
+        width: 19.063rem;
+        height: 28.75rem;
         position: relative;
         border: 1px solid #ddd;
         border-radius: 10px;
@@ -169,7 +169,7 @@
     .final-calendario{
         width: 86%;
         position: absolute;
-        bottom: 40px;
+        bottom: 2.5rem;
         text-align: right;
         align-content: end;
     }
