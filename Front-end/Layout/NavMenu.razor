@@ -1,4 +1,9 @@
-﻿<div style="background-color: var(--blue-ufersa); width: 22rem; height: auto; position: relative;">
+﻿@using Blazored.LocalStorage
+@inject ILocalStorageService localStorage
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div style="background-color: var(--blue-ufersa); width: 22rem; height: auto; position: relative;">
     <div style="padding-left: 55px;" class="pt-5 pb-4">
         <img src="..\\css\\images\\img-ilustrativa.svg" alt="">
 
@@ -75,8 +80,8 @@
                     Ajustes
                 </NavLink>
             </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/">
+            <div style="cursor: pointer;" class="nav-item px-3">
+                <NavLink @onclick="Logout" class="nav-link">
                     <div class="vertical-bar"></div>
                     <div style="align-items: center; display: flex;" class="px-4">
                         <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,5 +109,15 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task Logout()
+    {
+        // Remove o token do localStorage
+        await localStorage.RemoveItemAsync("authToken");
+
+        // Notifica que o estado de autenticação mudou
+        var customAuthStateProvider = (CustomAuthStateProvider)AuthenticationStateProvider;
+        customAuthStateProvider.NotifyUserLogout();
     }
 }

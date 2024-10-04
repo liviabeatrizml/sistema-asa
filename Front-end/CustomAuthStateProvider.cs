@@ -37,6 +37,12 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(authState);
     }
 
+    public void NotifyUserLogout()
+    {
+        var authState = Task.FromResult(new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity())));
+        NotifyAuthenticationStateChanged(authState);
+    }
+
     private IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
     {
         // Lógica para analisar as reivindicações do token JWT
