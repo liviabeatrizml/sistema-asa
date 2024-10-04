@@ -23,18 +23,18 @@ html, body {
 }
 
 @media (min-width: 320px) and (max-width: 1023px) {
-    html, body{
+    html, body {
         font-size: 12px;
     }
 }
 
 @media (max-width: 767px) {
-    header{
+    header {
         text-align: center;
         padding: 0px !important; 
     }
 
-    footer > div{
+    footer > div {
         padding-left: 0.5rem !important;
         padding-right: 0.5rem !important;
         font-size: 0.6rem !important;
@@ -42,16 +42,23 @@ html, body {
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
-    html, body{
+    html, body {
         font-size: 15px;
     }
 }
 
-@media (min-width: 1440px) and (max-width: 1919px) {
-    html, body{
+@media (min-width: 1440px) and (max-width: 1599px) { 
+    html, body {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1919px) {
+    html, body {
         font-size: 19px;
     }
 }
+
 
 h1:focus {
     outline: none;
@@ -317,4 +324,12 @@ code {
     -webkit-user-select: none;
     -ms-user-select: none;
     pointer-events: none;
+}
+
+.horizontal-bar {
+    width: 100%;
+    height: 2px;
+    background-color: var(--black-gray);
+    border-radius: 10px;
+    margin: 20px 0px;
 }
