@@ -1,6 +1,7 @@
 @page "/inicio"
 @attribute [Authorize]
 @inject NavigationManager Navigation
+@inject IJSRuntime JS
 
 <PageTitle>Início</PageTitle>
 
@@ -65,11 +66,11 @@
                     <div>
                         <div>
                             <h1 style="padding: 20px 20px;" class="px24 weight-700">Serviços</h1>
-                            <div style="display: flex;  width: 42.5rem; overflow: auto; scrollbar-width: none;">
+                            <div id="scroll-container" style="display: flex;  width: 42.5rem; overflow: auto; scrollbar-width: none; user-select: none;">
                                 @for(int i = 1; i < 5; i++){
                                     <div class="service">
-                                        <img class="@(i == 1 ? "background-service-active" : "background-service")" src="..\css\images\img-servico@(i).svg">
-                                        <div class="service-people">
+                                        <img class="@(i == 1 ? "background-service-active" : "background-service") no-select" src="..\css\images\img-servico@(i).svg">
+                                        <div class="service-people no-select">
                                             <div style="padding-left: 10px;">
                                                 <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px;">Lívia Beatriz</h3>
                                                 <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">Psicóloga</p>
@@ -104,3 +105,13 @@
             </main>
         </div>
 </div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("enableDragScroll", "scroll-container");
+        }
+    }
+}
