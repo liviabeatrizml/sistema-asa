@@ -31,3 +31,38 @@ function enableDragScroll(containerId) {
         container.scrollLeft = scrollLeft - walk;
     });
 }
+
+window.domHelper = {
+    // Função para obter a largura de um elemento
+    getElementWidth: function (element) {
+        if (element) {
+            return element.offsetWidth; // Retorna a largura total do elemento
+        }
+        return 0;
+    }
+};
+
+window.resizeHelper = {
+    observer: null,
+
+    init: function (dotNetReference, elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+
+        // Configura o ResizeObserver para monitorar mudanças de tamanho no elemento
+        this.observer = new ResizeObserver(() => {
+            dotNetReference.invokeMethodAsync('UpdateScrollContainerWidth')
+                .then(() => console.log('Largura atualizada com sucesso!'))
+                .catch(err => console.error('Erro ao atualizar largura:', err));
+        });
+
+        this.observer.observe(element);
+    },
+
+    disconnect: function () {
+        if (this.observer) {
+            this.observer.disconnect();
+            console.log('ResizeObserver desconectado.');
+        }
+    }
+};
