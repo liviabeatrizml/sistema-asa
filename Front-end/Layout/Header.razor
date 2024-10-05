@@ -6,9 +6,9 @@
     @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "")
     {
         <div class="menu-inicio">
-            <a href="/" @onmouseover="inicioColor" @onmouseout="inicioColor"><img src="@(inicioHover ? "..\\css\\images\\inicio.svg" : "..\\css\\images\\inicio-hover.svg")" alt="Inicio"></a>
-            <a href="/" @onmouseover="agendaColor" @onmouseout="agendaColor"><img src="@(agendaHover ? "..\\css\\images\\agenda.svg" : "..\\css\\images\\agenda-hover.svg")" alt="Agenda"></a>
-            <a href="/" @onmouseover="servicoColor" @onmouseout="servicoColor"><img src="@(servicoHover ? "..\\css\\images\\servico.svg" : "..\\css\\images\\servico-hover.svg")" alt="Serviço"></a>
+            <a href="/inicio" @onmouseover="inicioColor" @onmouseout="inicioColor"><img src="@(inicioHover ? "..\\css\\images\\inicio.svg" : "..\\css\\images\\inicio-hover.svg")" alt="Inicio"></a>
+            <a href="/agenda" @onmouseover="agendaColor" @onmouseout="agendaColor"><img src="@(agendaHover ? "..\\css\\images\\agenda.svg" : "..\\css\\images\\agenda-hover.svg")" alt="Agenda"></a>
+            <a href="/servicos" @onmouseover="servicoColor" @onmouseout="servicoColor"><img src="@(servicoHover ? "..\\css\\images\\servico.svg" : "..\\css\\images\\servico-hover.svg")" alt="Serviço"></a>
 
             <div class="menu-divider"></div>
 
