@@ -1,0 +1,189 @@
+@page "/calendario"
+
+<div style="scrollbar-width: none; user-select: none; overflow-y: auto; height: 56.563rem;">
+    <div style="display: flex;">
+        <!-- Tabela de horários -->
+        <div class="time-slots">
+            @foreach (var time in TimeSlots)
+            {
+                <div class="time-slot">@time</div>
+            }
+        </div>
+    
+        <!-- Tabela do calendário -->
+        <table class="calendar">
+            <thead>
+                <tr>
+                    @foreach (var day in WeekDays)
+                    {
+                        bool isToday = day.Date == DateTime.Today;
+                        <th style="@(isToday ? "background-color: #ABC8E24D;" : "")">
+                            <div class="day-of-week">@day.ToString("ddd").ToUpper().TrimEnd('.')</div>
+                            <div class="day-number">@day.Day</div>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var time in TimeSlots)
+                {
+                    <tr>
+                        @foreach (var day in WeekDays)
+                        {
+                            var eventItem = GetEventForDayAndTime(day, time);
+                            bool isToday = day.Date == DateTime.Today;
+    
+                            if (eventItem != null)
+                            {
+                                <td title="@eventItem.Title">
+                                    <div class="event" style="background-color:@eventItem.Colors[0]; color: @eventItem.Colors[1]; border-color: @eventItem.Colors[2];">
+                                        <div class="event-title">@eventItem.Title</div>
+                                        <div class="event-person">@eventItem.Person</div>
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="empty-slot" style="@(isToday ? "background-color: #ABC8E24D;" : "")"></td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@code {
+    private List<DateTime> WeekDays = Enumerable.Range(0, 7).Select(i => DateTime.Today.AddDays(i - (int)DateTime.Today.DayOfWeek)).ToList(); // Ajustando para começar no domingo
+    private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
+
+    private List<string> pink;
+    private List<string> green;
+    private List<string> orange;
+    private List<string> blue;
+
+    private List<EventItem> Events;
+
+    protected override void OnInitialized()
+    {
+        // Definindo a lista de cores
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+
+        // Inicializando a lista de eventos
+        Events = new List<EventItem>
+        {
+            new EventItem { Day = new DateTime(2024, 10, 2), Time = "08:00 AM", Title = "Psicóloga", Person = "Luiza Beatriz", Colors = pink },
+            new EventItem { Day = new DateTime(2024, 10, 4), Time = "10:00 AM", Title = "Nutricionista", Person = "Renan Costa", Colors = green},
+            new EventItem { Day = new DateTime(2024, 10, 5), Time = "04:00 PM", Title = "Pedagoga", Person = "Giulia Morais", Colors = blue },
+            new EventItem { Day = new DateTime(2024, 10, 1), Time = "05:00 PM", Title = "Educador Físico", Person = "Caul Oliveira", Colors = orange },
+            new EventItem { Day = new DateTime(2024, 10, 2), Time = "01:00 PM", Title = "Nutricionista", Person = "Renan Costa", Colors = green }
+        };
+    }
+
+
+    private EventItem GetEventForDayAndTime(DateTime day, string time) => Events.FirstOrDefault(e => e.Day.Date == day.Date && e.Time == time);
+
+    private class EventItem
+    {
+        public DateTime Day { get; set; }
+        public string Time { get; set; }
+        public string Title { get; set; }
+        public string Person { get; set; }
+        public List<string> Colors { get; set; }
+    }
+}
+
+<style>
+    /* Flex container para horários e calendário */
+    .time-slots {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem; /* Espaço entre os horários e a tabela */
+        margin-top: 0.65rem;
+    }
+
+    .time-slot {
+        height: 4rem;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--black-gray);
+        box-sizing: border-box; /* Inclui padding e borda nas dimensões */
+    }
+
+    .calendar {
+        border-collapse: collapse;
+        margin: 0; /* Remove margens se houver */
+    }
+
+    th, td {
+        width: 5.688rem;
+        height: 4rem;
+        border: 2px solid var(--black-gray); /* Bordas uniformes */
+        padding: 0;
+        box-sizing: border-box; /* Inclui padding e borda nas dimensões */
+        vertical-align: top; /* Mantém o alinhamento das células no topo */
+    }
+
+    .calendar tr:first-child th {
+        border-top: none;
+    }
+
+    .calendar tr:last-child td {
+        border-bottom: none;
+    }
+
+    .calendar th:first-child, .calendar td:first-child {
+        border-left: none;
+    }
+
+    .calendar th:last-child, .calendar td:last-child {
+        border-right: none;
+    }
+
+    /* Cor da coluna de Domingo (primeira coluna) */
+    .calendar th:first-child, 
+    .calendar td:first-child,
+    .calendar th:last-child, 
+    .calendar td:last-child {
+        background-color: #D9D9D940; /* Altere para a cor desejada */
+    }
+
+    /* Estilo do conteúdo */
+    .day-of-week {
+        font-weight: 500;
+        font-size: 0.75rem;
+        color: var(--black-gray);
+    }
+
+    .day-number {
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .event {
+        border-radius: 4px;
+        border-left: 4px solid;
+        width: 100%;
+        height: 100%;
+        padding: 0px 10px;
+    }
+
+    .event-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .event-person {
+        font-size: 0.5em;
+        font-weight: 500;
+    }
+
+</style>

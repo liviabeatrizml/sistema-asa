@@ -1,43 +1,50 @@
-<div class="calendario">
-    <div class="header">
-        <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DataAtual.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DataAtual.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
-        <div>
-            <svg @onclick="() => MudarMes(-1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 18L9 12L15 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <svg @onclick="() => MudarMes(1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 18L15 12L9 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-    </div>
-    <div class="horizontal-bar"></div>
-    <div class="nomes-dias">
-        @foreach (var nome in NomesDiasSemana)
-        {
-            <div class="nome-dia weight-600">@nome</div>
-        }
-    </div>
-    @foreach (var semana in Semanas)
-    {
-        <div class="semana">
-            @foreach (var dia in semana)
-            {
-                var classeDia = (dia.DayOfWeek == DayOfWeek.Saturday || dia.DayOfWeek == DayOfWeek.Sunday)
-                    ? (dia.Month == DataAtual.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
-                    : (dia.Month == DataAtual.Month ? "dia mes-atual" : "dia outro-mes");
+@inject NavigationManager Navigation
 
-                if (dia.Date == DateTime.Today)
-                {
-                    classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
-                }
-                
-                <div class="@classeDia weight-600">
-                    @dia.Day
-                </div>
+<div class="calendario @HeightClass" style="user-select: none;">
+    <div class="calendario-height">
+        <div class="header">
+            <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DataAtual.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DataAtual.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
+            <div>
+                <svg @onclick="() => MudarMes(-1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg @onclick="() => MudarMes(1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="horizontal-bar"></div>
+        <div class="nomes-dias">
+            @foreach (var nome in NomesDiasSemana)
+            {
+                <div class="nome-dia weight-600">@nome</div>
             }
         </div>
-    }
+        @foreach (var semana in Semanas)
+        {
+            <div class="semana">
+                @foreach (var dia in semana)
+                {
+                    var classeDia = (dia.DayOfWeek == DayOfWeek.Saturday || dia.DayOfWeek == DayOfWeek.Sunday)
+                        ? (dia.Month == DataAtual.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
+                        : (dia.Month == DataAtual.Month ? "dia mes-atual" : "dia outro-mes");
+                    if (dia.Date == DateTime.Today)
+                    {
+                        classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                    }
+        
+                    <div class="@classeDia weight-600">
+                        @dia.Day
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
     <div class="horizontal-bar final-calendario"></div>
+
+    @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio")
+    {
     <div class="agendar-relatar">
         <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -58,16 +65,41 @@
             <path d="M12 8H11.99" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
+    } else if(Navigation.ToBaseRelativePath(Navigation.Uri) == "agenda")
+    {
+        <div>
+            <h1 class="weight-700" style="color: var(--white); font-size: 1rem; margin: 0;">HOJE</h1>
+            <span class="weight-500" style="font-size: 0.75rem; color: var(--black-gray);">21/12/2024</span>
+
+            <div style="padding: 15px;">
+                <span style="display: flex; align-items: center; font-size: 0.688rem; color: var(--white);">
+                    <div style="width: 0.75rem; height: 0.75rem; background-color: #F884D7; border-radius: 50%; padding-top: 10px; margin-right: 10px;"></div>
+                    08:00 - 09:00 AM
+                </span>
+                <span style="font-size: 0.75rem; padding-left: 0.75rem; margin-left: 10px; color: var(--black-gray);">Psicóloga - Lívia Beatriz</span>
+            </div>
+        </div>
+    }
+
+    
 </div>
 
 @code {
     private DateTime DataAtual { get; set; } = DateTime.Today;
     private List<List<DateTime>> Semanas { get; set; } = new();
     private List<string> NomesDiasSemana { get; set; } = new() { "D", "S", "T", "Q", "Q", "S", "S" };
+    private string HeightClass { get; set; } = "";
 
     protected override void OnInitialized()
     {
         GerarCalendario(DataAtual);
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        if (relativePath == "inicio")
+        {
+            HeightClass = "";
+        } else{
+            HeightClass = "calendario-services-height";
+        }
     }
 
     private void GerarCalendario(DateTime date)
@@ -102,13 +134,20 @@
 <style>
     .calendario {
         width: 19.063rem;
-        height: 28.75rem;
         position: relative;
         border: 1px solid #ddd;
         border-radius: 10px;
         padding: 20px;
         background: linear-gradient(334.3deg, #243E64 36.47%, #3B67A7 98.35%);
         box-shadow: 0px 4px 4px 0px #00000040;
+    }
+
+    .calendario-height{
+        height: 25.75rem;
+    }
+
+    .calendario-services-height{
+        height: 56.563rem;
     }
 
     .header {
@@ -161,7 +200,7 @@
     .final-calendario{
         width: 86%;
         position: absolute;
-        bottom: 2.5rem;
+        top: 23rem;
         text-align: right;
         align-content: end;
     }

@@ -1,0 +1,26 @@
+@page "/agenda"
+@attribute [Authorize]
+@inject NavigationManager Navigation
+
+<PageTitle>Agenda</PageTitle>
+
+<div class="page" style="background-color: var(--blue-ufersa); height: auto;">
+    <NavMenu />
+
+    <div style="padding-top: 29px; border-radius: 15px 0px 0px 15px; width: 100%; background-color: white;">
+
+        <main class="page" style="padding-left: 4rem; padding-right: 6.188rem; padding-top: 20px; margin-bottom: 50px; display: flex; justify-content: space-between;">
+
+            <div>
+                <CalendarioSemanal/>
+            </div>
+
+            <div>
+                <Calendario />
+            </div>
+
+        </main>
+    
+    </div>
+
+</div>
