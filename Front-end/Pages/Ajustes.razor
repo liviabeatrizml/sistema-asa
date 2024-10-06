@@ -1,0 +1,248 @@
+@page "/ajustes"
+@attribute [Authorize]
+@inject NavigationManager Navigation
+@using System.ComponentModel.DataAnnotations
+@inject DiscenteService DiscenteService
+@using System.Text.RegularExpressions
+
+<PageTitle>Agenda</PageTitle>
+
+<div class="page" style="background-color: var(--blue-ufersa); height: auto;">
+    <NavMenu />
+
+    <div style="padding-top: 29px; border-radius: 15px 0px 0px 15px; width: 100%; background-color: white;">
+        <Header />
+
+        <main class="page" style="padding-left: 4rem; padding-right: 3rem; padding-top: 20px; margin-bottom: 50px; display: flex; justify-content: space-between; flex-wrap: wrap;">
+
+            <div style="width: 100%; margin: 20px; display: flex; user-select: none;">
+                <div style="padding: 0px 10px; cursor: pointer; @(abaAtiva != "dadosPessoais" ? "color: var(--black-gray)" : "")" @onclick="() => AlternarAba(dadosPessoais)">
+                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 21V19C19 17.9391 18.5786 16.9217 17.8284 16.1716C17.0783 15.4214 16.0609 15 15 15H9C7.93913 15 6.92172 15.4214 6.17157 16.1716C5.42143 16.9217 5 17.9391 5 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                    <span style="font-size: 0.75rem; font-weight: 600; text-align: left;">DADOS PESSOAIS</span>
+                    <div style="@(abaAtiva == "dadosPessoais" ? "height: 3px; background-color: #1E1E1E; border-radius: 3px;)" : "")"></div>
+                </div>
+                <div style="cursor: pointer; @(abaAtiva != "conta" ? "color: var(--black-gray)" : "")" @onclick="() => AlternarAba(conta)">
+                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+
+                    <span style="font-size: 0.75rem; font-weight: 600; text-align: left;">CONTA</span>
+                    <div style="@(abaAtiva == "conta" ? "height: 3px; background-color: #1E1E1E; border-radius: 3px;)" : "")"></div>
+                </div>
+
+            </div>
+
+            @if (abaAtiva == "dadosPessoais"){
+
+                <div style="box-shadow: 0px 4px 4px 0px #00000040; border-radius: 20px; padding: 20px 5px; background-color: #D9D9D90D;">
+                    <div style="border-bottom: 1px solid var(--black-gray); padding-left: 10px;">
+                        <h1 style="font-size: 1.375rem; font-weight: 600;">Dados Pessoais</h1>
+                        <p class="paragraph-size weight-500" style="color: var(--black-gray);">Atualize sua foto e seus dados pessoais aqui.</p>
+                    </div>
+
+                    <EditForm Model="@infosUser" OnValidSubmit="@Submit">
+                    <DataAnnotationsValidator />
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Nome <span style="color: #BA3838">*</span></span>
+                                <div class="mb-3">
+                                    <InputText id="nome" class="custom-input form-control border-radius-10 my-1" style="width: 12.875rem;" @bind-Value="infosUser.Nome"/>
+                                </div>
+                                <div class="mb-3">
+                                    <InputText id="sobrenome" class="custom-input form-control border-radius-10 my-1" style="width: 33.125rem; margin-left: 1.5rem;" @bind-Value="infosUser.Sobrenome"/>
+                                </div>
+                        </div>
+                        <div class="edit-fields" style="display: flex; width: 100%; justify-content: space-between; align-items: flex-start; padding-bottom: 20px;">
+                                <span class="paragraph-size px-2 weight-500" style="width: 20rem">Foto
+                                    <br>
+                                    <span class="paragraph-size weight-500" style="color: var(--black-gray);">Isso será exibido em seu perfil</span>
+                                </span>
+                                
+                                <img src="..\\css\\images\\img-ilustrativa-edit.svg">
+                                
+                                <div>
+
+                                    <label for="fileupload" class="upload-button">
+                                        
+                                        <span style="border: 2px solid var(--black-gray); border-radius: 10px; padding: 3px 7px; margin-top: 10px;">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.66699 8V13.3333C2.66699 13.687 2.80747 14.0261 3.05752 14.2761C3.30756 14.5262 3.6467 14.6667 4.00033 14.6667H12.0003C12.3539 14.6667 12.6931 14.5262 12.9431 14.2761C13.1932 14.0261 13.3337 13.687 13.3337 13.3333V8" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10.6663 4L7.99967 1.33333L5.33301 4" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 1.33333V10" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                        <span class="paragraph-size weight-600" style="color: var(--blue-ufersa); text-decoration: underline; width: 100%; margin-top: 10px;">Clique para realizar Upload</span>
+                                        <span class="paragraph-size weight-500" style="color: var(--black-gray); margin-bottom: 10px;">SVG, PNG, JPG ou GIF</span>
+
+                                    </label>
+                                    <InputFile id="fileupload" hidden class="upload-button" accept=".jpg,.svg,.png,.gif"/>
+
+                                </div>
+                        </div>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">CPF / Matrícula <span style="color: #BA3838">*</span></span>
+                                <div class="mb-3">
+                                    <InputText id="cpf" class="custom-input form-control border-radius-10 my-1" style="width: 23rem;" @bind-Value="infosUser.Cpf" @oninput="FormatarCPF" maxlength="14" />
+                                    <ValidationMessage For="@(() => infosUser.Cpf)" />
+                                </div>
+                                <div class="mb-3">
+                                    <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" style="width: 23rem; margin-left: 1.5rem;" @bind-Value="infosUser.Matricula" maxlength="10"/>
+                                <ValidationMessage For="@(() => infosUser.Matricula)" style="margin-left: 1.5rem;" />
+                                </div>
+                        </div>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Curso</span>
+                                <div class="mb-3">
+                                    <InputSelect id="curso" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem;" @bind-Value="infosUser.Curso">
+                                        <option value="">Selecione um curso</option> <!-- Opção padrão -->
+                                        <option value="Arquitetura e Urbanismo">Arquitetura e Urbanismo</option>
+                                        <option value="Bacharelado Interdisciplinar em Ciência e Tecnologia">Bacharelado Interdisciplinar em Ciência e Tecnologia</option>
+                                        <option value="Engenharia Ambiental e Sanitária">Engenharia Ambiental e Sanitária</option>
+                                        <option value="Engenharia Civil">Engenharia Civil</option>
+                                        <option value="Engenharia de Computação">Engenharia de Computação</option>
+                                        <option value="Engenharia de Software">Engenharia de Software</option>
+                                        <option value="Tecnologia da Informação">Engenharia de Software</option>
+                                    </InputSelect>
+                                </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; padding: 20px 40px 0px 10px;">
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: transparent; padding: 6px 15px;">Cancelar</button>
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: var(--blue-ufersa); color: var(--white); padding: 6px 15px; margin-left: 20px;">Salvar</button>
+                        </div>
+                    </EditForm>
+                </div>
+            } else if (abaAtiva == "conta"){
+
+                <div style="box-shadow: 0px 4px 4px 0px #00000040; border-radius: 20px; padding: 20px 5px; background-color: #D9D9D90D;">
+                    <div style="border-bottom: 1px solid var(--black-gray); padding-left: 10px;">
+                        <h1 style="font-size: 1.375rem; font-weight: 600;">Conta</h1>
+                        <p class="paragraph-size weight-500" style="color: var(--black-gray);">Atualize os dados da sua conta aqui.</p>
+                    </div>
+
+                    <EditForm Model="@contaUser">
+                    <DataAnnotationsValidator />
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Email <span style="color: #BA3838">*</span></span>
+                                <div class="mb-3 input-with-icon">
+                                    <svg class="input-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 7L13.03 12.7C12.7213 12.8934 12.3643 12.996 12 12.996C11.6357 12.996 11.2787 12.8934 10.97 12.7L2 7" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                    <InputText id="email" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Email"/>
+                                </div>
+                                <ValidationMessage For="@(() => contaUser.Email)" />
+                        </div>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Senha <span style="color: #BA3838">*</span></span>
+                                <div class="mb-3 input-with-icon">
+                                    <svg class="input-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                    <InputText id="senha" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Senha" type="password"/>
+                                </div>
+                                <ValidationMessage For="@(() => contaUser.Senha)" style="width: 100%;"/>
+                        </div>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Excluir Perfil</span>
+                                <div style="display: flex; flex-wrap: wrap;">
+                                    <span class="weight-500 paragraph-size" style="color: var(--black-gray); width: 100%;">Exclua sua conta e todos os seus dados de origem. Isso é irreversível.</span>
+                                    <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: #D20240; color: var(--white); padding: 6px 15px; margin: 20px 0px;">Excluir Conta</button>
+                                </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; padding: 20px 40px 0px 10px;">
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: transparent; padding: 6px 15px;">Cancelar</button>
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: var(--blue-ufersa); color: var(--white); padding: 6px 15px; margin-left: 20px;">Salvar</button>
+                        </div>
+                    </EditForm>
+                </div>
+            }
+
+
+        </main>
+
+    </div>
+
+</div>
+
+@code{
+    public class Conta
+    {
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@alunos\.ufersa\.edu\.br$", ErrorMessage = "O Email deve ser do domínio @alunos.ufersa.edu.br")]
+        public string Email { get; set; }
+
+        [MinLength(8, ErrorMessage = "A senha deve ter no mínimo 8 caracteres.")]
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[!@#$%^&*(),.?{}|<>+=\-\\]).*$", ErrorMessage = "A senha deve conter pelo menos um número e um caractere especial.")]
+        public string Senha { get; set; }
+    }
+    public class InfosUser
+    {
+
+        public string Nome { get; set; }
+
+        public string Sobrenome { get; set; }
+
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "A Matrícula deve ter exatamente 10 dígitos.")]
+        public string Matricula { get; set; }
+
+        [RegularExpression(@"^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$", ErrorMessage = "O formato deve ser 000.000.000-00.")]
+        public string Cpf { get; set; }
+
+        public string Curso { get; set; }
+    }
+
+    private void FormatarCPF(ChangeEventArgs e)
+    {
+        string input = e.Value?.ToString() ?? string.Empty;
+
+        string cpf = Regex.Replace(input, @"\D", "");
+
+        // Limita a 11 caracteres
+        if (cpf.Length > 11)
+        {
+            cpf = cpf.Substring(0, 11);
+        }
+
+        // Aplica a formatação
+        if (cpf.Length > 9)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{3})(\d{2})", "$1.$2.$3-$4");
+        }
+        else if (cpf.Length > 5)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d{3})(\d{2})", "$1.$2-$3");
+        }
+        else if (cpf.Length > 2)
+        {
+            cpf = Regex.Replace(cpf, @"(\d{3})(\d+)", "$1.$2");
+        }
+
+        infosUser.Cpf = cpf;
+    }
+
+    private Conta contaUser = new Conta();
+    private InfosUser infosUser = new InfosUser();
+
+    private async Task Submit()
+    {
+        
+    }
+
+    private string abaAtiva = "dadosPessoais"; // Estado inicial
+    private string dadosPessoais = "dadosPessoais";
+    private string conta = "conta";
+
+    private void AlternarAba(string aba)
+    {
+        abaAtiva = aba; // Atualiza o estado ativo
+    }
+}
