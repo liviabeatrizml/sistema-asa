@@ -18,6 +18,7 @@ namespace Back_end.Controllers
             _discenteService = discenteService;
         }
 
+        // Rota para registrar um novo discente
         [HttpPost("registrar")]
         [Consumes("application/json")]
         public async Task<IActionResult> Registrar([FromBody] RegistrarDiscente registrarDiscente)
@@ -36,6 +37,7 @@ namespace Back_end.Controllers
             return Ok(new { Id = discente.IdDiscente, Email = discente.Email });
         }
 
+        // Rota para login de discente
         [HttpPost("login")]
         [Consumes("application/json")]
         public async Task<IActionResult> Login([FromBody] LoginDiscente loginDiscente)
@@ -54,6 +56,7 @@ namespace Back_end.Controllers
             return Ok(new { Token = token });
         }
 
+        // Rota para registrar um novo profissional
         [HttpPost("registrar-profissional")]
         public async Task<IActionResult> RegistrarProfissional([FromBody] RegistrarProfissional registrarProfissional)
         {
@@ -76,6 +79,7 @@ namespace Back_end.Controllers
             return Ok(new { Id = profissional.IdProfissional, Email = profissional.Email });
         }
 
+        // Rota para login de profissional
         [HttpPost("login-profissional")]
         public async Task<IActionResult> LoginProfissional([FromBody] LoginProfissional loginProfissional)
         {
@@ -92,6 +96,7 @@ namespace Back_end.Controllers
             return Ok(new { Token = token });
         }
 
+        // Rota para obter informações do usuário atual autenticado
         [HttpGet("me")]
         public IActionResult GetMe()
         {
@@ -104,6 +109,44 @@ namespace Back_end.Controllers
             }
 
             return Ok(new { UserId = userId });
+        }
+
+        // Rota para alteração de senha
+        [HttpPut("alterar-senha")]
+        public async Task<IActionResult> AlterarSenha([FromBody] AlterarSenhaDto alterarSenha)
+        {
+            if (alterarSenha == null)
+            {
+                return BadRequest("Dados inválidos.");
+            }
+
+            var resultado = await _discenteService.AlterarSenhaAsync(alterarSenha);
+
+            if (!resultado)
+            {
+                return BadRequest("Falha ao alterar a senha. Verifique suas credenciais.");
+            }
+
+            return Ok("Senha alterada com sucesso.");
+        }
+
+        // Rota para atualização de dados pessoais
+        [HttpPut("atualizar-perfil")]
+        public async Task<IActionResult> AtualizarPerfil([FromBody] AtualizarPerfilDto atualizarPerfil)
+        {
+            if (atualizarPerfil == null)
+            {
+                return BadRequest("Dados inválidos.");
+            }
+
+            var resultado = await _discenteService.AtualizarPerfilAsync(atualizarPerfil);
+
+            if (!resultado)
+            {
+                return BadRequest("Erro ao atualizar o perfil.");
+            }
+
+            return Ok("Perfil atualizado com sucesso.");
         }
     }
 }
