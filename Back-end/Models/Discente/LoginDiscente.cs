@@ -12,5 +12,6 @@ namespace Back_end.Models
         [Required]
         [StringLength(99, MinimumLength = 6)]
         public string Senha { get; set; }
+        
     }
 }
