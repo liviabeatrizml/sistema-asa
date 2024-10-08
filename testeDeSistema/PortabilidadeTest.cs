@@ -29,6 +29,7 @@ public class PostabilidadeTest{
     [Test]
     public void entrarGoogle(){
         driver = new ChromeDriver();
+        driver.Manage().Window.Maximize();
 
         driver.Navigate().GoToUrl("http://localhost:5156/");
 
