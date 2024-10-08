@@ -3,6 +3,7 @@
 :root{
     --black-color: #1E1E1E;
     --blue-ufersa: #243E64;
+    --light-blue: #ABC8E2;
     --green-ufersa: #99CC33;
     --white: #FAF9F6;
     --border-color: #000000;
@@ -11,7 +12,7 @@
 
 html, body {
     font-family: 'Inter', sans-serif;
-    font-size: 20px;
+    font-size: 27px;
     color: var(--black-color);
     text-align: justify;
 }
@@ -22,18 +23,18 @@ html, body {
 }
 
 @media (min-width: 320px) and (max-width: 1023px) {
-    html, body{
+    html, body {
         font-size: 12px;
     }
 }
 
 @media (max-width: 767px) {
-    header{
+    header {
         text-align: center;
         padding: 0px !important; 
     }
 
-    footer > div{
+    footer > div {
         padding-left: 0.5rem !important;
         padding-right: 0.5rem !important;
         font-size: 0.6rem !important;
@@ -41,16 +42,23 @@ html, body {
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
-    html, body{
+    html, body {
         font-size: 15px;
     }
 }
 
-@media (min-width: 1440px) and (max-width: 1919px) {
-    html, body{
+@media (min-width: 1440px) and (max-width: 1599px) { 
+    html, body {
         font-size: 16px;
     }
 }
+
+@media (min-width: 1600px) and (max-width: 1919px) {
+    html, body {
+        font-size: 19px;
+    }
+}
+
 
 h1:focus {
     outline: none;
@@ -308,4 +316,59 @@ code {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.no-select {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+}
+
+.horizontal-bar {
+    width: 100%;
+    height: 2px;
+    background-color: var(--black-gray);
+    border-radius: 10px;
+    margin: 20px 0px;
+}
+
+#curso {
+    appearance: none; /* Remove a seta nativa */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('..\\css\\images\\seta-select.svg') no-repeat right 1rem center;
+}
+
+.edit-fields{
+    border-bottom: 1px solid var(--black-gray); 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 40px 0px 10px;
+}
+
+.upload-button{
+    display: flex;
+    flex-wrap: wrap;
+    height: 10.25rem;
+    width: 32rem;
+    border: 2px solid var(--blue-ufersa);
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-with-icon {
+    position: relative;
+    width: fit-content;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 }

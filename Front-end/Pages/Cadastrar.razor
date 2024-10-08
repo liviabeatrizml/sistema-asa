@@ -98,7 +98,7 @@
     public class User
     {
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
-        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@.*ufersa\.edu\.br$", ErrorMessage = "O Email deve ser do domínio @ufersa.edu.br.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@alunos\.ufersa\.edu\.br$", ErrorMessage = "O Email deve ser do domínio @alunos.ufersa.edu.br")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo Senha é obrigatório.")]
@@ -198,7 +198,7 @@
         if (result.IsSuccessStatusCode)
             {
                 FirstAcceptAndRegister = true;
-                Navigation.NavigateTo("/inicio");
+                Navigation.NavigateTo("/entrar");
             }
             else
             {

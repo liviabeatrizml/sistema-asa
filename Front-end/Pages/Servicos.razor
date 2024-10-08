@@ -1,0 +1,102 @@
+@page "/servicos"
+@attribute [Authorize]
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>Serviços</PageTitle>
+
+<div class="page" style="background-color: var(--blue-ufersa); height: auto;">
+    <NavMenu />
+
+    <div style="padding-top: 29px; border-radius: 15px 0px 0px 15px; width: 100%; background-color: white;">
+        <Header />
+        
+        <main class="page" style="padding-left: 4rem; padding-right: 3rem; padding-top: 20px; display: flex; flex-wrap: wrap;">
+
+            <div style="display: flex; align-items: start; width: 90%;">
+                <img style="padding-right: 35px;" src="..\css\images\p-servico.svg">
+
+                <div style="padding-top: 10px;">
+                    <h1 class="weight-700" style="font-size: 3rem; color: var(--blue-ufersa);">Lívia Beatriz M. Lima</h1>
+                    <h2 class="weight-500" style="font-size: 1.375rem; padding-bottom: 20px; color: var(--black-gray);">Psicóloga - CRP 17/0000</h2>
+                    
+                    <div style="height: 26rem; overflow: auto; scrollbar-width: none;">
+                        @for(int i = 1; i < 4; i++){
+                            <p class="paragraph-size weight-500" style="color: var(--black-gray); text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</p>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="parent-container" style="width: 90%; justify-content: center; padding-top: 10px;" @ref="parentDivRef">
+                <div style="display: flex; align-items: center; padding-bottom: 15px;">
+                    <h1 class="weight-700" style="padding: 0px 20px; font-size: 1.5rem;">Serviços</h1>
+                    <div class="horizontal-bar" style="background-color: var(--blue-ufersa);"></div>
+                </div>
+
+                <div id="scroll-container" style="@($"width: {scrollContainerWidth}px; overflow-x: auto; display: flex; scrollbar-width: none; user-select: none; margin: 0 auto;")">
+                    @for(int i = 1; i < 5; i++){
+                        <div class="service" style="@(i != 1 ? "margin-left: 30px;" : "margin-left: 0px;")">
+                            <img class="@(i == 1 ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i).svg">
+                            <div class="service-people no-select">
+                                <div style="padding-left: 10px;">
+                                    <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px;">Lívia Beatriz</h3>
+                                    <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">Psicóloga</p>
+                                </div>
+                                <img src="..\css\images\servico-ex.svg">
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</div>
+
+@code {
+    // Variável para armazenar a largura do scroll-container
+    private double scrollContainerWidth;
+
+    // Referência ao elemento pai (parent-container)
+    private ElementReference parentDivRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Habilita a rolagem com o drag
+            await JS.InvokeVoidAsync("enableDragScroll", "scroll-container");
+
+            // Inicia o ResizeObserver e passa a referência ao método Blazor para ser invocado
+            await JS.InvokeVoidAsync("resizeHelper.init", DotNetObjectReference.Create(this), "parent-container");
+
+            // Obtém a largura inicial
+            scrollContainerWidth = await JS.InvokeAsync<double>("domHelper.getElementWidth", parentDivRef);
+            StateHasChanged(); // Atualiza a interface com o novo valor
+        }
+    }
+
+    [JSInvokable]
+    public async Task UpdateScrollContainerWidth()
+    {
+        // Atualiza a largura do scroll-container com a largura atual do elemento pai
+        var newWidth = await JS.InvokeAsync<double>("domHelper.getElementWidth", parentDivRef);
+        
+        // Verifica se a nova largura é válida antes de atualizar
+        if (newWidth > 0 && newWidth != scrollContainerWidth)
+        {
+            scrollContainerWidth = newWidth;
+            Console.WriteLine($"Nova largura detectada: {scrollContainerWidth}px");
+            StateHasChanged(); // Atualiza a interface com o novo valor
+        }
+    }
+
+    public void Dispose()
+    {
+        // Desconecta o ResizeObserver quando o componente for destruído
+        JS.InvokeVoidAsync("resizeHelper.disconnect");
+    }
+}

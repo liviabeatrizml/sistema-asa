@@ -1,73 +1,93 @@
 @inject NavigationManager Navigation
 
-<header class="pt-3" style="padding-left: 6.188rem; padding-right: 6.188rem;">
-    
-    <a href="/"><img src="..\css\images\logo.svg" alt="Logo"></a>
+<header class="pt-3 @HeaderClass">
+    <a href="/"><img class="@LogoClass" src="..\css\images\logo.svg" alt="Logo"></a>
 
     @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "")
     {
-        <div class="menu-home">
-            <a href="/" @onmouseover="agendaColor" @onmouseout="agendaColor"><img src="@(agendaHover ? "..\\css\\images\\agenda.svg" : "..\\css\\images\\agenda-hover.svg")" alt="Agenda"></a>
-            <a href="/" @onmouseover="servicoColor" @onmouseout="servicoColor"><img src="@(servicoHover ? "..\\css\\images\\servico.svg" : "..\\css\\images\\servico-hover.svg")"  alt="Serviço"></a>
-            <a href="/" @onmouseover="avisosColor" @onmouseout="avisosColor"><img src="@(avisosHover ? "..\\css\\images\\avisos.svg" : "..\\css\\images\\avisos-hover.svg")"  alt="Avisos"></a>
+        <div class="menu-inicio">
+            <a href="/inicio" @onmouseover="inicioColor" @onmouseout="inicioColor"><img src="@(inicioHover ? "..\\css\\images\\inicio.svg" : "..\\css\\images\\inicio-hover.svg")" alt="Inicio"></a>
+            <a href="/agenda" @onmouseover="agendaColor" @onmouseout="agendaColor"><img src="@(agendaHover ? "..\\css\\images\\agenda.svg" : "..\\css\\images\\agenda-hover.svg")" alt="Agenda"></a>
+            <a href="/servicos" @onmouseover="servicoColor" @onmouseout="servicoColor"><img src="@(servicoHover ? "..\\css\\images\\servico.svg" : "..\\css\\images\\servico-hover.svg")" alt="Serviço"></a>
 
             <div class="menu-divider"></div>
 
-            <a href="/" @onmouseover="relatarColor" @onmouseout="relatarColor"><img src="@(relatarHover ? "..\\css\\images\\relatar.svg" : "..\\css\\images\\relatar-hover.svg")"  alt="Relatar"></a>
+            <a href="/" @onmouseover="relatarColor" @onmouseout="relatarColor"><img src="@(relatarHover ? "..\\css\\images\\relatar.svg" : "..\\css\\images\\relatar-hover.svg")" alt="Relatar"></a>
         </div>
     }
-    
 </header>
 
 <style>
-
-    header{
+    header {
         width: 100%;
         display: flex;
-        align-items: first baseline;
+        align-items: baseline;
         justify-content: space-between;
     }
 
-    .menu-home{
+    .menu-inicio {
         display: flex;
         text-align: right;
     }
 
-    .menu-home a{
+    .menu-inicio a {
         padding-left: 17px;
         padding-right: 17px;
     }
 
     .menu-divider {
-    border-left: 2px solid #C3C3C3;
-    margin: 0 20px;
+        border-left: 2px solid #C3C3C3;
+        margin: 0 20px;
     }
 
+    .header-padding-default {
+        padding-left: 6.188rem;
+        padding-right: 6.188rem;
+    }
+
+    .header-padding-alternate {
+        padding-left: 4rem; 
+        padding-right: 3rem;
+    }
+
+    .logo-default{
+        width: 5.75rem;
+        height: 5.75rem;
+    }
+
+    .logo-smaller{
+        width: 4.75rem;
+        height: 4.75rem;
+    }
 </style>
 
-@code{
+@code {
     private bool agendaHover = true;
-
-    private void agendaColor()
-    {
-        agendaHover = !agendaHover;
-    }
     private bool servicoHover = true;
-
-    private void servicoColor()
-    {
-        servicoHover = !servicoHover;
-    }
-    private bool avisosHover = true;
-
-    private void avisosColor()
-    {
-        avisosHover = !avisosHover;
-    }
+    private bool inicioHover = true;
     private bool relatarHover = true;
 
-    private void relatarColor()
+    private string HeaderClass { get; set; } = "header-padding-default";
+    private string LogoClass { get; set; } = "logo-default";
+
+    private void agendaColor() => agendaHover = !agendaHover;
+    private void servicoColor() => servicoHover = !servicoHover;
+    private void inicioColor() => inicioHover = !inicioHover;
+    private void relatarColor() => relatarHover = !relatarHover;
+
+    protected override void OnInitialized()
     {
-        relatarHover = !relatarHover;
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+
+        if (relativePath == "" || relativePath == "/home" || relativePath == "/cadastrar" || relativePath == "/entrar" || relativePath == "/recuperar-senha")
+        {
+            HeaderClass = "header-padding-default";
+            LogoClass = "logo-default";
+        }
+        else
+        {
+            HeaderClass = "header-padding-alternate";
+            LogoClass = "logo-smaller";
+        }
     }
 }
