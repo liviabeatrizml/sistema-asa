@@ -47,13 +47,12 @@ namespace Back_end.Controllers
                 return BadRequest("Dados inválidos.");
             }
 
-            // Tenta logar o usuário e gerar o token
-            var token = await _discenteService.LoginDiscenteAsync(loginDiscente);
+            var response = await _discenteService.LoginDiscenteAsync(loginDiscente);
 
-            if (token == null)
+            if (response == null)
                 return Unauthorized("Login inválido");
 
-            return Ok(new { Token = token });
+            return Ok(response);
         }
 
         // Rota para registrar um novo profissional
@@ -88,12 +87,12 @@ namespace Back_end.Controllers
                 return BadRequest("Dados inválidos.");
             }
 
-            var token = await _discenteService.LoginProfissionalAsync(loginProfissional);
+            var response = await _discenteService.LoginProfissionalAsync(loginProfissional);
 
-            if (token == null)
+            if (response == null)
                 return Unauthorized("Login inválido");
 
-            return Ok(new { Token = token });
+            return Ok(response);
         }
 
         // Rota para obter informações do usuário atual autenticado
@@ -148,5 +147,22 @@ namespace Back_end.Controllers
 
             return Ok("Perfil atualizado com sucesso.");
         }
+
+        [HttpGet("obter-discente/{id}")]
+        public async Task<IActionResult> ObterDiscentePorId(int id)
+        {
+            // Procurar o discente pelo ID
+            var discente = await _discenteService.ObterDiscentePorIdAsync(id);
+
+            if (discente == null)
+            {
+                return NotFound("Discente não encontrado.");
+            }
+
+            // Retornar os dados do discente
+            return Ok(discente);
+        }
+
     }
+
 }

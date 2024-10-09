@@ -21,11 +21,7 @@ namespace Back_end.Models
         public int Matricula { get; set; }
 
         [Required]
-        public int Telefone { get; set; }
-
-        [Required]
-        [StringLength(14)]
-        public string Cpf { get; set; }
+        public string Telefone { get; set; }
 
         [StringLength(100)]
         public string Curso { get; set; }

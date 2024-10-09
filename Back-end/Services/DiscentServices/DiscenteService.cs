@@ -38,7 +38,6 @@ namespace Back_end.Services
                 Salt = salt, // Armazenar o salt no banco
                 Matricula = registro.Matricula,
                 Telefone = registro.Telefone,
-                Cpf = registro.Cpf,
                 Curso = registro.Curso
             };
 
@@ -49,28 +48,29 @@ namespace Back_end.Services
         }
 
         // Método para login de discente
-        public async Task<string> LoginDiscenteAsync(LoginDiscente login)
+        public async Task<LoginResponseDto> LoginDiscenteAsync(LoginDiscente login)
         {
-            // Verificação de nulidade
             if (login == null) throw new ArgumentNullException(nameof(login));
 
-            // Buscar o discente no banco de dados
             var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == login.Email);
 
-            // Garantir que o discente não seja nulo e que os campos de senha e salt estejam preenchidos
             if (discente == null || string.IsNullOrEmpty(discente.Senha) || string.IsNullOrEmpty(discente.Salt))
             {
-                return null; // Retorna null se os dados estiverem ausentes ou inválidos
+                return null;
             }
 
-            // Verificar a senha
             if (!VerificarSenha(login.Senha, discente.Senha, discente.Salt))
             {
-                return null; // Retorna null se a verificação de senha falhar
+                return null;
             }
 
-            // Gerar o token JWT
-            return GerarTokenJwt(discente.IdDiscente.ToString(), discente.Email ?? string.Empty);
+            var token = GerarTokenJwt(discente.IdDiscente.ToString(), discente.Email ?? string.Empty);
+
+            return new LoginResponseDto
+            {
+                UserId = discente.IdDiscente.ToString(),
+                Token = token
+            };
         }
 
         // Método para criptografar a senha com salt
@@ -149,32 +149,30 @@ namespace Back_end.Services
             return profissional;
         }
 
-        public async Task<string> LoginProfissionalAsync(LoginProfissional login)
+        public async Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional login)
         {
-            // Verificação de nulidade
             if (login == null) throw new ArgumentNullException(nameof(login));
 
-            var profissional = await _context.Profissionais
-                .SingleOrDefaultAsync(p => p.Email == login.Email);
+            var profissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == login.Email);
 
-            // Garantir que os campos não sejam nulos antes de usá-los
             if (profissional == null || string.IsNullOrEmpty(profissional.Senha) || string.IsNullOrEmpty(profissional.Salt))
             {
-                return null; // Retorna null se o login falhar devido a valores inválidos
+                return null;
             }
 
             if (!VerificarSenha(login.Senha, profissional.Senha, profissional.Salt))
             {
-                return null; // Retorna null se a verificação de senha falhar
+                return null;
             }
 
-            // Gerar o token JWT
-            string idProfissional = profissional.IdProfissional.ToString();
-            string email = profissional.Email ?? string.Empty;  // Garantir que o email não seja nulo
+            var token = GerarTokenJwt(profissional.IdProfissional.ToString(), profissional.Email ?? string.Empty);
 
-            return GerarTokenJwt(idProfissional, email);
+            return new LoginResponseDto
+            {
+                UserId = profissional.IdProfissional.ToString(),
+                Token = token
+            };
         }
-
         public async Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil)
         {
             // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
@@ -208,7 +206,6 @@ namespace Back_end.Services
 
             return false; // Nenhum usuário encontrado
         }
-
         public async Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha)
         {
             // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
@@ -238,5 +235,29 @@ namespace Back_end.Services
 
             return false; // Nenhum usuário encontrado ou senha incorreta
         }
+
+            public async Task<DiscenteDto> ObterDiscentePorIdAsync(int id)
+        {
+            // Buscar o discente pelo ID
+            var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.IdDiscente == id);
+
+            // Caso o discente não seja encontrado, retornar null
+            if (discente == null)
+            {
+                return null;
+            }
+
+            // Retornar os dados do discente no formato DiscenteDto
+            return new DiscenteDto
+            {
+                Nome = discente.Nome,
+                Email = discente.Email,
+                Senha = discente.Senha,
+                Matricula = discente.Matricula,
+                Telefone = discente.Telefone,
+                Curso = discente.Curso
+            };
+        }
     }
+    
 }
