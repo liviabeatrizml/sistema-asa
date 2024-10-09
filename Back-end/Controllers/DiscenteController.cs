@@ -94,7 +94,7 @@ namespace Back_end.Controllers
 
             return Ok(response);
         }
-        
+
         // Rota para obter informações do usuário atual autenticado
         [HttpGet("me")]
         public IActionResult GetMe()
@@ -147,5 +147,22 @@ namespace Back_end.Controllers
 
             return Ok("Perfil atualizado com sucesso.");
         }
+
+        [HttpGet("obter-discente/{id}")]
+        public async Task<IActionResult> ObterDiscentePorId(int id)
+        {
+            // Procurar o discente pelo ID
+            var discente = await _discenteService.ObterDiscentePorIdAsync(id);
+
+            if (discente == null)
+            {
+                return NotFound("Discente não encontrado.");
+            }
+
+            // Retornar os dados do discente
+            return Ok(discente);
+        }
+
     }
+
 }

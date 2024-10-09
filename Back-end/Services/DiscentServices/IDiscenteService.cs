@@ -10,5 +10,7 @@ public interface IDiscenteService
     Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional loginProfissional);
     Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil);
     Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha);
+    Task<DiscenteDto> ObterDiscentePorIdAsync(int id);
+
 
 }
