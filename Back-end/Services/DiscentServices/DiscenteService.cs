@@ -235,5 +235,29 @@ namespace Back_end.Services
 
             return false; // Nenhum usuário encontrado ou senha incorreta
         }
+
+            public async Task<DiscenteDto> ObterDiscentePorIdAsync(int id)
+        {
+            // Buscar o discente pelo ID
+            var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.IdDiscente == id);
+
+            // Caso o discente não seja encontrado, retornar null
+            if (discente == null)
+            {
+                return null;
+            }
+
+            // Retornar os dados do discente no formato DiscenteDto
+            return new DiscenteDto
+            {
+                Nome = discente.Nome,
+                Email = discente.Email,
+                Senha = discente.Senha,
+                Matricula = discente.Matricula,
+                Telefone = discente.Telefone,
+                Curso = discente.Curso
+            };
+        }
     }
+    
 }
