@@ -38,7 +38,6 @@ namespace Back_end.Services
                 Salt = salt, // Armazenar o salt no banco
                 Matricula = registro.Matricula,
                 Telefone = registro.Telefone,
-                Cpf = registro.Cpf,
                 Curso = registro.Curso
             };
 
