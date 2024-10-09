@@ -159,7 +159,7 @@
             Email = user.Email,
             Senha = user.Password,
             Matricula = int.TryParse(infosUser.Matricula, out var matricula) ? matricula : 0,
-            Telefone = 6657765,
+            Telefone = infosUser.Telefone,
             Curso = "Curso"
         };
 

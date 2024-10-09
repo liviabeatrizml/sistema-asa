@@ -40,10 +40,7 @@ public class DiscenteRegistroModel
     [Required(ErrorMessage = "O campo Matrícula é obrigatório.")]
     public int Matricula { get; set; }
 
-    public int? Telefone { get; set; }
-
-    [Required(ErrorMessage = "O campo CPF é obrigatório.")]
-    public string Cpf { get; set; }
+    public string? Telefone { get; set; }
 
     public string? Curso { get; set; }
 }
