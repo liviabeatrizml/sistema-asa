@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_end.Models
 {
+    /// <summary>
+    /// Representação da tabela ServicoDisponivel no banco de dados em model
+    /// </summary>
     public class ServicoDisponivel
     {
         [Key]

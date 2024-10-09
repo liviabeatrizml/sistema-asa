@@ -4,8 +4,17 @@ using System.Text;
 
 namespace Back_end.Helpers
 {
+    /// <summary>
+    /// Faz a configuração
+    /// </summary>
     public static class JwtHelper
     {
+        /// <summary>
+        /// Metodo para configurar jwt
+        /// </summary>
+        /// <param name="services">Coleções de serviços</param>
+        /// <param name="configuration">Coleções de serviços</param>
+        /// <exception cref="ArgumentNullException">Lançando exeção da configuração do jwt</exception>
         public static void AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             // Verifica se a chave JWT está configurada
@@ -15,6 +24,7 @@ namespace Back_end.Helpers
                 throw new ArgumentNullException("Jwt:Key", "A chave JWT não pode ser nula ou vazia.");
             }
 
+            //Lançando as autentificação de acordo com a coleção de serviços do jwt
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

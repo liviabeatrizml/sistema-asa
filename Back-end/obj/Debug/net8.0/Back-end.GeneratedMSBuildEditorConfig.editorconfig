@@ -9,12 +9,17 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Back_end
 build_property.RootNamespace = Back_end
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\renan\OneDrive\Documentos\Programação\sistema-de-agendamento-de-servicos-academicos\Back-end\
+=======
+build_property.ProjectDir = /home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/
+>>>>>>> origin/back-end
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+<<<<<<< HEAD
 build_property.MSBuildProjectDirectory = C:\Users\renan\OneDrive\Documentos\Programação\sistema-de-agendamento-de-servicos-academicos\Back-end
 build_property._RazorSourceGeneratorDebug = 
 
@@ -45,3 +50,35 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/renan/OneDrive/Documentos/Programação/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ux56vyhjt5
+=======
+build_property.MSBuildProjectDirectory = /home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-19jn7m6imi
+>>>>>>> origin/back-end

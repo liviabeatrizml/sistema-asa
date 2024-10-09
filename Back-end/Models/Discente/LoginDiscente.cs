@@ -2,6 +2,9 @@
 
 namespace Back_end.Models
 {
+    /// <summary>
+    /// Model que complementa informações necessarias para a construção da API de Login
+    /// </summary>
     public class LoginDiscente
     {
         [Required]

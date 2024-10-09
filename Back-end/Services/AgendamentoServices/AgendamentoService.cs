@@ -5,15 +5,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Back_end.Services
 {
+    /// <summary>
+    /// Responsavel por gerenciar as operações relacionadas a agendamento de serviço no sistema
+    /// </summary>
     public class AgendamentoService : IAgendamentoService
     {
+        /// <summary>
+        /// Atributo privado que representa o contexto do banco de dados
+        /// </summary>
+        /// <param name="context">Construtor que recebe o banco de dados</param>
         private readonly ApiDbContext _context;
 
         public AgendamentoService(ApiDbContext context)
         {
             _context = context;
         }
-
+        
+        /// <summary>
+        /// Permite que o discente solicita um novo agendamento com base no horario disponivel 
+        /// para o profissional e serviço especificado
+        /// </summary>
+        /// <param name="dto">Representar conexão com banco de dados</param>
+        /// <returns>Um novo agentademento ou um erro</returns>
         // Solicitar agendamento
         public async Task<Agendamento> SolicitarAgendamentoAsync(SolicitarAgendamentoDto dto)
         {
@@ -43,6 +56,11 @@ namespace Back_end.Services
             return novoAgendamento;
         }
 
+        /// <summary>
+        /// Cancela o agendamento
+        /// </summary>
+        /// <param name="agendamentoId">Busca o id agendamento para cancela-lo</param>
+        /// <returns>Cancela o agendamente de acordo com o id, se ele não existir retorna falso</returns>
         // Cancelar agendamento
         public async Task<bool> CancelarAgendamentoAsync(int agendamentoId)
         {
@@ -57,6 +75,11 @@ namespace Back_end.Services
             return true;
         }
 
+        /// <summary>
+        /// Lista os agendamentos disponiveis
+        /// </summary>
+        /// <param name="discenteId">Id que o discente ira mandar para receber a lista</param>
+        /// <returns>Retorna os agendamentos disponiveis de acordo com id dos discentes</returns>
         // Listar agendamentos por discente
         public async Task<List<Agendamento>> ListarAgendamentosPorDiscenteAsync(int discenteId)
         {
@@ -65,6 +88,11 @@ namespace Back_end.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Lista os horarios disponiveis
+        /// </summary>
+        /// <param name="profissionalId">Id dos profissionais para saber quais estão disponiveis</param>
+        /// <returns>Retorna os horarios disponiveis de um profissional especifico de acordo com seu id</returns>
         // Listar horários disponíveis de um profissional
         public async Task<List<HorarioDisponivel>> ListarHorariosDisponiveisAsync(int profissionalId)
         {

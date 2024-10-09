@@ -2,6 +2,9 @@ using System;
 
 namespace Back_end.Dtos
 {
+    /// <summary>
+    /// Model que complementa informações necessarias para a construção das APIs de Agendamento
+    /// </summary>
     public class SolicitarAgendamentoDto
     {
         public int DiscenteId { get; set; }

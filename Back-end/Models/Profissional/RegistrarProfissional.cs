@@ -1,5 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Model que complementa informações relacionadas ao profissional 
+/// para a construção da API de Registro
+/// </summary>
 public class RegistrarProfissional
 {
     public string Nome { get; set; }
