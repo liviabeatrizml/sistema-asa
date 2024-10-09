@@ -3,9 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_end.Models
 {
-    /// <summary>
-    /// Representação da tabela HorarioDisponivel no banco de dados em model
-    /// </summary>
     public class HorarioDisponivel
     {
         [Key]

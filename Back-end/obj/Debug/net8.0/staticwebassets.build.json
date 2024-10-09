@@ -1,10 +1,6 @@
 {
   "Version": 1,
-<<<<<<< HEAD
   "Hash": "TpPb8kq9vXWKzaW9hAEQN+dkaxahBe51jrgAGJa9X9U=",
-=======
-  "Hash": "994nca0GmR9JQ4PDInvxyex9pnjZUb4hU1PnOT5GvZI=",
->>>>>>> origin/back-end
   "Source": "Back-end",
   "BasePath": "_content/Back-end",
   "Mode": "Default",
@@ -13,17 +9,10 @@
   "DiscoveryPatterns": [],
   "Assets": [
     {
-<<<<<<< HEAD
       "Identity": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Back-end.styles.css",
       "SourceId": "Back-end",
       "SourceType": "Computed",
       "ContentRoot": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
-=======
-      "Identity": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/bundle/Back-end.styles.css",
-      "SourceId": "Back-end",
-      "SourceType": "Computed",
-      "ContentRoot": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/bundle/",
->>>>>>> origin/back-end
       "BasePath": "_content/Back-end",
       "RelativePath": "Back-end.styles.css",
       "AssetKind": "All",
@@ -36,7 +25,6 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-<<<<<<< HEAD
       "OriginalItemSpec": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Back-end.styles.css"
     },
     {
@@ -44,15 +32,6 @@
       "SourceId": "Back-end",
       "SourceType": "Computed",
       "ContentRoot": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
-=======
-      "OriginalItemSpec": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/bundle/Back-end.styles.css"
-    },
-    {
-      "Identity": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/projectbundle/Back-end.bundle.scp.css",
-      "SourceId": "Back-end",
-      "SourceType": "Computed",
-      "ContentRoot": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/projectbundle/",
->>>>>>> origin/back-end
       "BasePath": "_content/Back-end",
       "RelativePath": "Back-end.bundle.scp.css",
       "AssetKind": "All",
@@ -65,11 +44,7 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-<<<<<<< HEAD
       "OriginalItemSpec": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Back-end.bundle.scp.css"
-=======
-      "OriginalItemSpec": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/projectbundle/Back-end.bundle.scp.css"
->>>>>>> origin/back-end
     }
   ]
 }

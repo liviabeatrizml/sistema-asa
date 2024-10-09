@@ -1,6 +1,5 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "uwaoN/9O7N0=",
   "success": true,
   "projectFilePath": "C:\\Users\\renan\\OneDrive\\Documentos\\Programação\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj",
@@ -41,42 +40,6 @@
     "C:\\Users\\renan\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\renan\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\renan\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.8\\microsoft.netcore.app.runtime.mono.browser-wasm.8.0.8.nupkg.sha512"
-=======
-  "dgSpecHash": "4OOVO0e4TLOToMjZfpSa6hWm+C4se91xqPgS2TIlbwlD/kES1rcIk+N1PewrKNllXomdzUuYhytbZ/dvPnN+Vw==",
-  "success": true,
-  "projectFilePath": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Front-end.csproj",
-  "expectedPackageFiles": [
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.authorization/8.0.8/microsoft.aspnetcore.authorization.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.components/8.0.8/microsoft.aspnetcore.components.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.components.analyzers/8.0.8/microsoft.aspnetcore.components.analyzers.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.components.forms/8.0.8/microsoft.aspnetcore.components.forms.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.components.web/8.0.8/microsoft.aspnetcore.components.web.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.components.webassembly/8.0.8/microsoft.aspnetcore.components.webassembly.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.components.webassembly.devserver/8.0.8/microsoft.aspnetcore.components.webassembly.devserver.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.aspnetcore.metadata/8.0.8/microsoft.aspnetcore.metadata.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.configuration/8.0.0/microsoft.extensions.configuration.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.configuration.abstractions/8.0.0/microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.configuration.binder/8.0.2/microsoft.extensions.configuration.binder.8.0.2.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.configuration.fileextensions/8.0.0/microsoft.extensions.configuration.fileextensions.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.configuration.json/8.0.0/microsoft.extensions.configuration.json.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.0/microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.1/microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.fileproviders.abstractions/8.0.0/microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.fileproviders.physical/8.0.0/microsoft.extensions.fileproviders.physical.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.filesystemglobbing/8.0.0/microsoft.extensions.filesystemglobbing.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.logging/8.0.0/microsoft.extensions.logging.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.1/microsoft.extensions.logging.abstractions.8.0.1.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.jsinterop/8.0.8/microsoft.jsinterop.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.jsinterop.webassembly/8.0.8/microsoft.jsinterop.webassembly.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.net.illink.tasks/8.0.8/microsoft.net.illink.tasks.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.net.sdk.webassembly.pack/8.0.8/microsoft.net.sdk.webassembly.pack.8.0.8.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/system.text.json/8.0.0/system.text.json.8.0.0.nupkg.sha512",
-    "/home/caueoliveira/.nuget/packages/microsoft.netcore.app.runtime.mono.browser-wasm/8.0.8/microsoft.netcore.app.runtime.mono.browser-wasm.8.0.8.nupkg.sha512"
->>>>>>> origin/back-end
   ],
   "logs": []
 }

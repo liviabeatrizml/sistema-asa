@@ -3,9 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_end.Models
 {
-    /// <summary>
-    /// Representação da tabela Profissional no banco de dados em model
-    /// </summary>
     [Table("profissional")] // Define o nome da tabela no banco de dados
     public class Profissional
     {

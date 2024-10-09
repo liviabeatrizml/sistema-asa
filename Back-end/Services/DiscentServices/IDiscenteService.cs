@@ -1,10 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Back_end.Models;
 
-/// <summary>
-/// Interface que define os contratos que devem ser implementados pela
-/// classe DiscenteService
-/// </summary>
 public interface IDiscenteService
 {
     Task<Discente> RegistrarDiscenteAsync(RegistrarDiscente registrarDiscente);

@@ -1,10 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Back_end.Models
-{   
-    /// <summary>
-    /// Model que complementa informações necessarias para a construção da API de Registro
-    /// </summary>
+{
     public class RegistrarDiscente
     {
         [Required]
