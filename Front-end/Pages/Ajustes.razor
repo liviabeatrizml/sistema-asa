@@ -135,7 +135,10 @@
                     <DataAnnotationsValidator />
                         <div class="edit-fields">
                             <span class="paragraph-size px-2 weight-500" style="width: 12rem">Matrícula <span style="color: #BA3838">*</span></span>
-                            <div class="mb-3">
+                            <div class="mb-3 input-with-icon">
+                                <span class="input-icon">
+                                    <img style="height: 1.5rem; width: 1.5rem;" src="..\\css\\images\\u.svg" />
+                                </span>
                                 <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Matricula" maxlength="10"/>
                             </div>
                                 <ValidationMessage For="@(() => contaUser.Matricula)" />
