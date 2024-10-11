@@ -29,6 +29,27 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         return state;
     }
 
+    public async Task<int> GetUserIdFromLocalStorage()
+    {
+        // Obter o valor armazenado no localStorage
+        var authDataJson = await localStorage.GetItemAsync<string>("authToken");
+
+        if (!string.IsNullOrEmpty(authDataJson))
+        {
+            // Desserializar o JSON para um objeto
+            var authData = JsonSerializer.Deserialize<Dictionary<string, object>>(authDataJson);
+            
+            // Acessar o userId a partir do objeto
+            if (authData.ContainsKey("userId"))
+            {
+                var userId = int.Parse(authData["userId"].ToString());
+                return userId;
+            }
+        }
+        
+        return -1; // Retorna -1 se o userId não for encontrado
+    }
+
     public void NotifyUserAuthentication(string token)
     {
         var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(token), "jwt"));
