@@ -4,6 +4,8 @@
 @using System.ComponentModel.DataAnnotations
 @inject DiscenteService DiscenteService
 @using System.Text.RegularExpressions
+@inject DiscenteService DiscenteService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Ajustes</PageTitle>
 
@@ -186,6 +188,26 @@
 </div>
 
 @code{
+    private DiscenteRegistroModel discente;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtenha o ID do usuário do localStorage usando o CustomAuthStateProvider
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+
+        if (userId != -1)
+        {
+            // Chame o método GetDiscente e armazene o resultado
+            discente = await DiscenteService.GetDiscente(userId); 
+            contaUser.Email = discente.Email;
+            contaUser.Matricula = discente.Matricula.ToString();
+            infosUser.telefoneModel = DividirTelefone(discente.Telefone);
+            var (primeiroNome, sobrenome) = DividirNome(discente.Nome);
+            infosUser.Nome = primeiroNome;
+            infosUser.Sobrenome = sobrenome;
+        }
+    }
+
     public class Conta
     {
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
@@ -225,6 +247,58 @@
         public string Numero { get; set; }
     }
 
+    public TelefoneModel DividirTelefone(string telefoneCompleto)
+    {
+        // Remove espaços em branco e caracteres desnecessários
+        telefoneCompleto = telefoneCompleto.Trim();
+
+        // Exemplo de telefone esperado: "+55 (84) 12345-6789" ou "+55 (84) 1234-5678"
+        var telefoneModel = new TelefoneModel();
+
+        // Verifica se o telefone contém o DDI
+        if (telefoneCompleto.StartsWith("+"))
+        {
+            int primeiroEspaco = telefoneCompleto.IndexOf(' ');
+            if (primeiroEspaco > 0)
+            {
+                telefoneModel.DDI = telefoneCompleto.Substring(0, primeiroEspaco); // "+55"
+                telefoneCompleto = telefoneCompleto.Substring(primeiroEspaco + 1); // Resto do telefone
+            }
+        }
+
+        // Verifica se o telefone contém o DDD
+        int indiceDDDInicio = telefoneCompleto.IndexOf('(');
+        int indiceDDDFim = telefoneCompleto.IndexOf(')');
+        if (indiceDDDInicio >= 0 && indiceDDDFim > indiceDDDInicio)
+        {
+            telefoneModel.DDD = telefoneCompleto.Substring(indiceDDDInicio, indiceDDDFim - indiceDDDInicio + 1); // "(84)"
+            telefoneCompleto = telefoneCompleto.Substring(indiceDDDFim + 1).Trim(); // Resto do número
+        }
+
+        // O resto do telefone deve ser o número
+        telefoneModel.Numero = telefoneCompleto.Replace(" ", ""); // Remove espaços desnecessários
+
+        // Retorna o modelo preenchido
+        return telefoneModel;
+    }
+
+    public (string PrimeiroNome, string Sobrenome) DividirNome(string nomeCompleto)
+    {
+        // Remove espaços em branco desnecessários
+        nomeCompleto = nomeCompleto.Trim();
+
+        // Divide o nome em partes
+        var partes = nomeCompleto.Split(' ', 2); // Divide em no máximo 2 partes
+
+        // Se não houver sobrenome, retornamos apenas o primeiro nome
+        if (partes.Length < 2)
+        {
+            return (partes[0], string.Empty); // Sem sobrenome
+        }
+
+        // O primeiro nome é a primeira parte, e o sobrenome é o restante
+        return (partes[0], partes[1]);
+    }
     private Conta contaUser = new Conta();
     private InfosUser infosUser = new InfosUser();
 
