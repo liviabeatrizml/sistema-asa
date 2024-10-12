@@ -334,7 +334,7 @@ code {
     margin: 20px 0px;
 }
 
-#curso {
+.input-select-arrow {
     appearance: none; /* Remove a seta nativa */
     -webkit-appearance: none;
     -moz-appearance: none;
