@@ -35,7 +35,7 @@ namespace Back_end.Models
         public int Matricula { get; set; }
 
         [Required]
-        [StringLength(14)]
+        [StringLength(20)]
         [Column("telefone")] // Mapeia a coluna 'telefone'
         public string Telefone { get; set; }
 

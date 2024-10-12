@@ -128,10 +128,16 @@ namespace Back_end.Services
                    || await _context.Profissionais.AnyAsync(p => p.Email == email);
         }
 
-        public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
+       public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
         {
-            // Verificação de nulidade
             if (registro == null) throw new ArgumentNullException(nameof(registro));
+
+            // Verificar se o ServicoId é válido
+            var servicoExiste = await _context.ServicoDisponivel.AnyAsync(s => s.IdServico == registro.ServicoId);
+            if (!servicoExiste)
+            {
+                throw new ArgumentException("O serviço fornecido não é válido.");
+            }
 
             var (senhaCriptografada, salt) = CriptografarSenha(registro.Senha);
 
@@ -141,6 +147,7 @@ namespace Back_end.Services
                 Email = registro.Email,
                 Senha = senhaCriptografada,
                 Salt = salt,
+                ServicoId = registro.ServicoId // Associar o ServicoId ao profissional
             };
 
             _context.Profissionais.Add(profissional);
@@ -148,7 +155,6 @@ namespace Back_end.Services
 
             return profissional;
         }
-
         public async Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional login)
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
@@ -235,8 +241,7 @@ namespace Back_end.Services
 
             return false; // Nenhum usuário encontrado ou senha incorreta
         }
-
-            public async Task<DiscenteDto> ObterDiscentePorIdAsync(int id)
+        public async Task<DiscenteDto> ObterDiscentePorIdAsync(int id)
         {
             // Buscar o discente pelo ID
             var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.IdDiscente == id);
@@ -258,6 +263,30 @@ namespace Back_end.Services
                 Curso = discente.Curso
             };
         }
+
+        public async Task<ProfissionalDto> ObterProfissionalPorIdAsync(int id)
+        {
+            // Buscar o profissional pelo ID
+            var profissional = await _context.Profissionais
+                .Include(p => p.Servico)
+                .SingleOrDefaultAsync(p => p.IdProfissional == id);
+
+            // Caso o profissional não seja encontrado, retornar null
+            if (profissional == null)
+            {
+                return null;
+            }
+
+            // Retornar os dados do profissional no formato ProfissionalDto
+            return new ProfissionalDto
+            {
+                Nome = profissional.Nome,
+                Email = profissional.Email,
+                ServicoId = profissional.ServicoId,
+                ServicoNome = profissional.Servico?.Tipo // Nome do serviço se disponível
+            };
+        }
+
     }
     
 }
