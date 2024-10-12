@@ -135,19 +135,37 @@ namespace Back_end.Controllers
         [HttpPut("atualizar-perfil")]
         public async Task<IActionResult> AtualizarPerfil([FromBody] AtualizarPerfilDto atualizarPerfil)
         {
-            if (atualizarPerfil == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Dados inválidos.");
+                return BadRequest(ModelState);
             }
 
-            var resultado = await _discenteService.AtualizarPerfilAsync(atualizarPerfil);
+            var resultado = await _discenteService.AtualizarPerfilCompletoAsync(atualizarPerfil);
 
-            if (!resultado)
+            if (resultado)
             {
-                return BadRequest("Erro ao atualizar o perfil.");
+                return Ok("Perfil atualizado com sucesso.");
             }
 
-            return Ok("Perfil atualizado com sucesso.");
+            return NotFound("Discente não encontrado.");
+        }
+
+        [HttpPatch("atualizar-perfil-parcial")]
+        public async Task<IActionResult> AtualizarPerfilParcial([FromBody] AtualizarPerfilDto atualizarPerfil)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var resultado = await _discenteService.AtualizarPerfilParcialAsync(atualizarPerfil);
+
+            if (resultado)
+            {
+                return Ok("Perfil atualizado com sucesso.");
+            }
+
+            return NotFound("Discente não encontrado.");
         }
 
         [HttpGet("obter-discente/{id}")]
@@ -176,6 +194,14 @@ namespace Back_end.Controllers
             }
 
             return Ok(profissional);
+        }
+        
+        // Endpoint para listar todos os profissionais
+        [HttpGet("listar-profissionais")]
+        public async Task<ActionResult<IEnumerable<ProfissionalDto>>> ListarProfissionais()
+        {
+            var profissionais = await _profissionalService.ListarProfissionaisAsync();
+            return Ok(profissionais);
         }
         
     }

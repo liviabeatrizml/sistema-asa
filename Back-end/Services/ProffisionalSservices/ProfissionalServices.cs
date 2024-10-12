@@ -29,4 +29,19 @@ public class ProfissionalService : IProfissionalService
             ServicoNome = profissional.Servico?.Tipo
         };
     }
+    public async Task<IEnumerable<ProfissionalDto>> ListarProfissionaisAsync()
+    {
+        var profissionais = await _context.Profissionais
+            .Include(p => p.Servico) // Inclui a relação com o serviço
+            .Select(p => new ProfissionalDto
+            {
+                Nome = p.Nome,
+                Email = p.Email,
+                ServicoId = p.ServicoId,
+                ServicoNome = p.Servico.Tipo // Pegando o nome do serviço
+            })
+            .ToListAsync();
+
+        return profissionais;
+    }
 }
