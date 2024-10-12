@@ -118,7 +118,7 @@
         public string Matricula { get; set; }
 
         [RegularExpression(@"^\+\d{2} \(\d{2}\) \d{5}-\d{4}$", ErrorMessage = "O número de telefone deve estar no formato +xx (xx) xxxxx-xxxx.")]
-        public string Telefone { get; set; }
+        public string Telefone { get; set; } = "";
     }
 
     private User user = new User();
@@ -160,7 +160,7 @@
             Senha = user.Password,
             Matricula = int.TryParse(infosUser.Matricula, out var matricula) ? matricula : 0,
             Telefone = infosUser.Telefone,
-            Curso = "Curso"
+            Curso = ""
         };
 
         var result = await DiscenteService.RegistrarDiscente(modelDiscente);
