@@ -2,6 +2,8 @@
 bin/
 obj/
 Back-end/
+Path/
+TestResults/
 
 # Ignore arquivos gerados do Blazor
 *.wasm
