@@ -12,10 +12,12 @@ namespace Back_end.Controllers
     public class DiscenteController : ControllerBase
     {
         private readonly IDiscenteService _discenteService;
+        private readonly IProfissionalService _profissionalService;
 
-        public DiscenteController(IDiscenteService discenteService)
+        public DiscenteController(IDiscenteService discenteService, IProfissionalService profissionalService)
         {
             _discenteService = discenteService;
+            _profissionalService = profissionalService;
         }
 
         // Rota para registrar um novo discente
@@ -163,6 +165,18 @@ namespace Back_end.Controllers
             return Ok(discente);
         }
 
-    }
+        [HttpGet("obter-profissional/{id}")]
+        public async Task<IActionResult> ObterProfissional(int id)
+        {
+            var profissional = await _profissionalService.ObterProfissionalPorIdAsync(id);
 
+            if (profissional == null)
+            {
+                return NotFound("Profissional não encontrado.");
+            }
+
+            return Ok(profissional);
+        }
+        
+    }
 }
