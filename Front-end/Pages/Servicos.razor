@@ -2,6 +2,7 @@
 @attribute [Authorize]
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
+@inject ServicoService ServicoService
 
 <PageTitle>Serviços</PageTitle>
 
@@ -17,13 +18,11 @@
                 <img style="padding-right: 35px;" src="..\css\images\p-servico.svg">
 
                 <div style="padding-top: 10px;">
-                    <h1 class="weight-700" style="font-size: 3rem; color: var(--blue-ufersa);">Lívia Beatriz M. Lima</h1>
-                    <h2 class="weight-500" style="font-size: 1.375rem; padding-bottom: 20px; color: var(--black-gray);">Psicóloga - CRP 17/0000</h2>
+                    <h1 class="weight-700" style="font-size: 3rem; color: var(--blue-ufersa);">@servico_escolhido.Nome_Profissional</h1>
+                    <h2 class="weight-500" style="font-size: 1.375rem; padding-bottom: 20px; color: var(--black-gray);">@servico_escolhido.Tipo_Servico - CRP 17/0000</h2>
                     
                     <div style="height: 26rem; overflow: auto; scrollbar-width: none;">
-                        @for(int i = 1; i < 4; i++){
-                            <p class="paragraph-size weight-500" style="color: var(--black-gray); text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.</p>
-                        }
+                        <p class="paragraph-size weight-500" style="color: var(--black-gray); text-align: justify;">@servico_escolhido.Descricao</p>
                     </div>
                 </div>
 
@@ -36,13 +35,15 @@
                 </div>
 
                 <div id="scroll-container" style="@($"width: {scrollContainerWidth}px; overflow-x: auto; display: flex; scrollbar-width: none; user-select: none; margin: 0 auto;")">
-                    @for(int i = 1; i < 5; i++){
-                        <div class="service" style="@(i != 1 ? "margin-left: 30px;" : "margin-left: 0px;")">
-                            <img class="@(i == 1 ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i).svg">
+                    @for(int i = 0; i < servicos.Count; i++){
+                        var index = i;
+
+                        <div class="service" style="@(i != 0 ? "margin-left: 30px;" : "margin-left: 0px;")" @onclick="() => ativarServico(servicos[index], index)">
+                            <img class="@(i == id_servico_escolhido ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i%4 + 1).svg">
                             <div class="service-people no-select">
                                 <div style="padding-left: 10px;">
-                                    <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px;">Lívia Beatriz</h3>
-                                    <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">Psicóloga</p>
+                                    <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px; text-align: left;">@servicos[i].Nome_Profissional</h3>
+                                    <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">@servicos[i].Tipo_Servico</p>
                                 </div>
                                 <img src="..\css\images\servico-ex.svg">
                             </div>
@@ -57,6 +58,21 @@
 </div>
 
 @code {
+    private List<ServicoModel> servicos;
+    private ServicoModel servico_escolhido;
+    private int id_servico_escolhido = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        servicos = await ServicoService.ListServicos();
+        servico_escolhido = servicos[0];
+    }
+
+    public void ativarServico(ServicoModel servico, int id_servico){
+        servico_escolhido = servico;
+        id_servico_escolhido = id_servico;
+    }
+
     // Variável para armazenar a largura do scroll-container
     private double scrollContainerWidth;
 
@@ -89,7 +105,6 @@
         if (newWidth > 0 && newWidth != scrollContainerWidth)
         {
             scrollContainerWidth = newWidth;
-            Console.WriteLine($"Nova largura detectada: {scrollContainerWidth}px");
             StateHasChanged(); // Atualiza a interface com o novo valor
         }
     }
