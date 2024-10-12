@@ -178,5 +178,13 @@ namespace Back_end.Controllers
             return Ok(profissional);
         }
         
+        // Endpoint para listar todos os profissionais
+        [HttpGet("listar-profissionais")]
+        public async Task<ActionResult<IEnumerable<ProfissionalDto>>> ListarProfissionais()
+        {
+            var profissionais = await _profissionalService.ListarProfissionaisAsync();
+            return Ok(profissionais);
+        }
+        
     }
 }
