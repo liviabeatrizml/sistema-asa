@@ -27,30 +27,30 @@ public class DiscenteService
 
     // Método para obter discente
     public async Task<DiscenteRegistroModel> GetDiscente(int id_discente)
-{
-    // Fazendo a requisição GET
-    var response = await _httpClient.GetAsync($"/api/Discente/obter-discente/{id_discente}");
+    {
+        // Fazendo a requisição GET
+        var response = await _httpClient.GetAsync($"/api/Discente/obter-discente/{id_discente}");
 
-    // Garantindo que a requisição foi bem-sucedida
-    if (response.IsSuccessStatusCode)
-    {
-        // Lendo o conteúdo da resposta como string
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        
-        // Desserializando o JSON na classe Discente
-        var discente = JsonSerializer.Deserialize<DiscenteRegistroModel>(jsonResponse, new JsonSerializerOptions
+        // Garantindo que a requisição foi bem-sucedida
+        if (response.IsSuccessStatusCode)
         {
-            PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
-        });
-        
-        return discente;
+            // Lendo o conteúdo da resposta como string
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            
+            // Desserializando o JSON na classe Discente
+            var discente = JsonSerializer.Deserialize<DiscenteRegistroModel>(jsonResponse, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
+            });
+            
+            return discente;
+        }
+        else
+        {
+            // Lidar com erros, se necessário
+            throw new Exception("Falha ao obter os dados do discente.");
+        }
     }
-    else
-    {
-        // Lidar com erros, se necessário
-        throw new Exception("Falha ao obter os dados do discente.");
-    }
-}
 }
 
 // Modelos de dados
