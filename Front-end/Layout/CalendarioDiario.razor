@@ -1,4 +1,5 @@
-@page "/calendario"
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div style="scrollbar-width: none; user-select: none; overflow-y: auto; height: 52.813rem;">
     <div style="display: flex;">
@@ -48,26 +49,44 @@
 @code {
     private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
 
-    private List<string> pink;
-    private List<string> green;
-    private List<string> orange;
-    private List<string> blue;
+    private List<string> pink, green, orange, blue;
+    private List<CompromissoModel> compromissos;
+    private List<EventItem> Events = new List<EventItem>();
 
-    private List<EventItem> Events;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
         green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
         orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
         blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
 
-        Events = new List<EventItem>
-        {
-            new EventItem { Day = new DateTime(2024, 10, 12), Time = "08:00 AM", Title = "Psicóloga", Person = "Luiza Beatriz", Colors = pink },
-            new EventItem { Day = new DateTime(2024, 10, 12), Time = "10:00 AM", Title = "Nutricionista", Person = "Renan Costa", Colors = green },
-            new EventItem { Day = new DateTime(2024, 10, 12), Time = "02:00 PM", Title = "Pedagoga", Person = "Geísa Morais", Colors = blue }
-        };
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan hora = @compromisso.HoraInicio;
+                string horaFormatada = (hora.Hours % 12).ToString("D2") + ":" + hora.Minutes.ToString("D2") + " " + (hora.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Educador Físico" || compromisso.Servico == "Educadora Física"){
+                    colors = new List<string> (orange);
+                }
+
+                var evento = new EventItem { Day = compromisso.Data, Time = horaFormatada, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+
+        }
     }
 
     private EventItem GetEventForDayAndTime(DateTime day, string time) => Events.FirstOrDefault(e => e.Day.Date == day.Date && e.Time == time);

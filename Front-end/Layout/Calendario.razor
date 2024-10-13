@@ -75,18 +75,38 @@
     </div>
     } else if(Navigation.ToBaseRelativePath(Navigation.Uri) == "agenda")
     {
-        <div>
-            <h1 class="weight-700" style="color: var(--white); font-size: 1rem; margin: 0;">HOJE</h1>
-            <span class="weight-500" style="font-size: 0.75rem; color: var(--black-gray);">21/12/2024</span>
+        @if(compromissos != null){
+            @for (int i = 0; i < Math.Min(compromissos.Count, 4); i++)
+            {
+                var cor= "";
+                @if(compromissos[i].Servico == "Psicóloga" || compromissos[i].Servico == "Psicólogo" || compromissos[i].Servico == "Psicóloga(o)" || compromissos[i].Servico == "Psicólogo(a)"){
+                    cor = "#F884D7";
+                } else if(compromissos[i].Servico == "Pedagoga" || compromissos[i].Servico == "Pedagogo" || compromissos[i].Servico == "Pedagoga(o)" || compromissos[i].Servico == "Pedagogo(a)"){
+                    cor = "#95BBF8";
+                } else if(compromissos[i].Servico == "Nutricionista"){
+                    cor = "#D6F894";
+                } else if(compromissos[i].Servico == "Educador Físico" || compromissos[i].Servico == "Educadora Física"){
+                    cor = "#F6C4AF";
+                }
+                <div>
+                    @if (DataCompromisso.Date != compromissos[i].Data.Date)
+                    {
+                        Console.WriteLine(DataCompromisso.Date);
+                        DataCompromisso = compromissos[i].Data;
+                        <h1 class="weight-700" style="color: var(--white); font-size: 1rem; margin: 0; padding-top: 10px;">@ObterTituloData(DataCompromisso)</h1>
+                        <span class="weight-500" style="font-size: 0.75rem; color: var(--black-gray);">@DataCompromisso.ToString("dd/MM/yyyy")</span>
+                    }
+                    <div style="padding: 15px;">
+                        <span style="display: flex; align-items: center; font-size: 0.688rem; color: var(--white);">
+                            <div style="width: 0.75rem; height: 0.75rem; background-color: @cor; border-radius: 50%; padding-top: 10px; margin-right: 10px;"></div>
+                            @(($"{(@compromissos[i].HoraInicio.Hours % 12):D2}:{@compromissos[i].HoraInicio.Minutes:D2} {( @compromissos[i].HoraInicio.Hours >= 12 ? "PM" : "AM") }")) - @(($"{(@compromissos[i].HoraFim.Hours % 12):D2}:{@compromissos[i].HoraFim.Minutes:D2} {( @compromissos[i].HoraFim.Hours >= 12 ? "PM" : "AM") }"))
+                        </span>
+                        <span style="font-size: 0.75rem; padding-left: 0.75rem; margin-left: 10px; color: var(--black-gray);">@compromissos[i].Servico - @compromissos[i].Profissional_Nome</span>
+                    </div>
+                </div>
+            }
 
-            <div style="padding: 15px;">
-                <span style="display: flex; align-items: center; font-size: 0.688rem; color: var(--white);">
-                    <div style="width: 0.75rem; height: 0.75rem; background-color: #F884D7; border-radius: 50%; padding-top: 10px; margin-right: 10px;"></div>
-                    08:00 - 09:00 AM
-                </span>
-                <span style="font-size: 0.75rem; padding-left: 0.75rem; margin-left: 10px; color: var(--black-gray);">Psicóloga - Lívia Beatriz</span>
-            </div>
-        </div>
+        }
     }
 
     
@@ -94,6 +114,8 @@
 
 @code {
     private DateTime DataAtual { get; set; } = DateTime.Today;
+    private DateTime DataCompromisso { get; set; }
+
     private List<List<DateTime>> Semanas { get; set; } = new();
     private List<string> NomesDiasSemana { get; set; } = new() { "D", "S", "T", "Q", "Q", "S", "S" };
     private string HeightClass { get; set; } = "";
@@ -107,6 +129,8 @@
         if(userId != -1){
             compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
         }
+
+        DataCompromisso = compromissos[0].Data.AddDays(-1);
         
         GerarCalendario(DataAtual);
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
@@ -128,7 +152,7 @@
         var diaAtual = primeiroDiaDoMes.AddDays(-primeiroDiaDaSemana);
         int totalDias = diasNoMes + primeiroDiaDaSemana;
         int numeroDeSemanas = (int)Math.Ceiling(totalDias / 7.0);
-        for (int i = 0; i < numeroDeSemanas; i++) // Máximo de 6 semanas visíveis
+        for (int i = 0; i < numeroDeSemanas; i++)
         {
             var semana = new List<DateTime>();
             for (int j = 0; j < 7; j++)
@@ -138,6 +162,20 @@
             }
             Semanas.Add(semana);
         }
+    }
+
+    private string ObterTituloData(DateTime data)
+    {
+        DateTime hoje = DateTime.Today;
+        DateTime amanha = hoje.AddDays(1);
+
+        if (data.Date == hoje)
+            return "HOJE";
+        else if (data.Date == amanha)
+            return "AMANHÃ";
+        else
+            return data.ToString("dddd").ToUpper(); // Converte o dia da semana para maiúsculas
+
     }
 
     private void MudarMes(int meses)
@@ -159,11 +197,11 @@
     }
 
     .calendario-height{
-        height: 25.75rem;
+        height: 25.5rem;
     }
 
     .calendario-services-height{
-        height: 56.563rem;
+        min-height: 56.563rem;
     }
 
     .header {
