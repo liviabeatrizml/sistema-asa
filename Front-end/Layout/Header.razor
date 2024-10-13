@@ -15,10 +15,10 @@
             <a href="/" @onmouseover="relatarColor" @onmouseout="relatarColor"><img src="@(relatarHover ? "..\\css\\images\\relatar.svg" : "..\\css\\images\\relatar-hover.svg")" alt="Relatar"></a>
         </div>
     } else if(Navigation.ToBaseRelativePath(Navigation.Uri) != "" &&
-        Navigation.ToBaseRelativePath(Navigation.Uri) != "/home" &&
-        Navigation.ToBaseRelativePath(Navigation.Uri) != "/entrar" &&
-        Navigation.ToBaseRelativePath(Navigation.Uri) != "/cadastrar" &&
-        Navigation.ToBaseRelativePath(Navigation.Uri) != "/recuperar-senha")
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "home" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "entrar" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "cadastrar" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "recuperar-senha")
     {
         <div style="background-color: var(--blue-ufersa);width: 36px; height: 36px; border-radius: 10px; align-items: center; display: flex; justify-content: center; cursor: pointer;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
