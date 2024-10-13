@@ -5,63 +5,44 @@ using System.Text.Json;
 public class ServicoService
 {
     private readonly HttpClient _httpClient;
-    public ServicoService(HttpClient httpClient)
+    private readonly ProfissionalService _profissionalService;
+
+    public ServicoService(HttpClient httpClient, ProfissionalService profissionalService)
     {
         _httpClient = httpClient;
+        _profissionalService = profissionalService;
     }
 
     // Método para obter os serviços
     public async Task<List<ServicoProfissionalModel>> ListServicos()
     {
-        // Fazendo a requisição GET
-        var response = await _httpClient.GetAsync("/api/Discente/listar-profissionais");
-        
-        var servicos = new List<ServicoProfissionalModel> {};
-        
-        // Garantindo que a requisição foi bem-sucedida
-        if (response.IsSuccessStatusCode){
+        var servicos = new List<ServicoProfissionalModel>();
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+        // Obtendo os profissionais através do ProfissionalService
+        var profissionais = await _profissionalService.ListProfissionais();
 
-            var profissionais = JsonSerializer.Deserialize<List<ProfissionalModel>>(jsonResponse, new JsonSerializerOptions
+        foreach (var profissional in profissionais)
+        {
+            var response_servico = await _httpClient.GetAsync($"/api/Servico/{profissional.ServicoId}");
+            var jsonResponse_servico = await response_servico.Content.ReadAsStringAsync();
+
+            var servico = JsonSerializer.Deserialize<ServicoModel>(jsonResponse_servico, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
             });
 
-            if (profissionais != null)
+            var servico_profissional = new ServicoProfissionalModel
             {
-                foreach (var profissional in profissionais)
-                {
-                    var response_servico = await _httpClient.GetAsync($"/api/Servico/{profissional.ServicoId}");
-                    var jsonResponse_servico = await response_servico.Content.ReadAsStringAsync();
+                Nome_Profissional = profissional.Nome,
+                Tipo_Servico = servico.Tipo,
+                Descricao = servico.Descricao
+            };
 
-                    var servico =  JsonSerializer.Deserialize<ServicoModel>(jsonResponse_servico, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
-                    });
-
-                    var servico_profissional = new ServicoProfissionalModel
-                    {
-                        Nome_Profissional = profissional.Nome,
-                        Tipo_Servico = servico.Tipo,
-                        Descricao = servico.Descricao
-                    };
-
-                    servicos.Add(servico_profissional);
-                }
-                
-            }
-        }
-        else
-        {
-            // Lidar com erros, se necessário
-            throw new Exception("Falha ao obter os dados do discente.");
+            servicos.Add(servico_profissional);
         }
 
-        
         return servicos;
     }
-
 }
 
 public class ServicoProfissionalModel{
@@ -70,12 +51,6 @@ public class ServicoProfissionalModel{
     public string Descricao {get; set;}
 }
 
-public class ProfissionalModel{
-    public string Nome {get; set;}
-    public string Email {get; set;}
-    public int ServicoId {get; set;}
-    public string ServicoNome {get; set;} 
-}
 
 public class ServicoModel{
     public int IdServico {get; set;}
