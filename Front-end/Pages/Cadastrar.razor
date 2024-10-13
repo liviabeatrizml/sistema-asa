@@ -13,9 +13,9 @@
 
             <h1 class="display-5 weight-700">Cadastre-se</h1>
         
-            <p class="paragraph-size weight-500">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
 
         @if(!FirstAcceptAndRegister){
+            <p class="paragraph-size weight-500">Crie sua conta para acessar os serviços especializados da Ufersa de maneira prática e segura.</p>
         
             <EditForm Model="@user" OnValidSubmit="@AcceptAndRegisterValidSubmit">
             <DataAnnotationsValidator />
@@ -56,6 +56,7 @@
         
             </EditForm>
         } else{
+            <p class="paragraph-size weight-500">Preencha seus dados para criar sua conta e acessar o sistema de agendamento de serviços acadêmicos.</p>
             <EditForm Model="@infosUser" OnValidSubmit="@RegistrarDiscente">
             <DataAnnotationsValidator />
         
