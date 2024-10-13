@@ -23,10 +23,10 @@ public class ServicoService
 
         foreach (var profissional in profissionais)
         {
-            var response_servico = await _httpClient.GetAsync($"/api/Servico/{profissional.ServicoId}");
-            var jsonResponse_servico = await response_servico.Content.ReadAsStringAsync();
+            var response = await _httpClient.GetAsync($"/api/Servico/{profissional.ServicoId}");
+            var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            var servico = JsonSerializer.Deserialize<ServicoModel>(jsonResponse_servico, new JsonSerializerOptions
+            var servico = JsonSerializer.Deserialize<ServicoModel>(jsonResponse, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
             });
