@@ -42,7 +42,7 @@
                             var index = i;
 
                             <div class="service" style="@(i != 0 ? "margin-left: 30px;" : "margin-left: 0px;")" @onclick="() => ativarServico(servicos[index], index)">
-                                <img class="@(i == id_servico_escolhido ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i%4 + 1).svg">
+                                <img class="@(i == id_servico_escolhido ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i%4).svg">
                                 <div class="service-people no-select">
                                     <div style="padding-left: 10px;">
                                         <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px; text-align: left;">@servicos[i].Nome_Profissional</h3>
