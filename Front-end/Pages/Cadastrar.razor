@@ -3,8 +3,11 @@
 @inject NavigationManager Navigation
 @inject DiscenteService DiscenteService
 @using System.Text.RegularExpressions
+@inject IJSRuntime JS
 
 <PageTitle>Cadastrar</PageTitle>
+
+<div id="opacidade"></div>
 
 <Header />
 
@@ -48,7 +51,7 @@
                     </div>
                 </div>
 
-                <p class="paragraph-size weight-500 py-4" style="text-align: center;">Ao clicar em Aceite e cadastre-se, você aceita os <b style="text-decoration: underline;">Termos de Uso</b> e as <b style="text-decoration: underline;">Políticas de Privacidade</b></p>
+                <p class="paragraph-size weight-500 py-4" style="text-align: center;">Ao clicar em Aceite e cadastre-se, você aceita os <b style="text-decoration: underline; cursor: pointer;" @onclick="@(() => ToggleDisplayById("termos"))">Termos de Uso</b> e as <b style="text-decoration: underline; cursor: pointer;" @onclick="@(() => ToggleDisplayById("politicas"))">Políticas de Privacidade</b></p>
         
                 <div class="d-grid gap-2 py-2">
                     <button type="submit" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Aceite e cadastre-se</button>
@@ -88,7 +91,125 @@
             </EditForm>
         }
     
-    
+        <div id="politicas" class="termos-politicas-container">
+            <header class="termos-politicas-header">
+                <div>
+                    <h1 class="termos-politicas-h1">
+                        Política de Privacidade
+                    </h1>
+                    <h2 class="termos-politicas-h2">
+                        Agendamento de Serviços Acadêmicos - ASA
+                    </h2>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;" @onclick="@(() => ToggleDisplayById("politicas"))">
+                <path d="M18 6L6 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </header>
+
+            <section class="termos-politicas-sec">
+                <div>
+                    Bem-vindo ao Sistema de Agendamento de Serviços Acadêmicos (ASA). Estes Termos de Uso regem o acesso e uso do nosso sistema. Ao utilizar este serviço, você concorda com os termos descritos abaixo.
+                </div>
+                <ol style="padding: 0px 0px 0px 20px; margin: 0;">
+                    <li>
+                        Aceitação dos Termos <br>
+                        Ao acessar ou usar o ASA, você concorda com estes Termos de Uso. Se você não concordar com qualquer parte destes termos, não poderá utilizar os serviços oferecidos pelo sistema.
+                    </li>
+
+                    <li>
+                        Objetivo do Sistema <br>
+                        O ASA foi desenvolvido para facilitar o agendamento de serviços acadêmicos na UFERSA, como atendimento psicológico, nutricional e outros serviços de assistência estudantil. O objetivo é centralizar e automatizar o processo de agendamento de forma segura e eficiente.
+                    </li>
+                    
+                    <li>
+                        Elegibilidade <br>
+                        Este sistema é destinado a estudantes, profissionais e funcionários da UFERSA. Para utilizar o sistema, você deve fornecer informações válidas durante o cadastro.
+                    </li>
+
+                    <li>
+                        Cadastro <br>
+                        Ao se cadastrar no ASA, você concorda em fornecer informações precisas e atualizadas. O uso de informações falsas pode resultar na suspensão ou cancelamento do acesso ao sistema.
+                    </li>
+
+                    <li>
+                        Responsabilidades do Usuário <br>
+                        Você é responsável por manter a confidencialidade da sua senha e por todas as atividades que ocorrerem em sua conta. Se você perceber qualquer uso não autorizado da sua conta, entre em contato com o suporte imediatamente.
+                    </li>
+
+                    <li>
+                        Cancelamento de Agendamento <br>
+                        O cancelamento de um agendamento só será permitido até 1 hora antes do horário marcado, conforme nossas regras de negócio. Após esse período, o cancelamento não poderá ser realizado via sistema.
+                    </li>
+
+                    <li>
+                        Suspensão e Encerramento de Conta <br>
+                        Nós nos reservamos o direito de suspender ou encerrar o acesso ao ASA em casos de violação destes Termos de Uso ou por uso inadequado do sistema.
+                    </li>
+
+                    <li>
+                        Alterações nos Termos <br>
+                        Os Termos de Uso podem ser modificados a qualquer momento. Você será informado de qualquer alteração significativa, e seu uso contínuo do sistema após essas mudanças implicará em aceitação dos novos termos.
+                    </li>
+
+                    <li>
+                        Suporte e Contato <br>
+                        Se você tiver alguma dúvida sobre os Termos de Uso ou sobre o funcionamento do sistema, entre em contato com a equipe de suporte da UFERSA.
+                    </li>
+                </ol>
+            </section>
+        </div>
+
+        <div id="termos" class="termos-politicas-container">
+            <header class="termos-politicas-header">
+                <div>
+                    <h1 class="termos-politicas-h1">
+                        Termos de Uso
+                    </h1>
+                    <h2 class="termos-politicas-h2">
+                        Agendamento de Serviços Acadêmicos - ASA
+                    </h2>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;" @onclick="@(() => ToggleDisplayById("termos"))">
+                <path d="M18 6L6 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </header>
+
+            <section class="termos-politicas-sec">
+                <div>
+                    Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações ao utilizar o Sistema de Agendamento de Serviços Acadêmicos (ASA).
+                </div>
+                <ol style="padding: 0px 0px 0px 20px; margin: 0;">
+                    <li>
+                        Coleta de Informações <br>
+                        Coletamos informações pessoais que você fornece durante o processo de cadastro, como nome, e-mail, matrícula e telefone. Esses dados são essenciais para o funcionamento do sistema.
+                    </li>
+
+                    <li>
+                        Uso das Informações <br>
+                        As informações coletadas são utilizadas para:
+
+                        <ul style="list-style-type:disc;">
+                            <li>Gerenciar seu acesso ao ASA;</li>
+                            <li>Facilitar o agendamento de serviços;</li>
+                            <li>Comunicar-se com você sobre atualizações no sistema;</li>
+                            <li>Melhorar nossos serviços com base em análises agregadas e feedback.</li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        Compartilhamento de Informações <br>
+                        Seus dados não serão compartilhados com terceiros sem o seu consentimento, exceto quando exigido por lei ou para a prestação de serviços diretamente relacionados ao ASA (como profissionais de atendimento).
+                    </li>
+
+                    <li>
+                        Retenção de Dados <br>
+                        Manteremos suas informações enquanto sua conta estiver ativa ou conforme necessário para fornecer os serviços. 
+                    </li>
+                </ol>
+            </section>
+        </div>
     
     </div>
 </div>
@@ -147,6 +268,11 @@
         }
     }
 
+    private async Task ToggleDisplayById(string id)
+    {
+        await JS.InvokeVoidAsync("toggleDisplayById", id);
+        await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
+    }
 
     private bool submitted = false;
 
