@@ -14,6 +14,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://
 builder.Services.AddScoped<DiscenteService>();
 builder.Services.AddScoped<ProfissionalService>();
 builder.Services.AddScoped<ServicoService>();
+builder.Services.AddScoped<AgendamentoService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddBlazoredLocalStorage();
