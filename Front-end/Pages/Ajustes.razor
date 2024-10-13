@@ -4,7 +4,6 @@
 @using System.ComponentModel.DataAnnotations
 @inject DiscenteService DiscenteService
 @using System.Text.RegularExpressions
-@inject DiscenteService DiscenteService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Ajustes</PageTitle>
@@ -48,7 +47,7 @@
                         <p class="paragraph-size weight-500" style="color: var(--black-gray);">Atualize sua foto e seus dados pessoais aqui.</p>
                     </div>
 
-                    <EditForm Model="@infosUser" OnValidSubmit="@Submit">
+                    <EditForm Model="@infosUser" OnValidSubmit="@EditarDiscente">
                     <DataAnnotationsValidator />
                         <div class="edit-fields">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Nome <span style="color: #BA3838">*</span></span>
@@ -90,13 +89,13 @@
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Telefone</span>
 
                                 <div class="mb-3">
-                                    <InputText id="ddi" class="custom-input form-control border-radius-10 my-1" style="width: 5em; text-align: center;" @bind-Value="infosUser.telefoneModel.DDI" maxlength="3" oninput="formatDDI(this)"/>
+                                    <InputText id="ddi" class="custom-input form-control border-radius-10 my-1" style="width: 5em; text-align: center;" @bind-Value="infosUser.telefoneModel.DDI" maxlength="3" oninput="formatDDI(this)" placeholder="+xx"/>
                                 </div>
                                 <div class="mb-3">
-                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.DDD" maxlength="4" oninput="formatDDD(this)" onkeydown="handleKeyDownDDD(event, this)"/>
+                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.DDD" maxlength="4" oninput="formatDDD(this)" onkeydown="handleKeyDownDDD(event, this)" placeholder="(xx)"/>
                                 </div>
                                 <div class="mb-3">
-                                    <InputText id="numero" class="custom-input form-control border-radius-10 my-1" style="width: 34.5rem; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.Numero" maxlength="10" oninput="formatNumero(this)"/>
+                                    <InputText id="numero" class="custom-input form-control border-radius-10 my-1" style="width: 34.5rem; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.Numero" maxlength="10" oninput="formatNumero(this)" placeholder="xxxxx-xxxx"/>
                                 </div>
                                 
                                 <ValidationMessage For="@(() => infosUser.telefoneModel)" />
@@ -112,14 +111,14 @@
                                         <option value="Engenharia Civil">Engenharia Civil</option>
                                         <option value="Engenharia de Computação">Engenharia de Computação</option>
                                         <option value="Engenharia de Software">Engenharia de Software</option>
-                                        <option value="Tecnologia da Informação">Engenharia de Software</option>
+                                        <option value="Tecnologia da Informação">Tecnologia da Informação</option>
                                     </InputSelect>
                                 </div>
                         </div>
 
                         <div style="display: flex; justify-content: flex-end; padding: 20px 40px 0px 10px;">
-                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: transparent; padding: 6px 15px;">Cancelar</button>
-                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: var(--blue-ufersa); color: var(--white); padding: 6px 15px; margin-left: 20px;">Salvar</button>
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: transparent; padding: 6px 15px;" @onclick="Cancelar" type="button">Cancelar</button>
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: var(--blue-ufersa); color: var(--white); padding: 6px 15px; margin-left: 20px;" type="submit">Salvar</button>
                         </div>
                     </EditForm>
                 </div>
@@ -176,8 +175,8 @@
                         </div>
 
                         <div style="display: flex; justify-content: flex-end; padding: 20px 40px 0px 10px;">
-                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: transparent; padding: 6px 15px;">Cancelar</button>
-                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: var(--blue-ufersa); color: var(--white); padding: 6px 15px; margin-left: 20px;">Salvar</button>
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: transparent; padding: 6px 15px;" @onclick="Cancelar" type="button">Cancelar</button>
+                            <button style="font-size: 1rem; font-weight: 600; border: 2px solid #C3C3C340; border-radius: 6px; background-color: var(--blue-ufersa); color: var(--white); padding: 6px 15px; margin-left: 20px;" type="submit">Salvar</button>
                         </div>
                     </EditForm>
                 </div>
@@ -208,6 +207,26 @@
             var (primeiroNome, sobrenome) = DividirNome(discente.Nome);
             infosUser.Nome = primeiroNome;
             infosUser.Sobrenome = sobrenome;
+            infosUser.Curso = discente.Curso;
+
+            infosUserAtual = new InfosUser
+            {
+                Nome = infosUser.Nome,
+                Sobrenome = infosUser.Sobrenome,
+                Curso = infosUser.Curso,
+                telefoneModel = new TelefoneModel
+                {
+                    DDI = infosUser.telefoneModel.DDI,
+                    DDD = infosUser.telefoneModel.DDD,
+                    Numero = infosUser.telefoneModel.Numero
+                }
+            };
+
+            contaUserAtual = new Conta
+            {
+                Email = contaUser.Email,
+                Matricula = contaUser.Matricula
+            };
         }
     }
 
@@ -241,13 +260,47 @@
     public class TelefoneModel
     {
         [RegularExpression(@"^\+\d{1,3}$", ErrorMessage = "O DDI deve iniciar com '+' e ter até 3 dígitos.")]
-        public string DDI { get; set; } = "+55";
+        public string DDI { get; set; }
 
         [RegularExpression(@"^\(\d{2}\)$", ErrorMessage = "O DDD deve estar no formato '(XX)' com 2 dígitos.")]
-        public string DDD { get; set; } = "(84)";
+        public string DDD { get; set; }
 
         [RegularExpression(@"^\d{4,5}-\d{4}$", ErrorMessage = "O número deve estar no formato 'XXXXX-XXXX' ou 'XXXX-XXXX'.")]
         public string Numero { get; set; }
+    }
+
+    private Conta contaUser = new Conta();
+    private Conta contaUserAtual = new Conta();
+    private InfosUser infosUser = new InfosUser();
+    private InfosUser infosUserAtual = new InfosUser();
+
+    private async Task EditarDiscente()
+    {
+        var modelDiscente = new DiscenteRegistroModel
+        {
+            Nome = infosUser.Nome + " " + infosUser.Sobrenome,
+            Email = contaUser.Email,
+            Senha = contaUser.Senha,
+            Matricula = int.TryParse(contaUser.Matricula, out var matricula) ? matricula : 0,
+            Telefone = infosUser.telefoneModel.DDI + " " + infosUser.telefoneModel.DDD + " " + infosUser.telefoneModel.Numero,
+            Curso = infosUser.Curso
+        };
+
+        var result = await DiscenteService.EditarDiscente(modelDiscente);
+    }
+
+    private void Cancelar(){
+        infosUser = infosUserAtual;
+        contaUser = contaUserAtual;
+    }
+
+    private string abaAtiva = "dadosPessoais"; // Estado inicial
+    private string dadosPessoais = "dadosPessoais";
+    private string conta = "conta";
+
+    private void AlternarAba(string aba)
+    {
+        abaAtiva = aba; // Atualiza o estado ativo
     }
 
     public TelefoneModel DividirTelefone(string telefoneCompleto)
@@ -301,21 +354,5 @@
 
         // O primeiro nome é a primeira parte, e o sobrenome é o restante
         return (partes[0], partes[1]);
-    }
-    private Conta contaUser = new Conta();
-    private InfosUser infosUser = new InfosUser();
-
-    private async Task Submit()
-    {
-        
-    }
-
-    private string abaAtiva = "dadosPessoais"; // Estado inicial
-    private string dadosPessoais = "dadosPessoais";
-    private string conta = "conta";
-
-    private void AlternarAba(string aba)
-    {
-        abaAtiva = aba; // Atualiza o estado ativo
     }
 }

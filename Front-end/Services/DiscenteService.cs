@@ -19,6 +19,12 @@ public class DiscenteService
         return await _httpClient.PostAsJsonAsync("/api/Discente/registrar", model);
     }
 
+    // Método para registrar discente
+    public async Task<HttpResponseMessage> EditarDiscente(DiscenteRegistroModel model)
+    {
+        return await _httpClient.PutAsJsonAsync("/api/Discente/atualizar-perfil", model);
+    }
+
     // Método para login de discente
     public async Task<HttpResponseMessage> LoginDiscente(DiscenteLoginModel model)
     {
