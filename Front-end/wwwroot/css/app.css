@@ -403,7 +403,7 @@ code {
     position: fixed;
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
-    display: none;
+    display: block;
 }
 
 .termos-politicas-container{
@@ -466,4 +466,94 @@ code {
 
 .termos-politicas-sec ul{
     padding: 20px 0px 0px 20px;
+}
+
+.recuperar-senha-container{
+    display: block;
+    width: 25.438rem;
+    height: 48.25rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1000;
+    border-radius: 20px;
+    padding: 32px;
+}
+
+.recuperar-senha-h1{
+    font-size: 2.75rem;
+    font-weight: 700;
+}
+
+.recuperar-senha-p{
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.container-hr {
+    display: flex; 
+    width: 100%; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.custom-hr {
+    border: none;
+    border-top: 1px solid #D9D9D9;
+    width: 5rem;
+}
+
+.texto-hr{
+    width: 100%; 
+    font-size: 1.1rem; 
+    font-weight: 400; 
+    text-align: center;
+}
+
+.timer{
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-align: center;
+    color: #1E1E1E99;
+    padding: 1.25rem 0px;
+}
+
+.codigo-input{
+    display: flex;
+    justify-content: space-between;
+}
+
+.codigo{
+    width: 3rem;
+    height: 3.5rem;
+    text-align: center;
+    border: 2px solid #000000;
+    border-radius: 10px;
+}
+
+.codigo::-webkit-inner-spin-button,
+.codigo::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.email-enviado{
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--black-gray);
+    padding: 1rem 0px;
+}
+
+.button-senha{
+    width: 10.188rem;
+    height: 2.25rem;
+    font-size: 1rem; 
+    font-weight: 600; 
+    border-radius: 20px;
+    border: none;
 }

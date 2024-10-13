@@ -1,7 +1,10 @@
 @page "/recuperar-senha"
 @using System.ComponentModel.DataAnnotations
+@inject IJSRuntime JS
 
 <PageTitle>Recuperar Senha</PageTitle>
+
+<div id="opacidade"></div>
 
 <Header />
 
@@ -11,12 +14,12 @@
         <h1 class="display-5 weight-700 pb-4">Recuperar senha</h1>
     
     
-        <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+        <EditForm Model="@userEmail" OnValidSubmit="@EnviarEmail">
         <DataAnnotationsValidator />
     
-            <ValidationMessage For="@(() => user.Email)" />
+            <ValidationMessage For="@(() => userEmail.Email)" />
             <div class="mb-3 py-1">
-                <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="user.Email" placeholder="Email"/>
+                <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="userEmail.Email" placeholder="Email"/>
             </div>
     
         <p class="paragraph-size weight-500 py-2">Enviaremos um código de verificação a este e-mail, caso seja associado a uma conta ASA.</p>
@@ -42,28 +45,102 @@
         </div>
     
     </div>
+
+    <div class="recuperar-senha-container">
+        <h1 class="recuperar-senha-h1">
+            Recuperar senha
+        </h1>
+        <p class="recuperar-senha-p">
+            Por favor, insira sua nova senha e o código de verificação enviado para seu e-mail cadastrado.
+        </p>
+
+        <EditForm Model="@userSenha" OnValidSubmit="@EnviarEmail" style="padding: 1.25rem 0px;">
+        <DataAnnotationsValidator />
+
+            <ValidationMessage For="@(() => userSenha.Senha)" />
+            <div class="password-container mb-3">
+                <InputText id="senha" class="custom-input form-control border-radius-10" @bind-Value="userSenha.Senha" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-on.svg" : "..\\css\\images\\eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+
+            <div style="color: var(--cinza-escuro);" class="paragraph-size py-1">
+                <div class="py-1">
+                    <img src="@(HasMinimumLength() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasMinimumLength() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasMinimumLength() ? "text-gray" : "text-green")">Mínimo 8 caracteres</span>
+                </div>
+                <div class="py-1">
+                    <img src="@(HasNumber() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasNumber() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasNumber() ? "text-gray" : "text-green")">Número</span>
+                </div>
+                <div class="py-1">
+                    <img src="@(HasSpecialCharacter() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasSpecialCharacter() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasSpecialCharacter() ? "text-gray" : "text-green")">Caractere especial</span>
+                </div>
+            </div>
+        </EditForm>
+
+
+        <div class="container-hr">
+            <hr class="custom-hr">
+            <span class="texto-hr">Código de Verificação</span>
+            <hr class="custom-hr">
+        </div>
+
+        <div class="timer">02:45</div>
+
+        <div class="codigo-input">
+            @for (int i = 0; i < 6; i++)
+            {
+                <InputText class="codigo" @bind-Value="@codigo[i]" />
+            }
+        </div>
+    
+        <div class="email-enviado">Enviado para: eriky.veloso@alunos.ufersa.edu.br</div>
+
+        <div style="display: flex; justify-content: space-between; width: 100%; padding-top: 2.5rem;">
+            <button style="background-color: transparent; border: 2px solid #C3C3C340" class="button-senha" type="button">Cancelar</button>
+            <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-senha" type="submit">Salvar</button>
+        </div>
+    </div>
 </div>
+
+
 
 <Footer />
 
 @code{
-    public class User
+    public class UserEmail
     {
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
-        public string Password { get; set; }
     }
-
-    private User user = new User();
-    private bool submitted = false;
-
-    private void HandleValidSubmit()
+    public class UserSenha
     {
-        submitted = true;
-        // Lógica para lidar com os dados do formulário
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Senha { get; set; }
     }
+
+    private UserEmail userEmail = new UserEmail();
+    private UserSenha userSenha = new UserSenha();
+    private string[] codigo = new string[6];
+
+    private void EnviarEmail()
+    {
+        if(HasMinimumLength() && HasNumber() && HasSpecialCharacter()){
+
+        } 
+    }
+
+    private async Task ToggleDisplayById(string id)
+    {
+        await JS.InvokeVoidAsync("toggleDisplayById", id);
+        await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
+    }
+    private bool HasMinimumLength() => userSenha.Senha?.Length >= 8;
+    private bool HasNumber() => userSenha.Senha?.Any(char.IsDigit) ?? false;
+    private bool HasSpecialCharacter() => userSenha.Senha?.Any(ch => !char.IsLetterOrDigit(ch)) ?? false;
 
     private bool isPasswordVisible = false;
 
