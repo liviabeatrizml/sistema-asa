@@ -3,6 +3,8 @@
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
 @inject ServicoService ServicoService
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Início</PageTitle>
 
@@ -36,27 +38,30 @@
                     <div style="width: 19.063rem;">
                         <h1 style="padding-left: 20px;" class="px24 weight-700">Compromissos</h1>
 
-                        @for(int i = 0; i < 4; i++){
-                            <div style="display: flex; padding-top: 15px">
-                                <img src="..\\css\\images\\compromisso-ex.svg">
-                                <div style="padding-left: 15px;">
-                                    <h2 class="weight-600 paragraph-size">Psicóloga</h2>
-                                    <div>
-                                        <div style="display: flex; padding-top: 2px;">
-                                            <div class="compromise">
-                                                <img src="..\\css\\images\\calendario.svg">
-                                                <span style="color: var(--black-gray); padding-left: 8px;">22-08-2024</span>
-                                            </div>
-                                            <div class="compromise">
-                                                <img src="..\\css\\images\\relogio.svg">
-                                                <span style="color: var(--black-gray); padding-left: 8px;">04:00 PM</span>
-                                            </div>
+                        @if(compromissos != null){
+                            @for(int i = 0; i < Math.Min(compromissos.Count, 4); i++){
+                                <div style="display: flex; padding-top: 15px">
+                                    <img src="..\\css\\images\\compromisso-ex.svg">
+                                    <div style="padding-left: 15px;">
+                                        <h2 class="weight-600 paragraph-size">@compromissos[i].Servico</h2>
+                                        <div>
+                                            <div style="display: flex; padding-top: 2px;">
+                                                <div class="compromise">
+                                                    <img src="..\\css\\images\\calendario.svg">
+                                                    <span style="color: var(--black-gray); padding-left: 8px;">@compromissos[i].Data.ToString("dd-MM-yyyy")</span>
+                                                </div>
+                                                <div class="compromise">
+                                                    <img src="..\\css\\images\\relogio.svg">
+                                                    <span style="color: var(--black-gray); padding-left: 8px;">@(($"{(@compromissos[i].HoraInicio.Hours % 12):D2}:{@compromissos[i].HoraInicio.Minutes:D2} {( @compromissos[i].HoraInicio.Hours >= 12 ? "PM" : "AM") }"))</span>
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                                
+                            }
+
                         }
                     </div>
 
@@ -121,10 +126,17 @@
     private ServicoProfissionalModel servico_escolhido;
     private int id_servico_escolhido = 0;
 
+    private List<CompromissoModel> compromissos;
+
     protected override async Task OnInitializedAsync()
     {
         servicos = await ServicoService.ListServicos();
         servico_escolhido = servicos[0];
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+        }
     }
 
     public void ativarServico(ServicoProfissionalModel servico, int id_servico){
