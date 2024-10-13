@@ -1,6 +1,4 @@
-@page "/calendario"
-
-<div style="scrollbar-width: none; user-select: none; overflow-y: auto; height: 56.563rem;">
+<div style="scrollbar-width: none; user-select: none; overflow-y: auto; height: 52.813rem;">
     <div style="display: flex;">
         <!-- Tabela de horários -->
         <div class="time-slots">
@@ -77,10 +75,10 @@
         // Inicializando a lista de eventos
         Events = new List<EventItem>
         {
-            new EventItem { Day = new DateTime(2024, 10, 2), Time = "08:00 AM", Title = "Psicóloga", Person = "Luiza Beatriz", Colors = pink },
+            new EventItem { Day = new DateTime(2024, 10, 2), Time = "08:00 AM", Title = "Psicóloga", Person = "Lívia Beatriz", Colors = pink },
             new EventItem { Day = new DateTime(2024, 10, 4), Time = "10:00 AM", Title = "Nutricionista", Person = "Renan Costa", Colors = green},
-            new EventItem { Day = new DateTime(2024, 10, 5), Time = "04:00 PM", Title = "Pedagoga", Person = "Giulia Morais", Colors = blue },
-            new EventItem { Day = new DateTime(2024, 10, 1), Time = "05:00 PM", Title = "Educador Físico", Person = "Caul Oliveira", Colors = orange },
+            new EventItem { Day = new DateTime(2024, 10, 5), Time = "04:00 PM", Title = "Pedagoga", Person = "Geísa Morais", Colors = blue },
+            new EventItem { Day = new DateTime(2024, 10, 1), Time = "05:00 PM", Title = "Educador Físico", Person = "Cauê Oliveira", Colors = orange },
             new EventItem { Day = new DateTime(2024, 10, 2), Time = "01:00 PM", Title = "Nutricionista", Person = "Renan Costa", Colors = green }
         };
     }
@@ -137,7 +135,7 @@
     }
 
     .calendar tr:last-child td {
-        border-bottom: none;
+        display: none;
     }
 
     .calendar th:first-child, .calendar td:first-child {

@@ -128,10 +128,16 @@ namespace Back_end.Services
                    || await _context.Profissionais.AnyAsync(p => p.Email == email);
         }
 
-        public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
+       public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
         {
-            // Verificação de nulidade
             if (registro == null) throw new ArgumentNullException(nameof(registro));
+
+            // Verificar se o ServicoId é válido
+            var servicoExiste = await _context.ServicoDisponivel.AnyAsync(s => s.IdServico == registro.ServicoId);
+            if (!servicoExiste)
+            {
+                throw new ArgumentException("O serviço fornecido não é válido.");
+            }
 
             var (senhaCriptografada, salt) = CriptografarSenha(registro.Senha);
 
@@ -141,6 +147,7 @@ namespace Back_end.Services
                 Email = registro.Email,
                 Senha = senhaCriptografada,
                 Salt = salt,
+                ServicoId = registro.ServicoId // Associar o ServicoId ao profissional
             };
 
             _context.Profissionais.Add(profissional);
@@ -148,7 +155,6 @@ namespace Back_end.Services
 
             return profissional;
         }
-
         public async Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional login)
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
@@ -175,36 +181,29 @@ namespace Back_end.Services
         }
         public async Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil)
         {
-            // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
+            // Buscando o discente no banco de dados
             var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == atualizarPerfil.Email);
-            var usuarioProfissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == atualizarPerfil.Email);
 
             if (usuarioDiscente != null)
             {
-                // Verificando valores de campos string e int separadamente
-                if (!string.IsNullOrEmpty(atualizarPerfil.Nome)) // Verifique se a string não está nula ou vazia
+                // Atualizando campos que não são nulos
+                if (!string.IsNullOrEmpty(atualizarPerfil.Nome))
                 {
                     usuarioDiscente.Nome = atualizarPerfil.Nome;
                 }
-
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            else if (usuarioProfissional != null)
-            {
-                // Profissional pode não ter a propriedade Telefone, então você não a atribui aqui
-                if (!string.IsNullOrEmpty(atualizarPerfil.Nome)) // Verifique se a string não está nula ou vazia
+                
+                // Atualizando o telefone, que agora é uma string
+                if (!string.IsNullOrEmpty(atualizarPerfil.Telefone))
                 {
-                    usuarioProfissional.Nome = atualizarPerfil.Nome;
+                    usuarioDiscente.Telefone = atualizarPerfil.Telefone;
                 }
 
-                // Não há campo Telefone em Profissional, então isso não é necessário aqui
-
+                // Salvar mudanças no banco de dados
                 await _context.SaveChangesAsync();
                 return true;
             }
 
-            return false; // Nenhum usuário encontrado
+            return false; // Se o usuário não for encontrado
         }
         public async Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha)
         {
@@ -235,8 +234,7 @@ namespace Back_end.Services
 
             return false; // Nenhum usuário encontrado ou senha incorreta
         }
-
-            public async Task<DiscenteDto> ObterDiscentePorIdAsync(int id)
+        public async Task<DiscenteDto> ObterDiscentePorIdAsync(int id)
         {
             // Buscar o discente pelo ID
             var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.IdDiscente == id);
@@ -258,6 +256,91 @@ namespace Back_end.Services
                 Curso = discente.Curso
             };
         }
+
+        public async Task<ProfissionalDto> ObterProfissionalPorIdAsync(int id)
+        {
+            // Buscar o profissional pelo ID
+            var profissional = await _context.Profissionais
+                .Include(p => p.Servico)
+                .SingleOrDefaultAsync(p => p.IdProfissional == id);
+
+            // Caso o profissional não seja encontrado, retornar null
+            if (profissional == null)
+            {
+                return null;
+            }
+
+            // Retornar os dados do profissional no formato ProfissionalDto
+            return new ProfissionalDto
+            {
+                Nome = profissional.Nome,
+                Email = profissional.Email,
+                ServicoId = profissional.ServicoId,
+                ServicoNome = profissional.Servico?.Tipo // Nome do serviço se disponível
+            };
+        }
+
+        public async Task<bool> AtualizarPerfilCompletoAsync(AtualizarPerfilDto atualizarPerfil)
+        {
+            // Buscando o discente no banco de dados
+            var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == atualizarPerfil.Email);
+
+            if (usuarioDiscente != null)
+            {
+                // Atualizando todos os campos
+                usuarioDiscente.Nome = atualizarPerfil.Nome;
+                usuarioDiscente.Email = atualizarPerfil.Email;
+                usuarioDiscente.Telefone = atualizarPerfil.Telefone;
+                usuarioDiscente.Matricula = atualizarPerfil.Matricula;
+                usuarioDiscente.Curso = atualizarPerfil.Curso;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false; // Se o usuário não for encontrado
+        }
+
+        public async Task<bool> AtualizarPerfilParcialAsync(AtualizarPerfilDto atualizarPerfil)
+        {
+            // Buscando o discente no banco de dados
+            var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == atualizarPerfil.Email);
+
+            if (usuarioDiscente != null)
+            {
+                // Atualizando apenas os campos fornecidos
+                if (!string.IsNullOrEmpty(atualizarPerfil.Nome))
+                {
+                    usuarioDiscente.Nome = atualizarPerfil.Nome;
+                }
+                
+                if (!string.IsNullOrEmpty(atualizarPerfil.Email))
+                {
+                    usuarioDiscente.Email = atualizarPerfil.Email;
+                }
+
+                if (!string.IsNullOrEmpty(atualizarPerfil.Telefone))
+                {
+                    usuarioDiscente.Telefone = atualizarPerfil.Telefone;
+                }
+
+                if (atualizarPerfil.Matricula != null)
+                {
+                    usuarioDiscente.Matricula = atualizarPerfil.Matricula;
+                }
+
+                if (!string.IsNullOrEmpty(atualizarPerfil.Curso))
+                {
+                    usuarioDiscente.Curso = atualizarPerfil.Curso;
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false; // Se o usuário não for encontrado
+        }
+
     }
     
 }

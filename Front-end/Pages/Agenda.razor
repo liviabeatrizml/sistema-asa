@@ -12,7 +12,17 @@
         <main class="page" style="padding-left: 4rem; padding-right: 3rem; padding-top: 20px; margin-bottom: 50px; display: flex; justify-content: space-between;">
 
             <div>
-                <CalendarioSemanal/>
+                <div class="mb-4" style="padding-left: 4.5rem;">
+                    <InputSelect id="mostrar-calendario" class="input-select-arrow select" style="" @bind-Value="calendario">
+                        <option value="semana">SEMANA</option> <!-- Opção padrão -->
+                        <option value="dia">DIA</option>
+                    </InputSelect>
+                </div>
+                @if(calendario == "semana"){
+                    <CalendarioSemanal/>
+                } else if(calendario == "dia"){
+                    <CalendarioDiario/>
+                }
             </div>
 
             <div>
@@ -24,3 +34,32 @@
     </div>
 
 </div>
+
+@code{
+    private string calendario = "semana"; 
+}
+
+<style>
+    .input-select-arrow {
+        background: url('..\\css\\images\\seta-select-calendario.svg') no-repeat right 0.4rem center !important;
+    }
+
+    .select{
+        width: 7.375rem; 
+        height: 2.25rem; 
+        font-size: 1rem; 
+        font-weight: 600;
+        color: var(--blue-ufersa); 
+        padding-left: 0.4rem;
+        border-radius: 6px;
+        border: 1px solid #C3C3C340;
+    }
+
+    .select:hover{
+        background-color: #C3C3C340;
+    }
+
+    .select:focus {
+        outline: none;
+    }
+</style>

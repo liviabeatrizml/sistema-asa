@@ -52,8 +52,6 @@ window.resizeHelper = {
         // Configura o ResizeObserver para monitorar mudanças de tamanho no elemento
         this.observer = new ResizeObserver(() => {
             dotNetReference.invokeMethodAsync('UpdateScrollContainerWidth')
-                .then(() => console.log('Largura atualizada com sucesso!'))
-                .catch(err => console.error('Erro ao atualizar largura:', err));
         });
 
         this.observer.observe(element);
@@ -62,7 +60,6 @@ window.resizeHelper = {
     disconnect: function () {
         if (this.observer) {
             this.observer.disconnect();
-            console.log('ResizeObserver desconectado.');
         }
     }
 };

@@ -29,5 +29,11 @@ namespace Back_end.Models
         [StringLength(255)]
         [Column("salt")]
         public string Salt { get; set; }
+
+        [Column("servico_id")]
+        public int ServicoId { get; set; }
+
+        [ForeignKey("ServicoId")]
+        public ServicoDisponivel Servico { get; set; }
     }
 }

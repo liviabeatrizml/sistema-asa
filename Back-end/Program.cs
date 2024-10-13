@@ -16,7 +16,8 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 
 // Adicionando os serviços
 builder.Services.AddScoped<IDiscenteService, DiscenteService>();
-builder.Services.AddScoped<IAgendamentoService, AgendamentoService>(); // Adicionando AgendamentoService
+builder.Services.AddScoped<IAgendamentoService, AgendamentoService>();
+builder.Services.AddScoped<IProfissionalService, ProfissionalService>();
 
 // Configuração de autenticação JWT
 builder.Services.AddAuthentication(options =>

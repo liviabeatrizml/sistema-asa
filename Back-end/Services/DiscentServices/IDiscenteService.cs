@@ -11,6 +11,6 @@ public interface IDiscenteService
     Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil);
     Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha);
     Task<DiscenteDto> ObterDiscentePorIdAsync(int id);
-
-
+    Task<bool> AtualizarPerfilCompletoAsync(AtualizarPerfilDto atualizarPerfil);
+    Task<bool> AtualizarPerfilParcialAsync(AtualizarPerfilDto atualizarPerfil);
 }

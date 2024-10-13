@@ -2,6 +2,9 @@
 @attribute [Authorize]
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
+@inject ServicoService ServicoService
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Início</PageTitle>
 
@@ -35,27 +38,30 @@
                     <div style="width: 19.063rem;">
                         <h1 style="padding-left: 20px;" class="px24 weight-700">Compromissos</h1>
 
-                        @for(int i = 0; i < 4; i++){
-                            <div style="display: flex; padding-top: 15px">
-                                <img src="..\\css\\images\\compromisso-ex.svg">
-                                <div style="padding-left: 15px;">
-                                    <h2 class="weight-600 paragraph-size">Psicóloga</h2>
-                                    <div>
-                                        <div style="display: flex; padding-top: 2px;">
-                                            <div class="compromise">
-                                                <img src="..\\css\\images\\calendario.svg">
-                                                <span style="color: var(--black-gray); padding-left: 8px;">22-08-2024</span>
-                                            </div>
-                                            <div class="compromise">
-                                                <img src="..\\css\\images\\relogio.svg">
-                                                <span style="color: var(--black-gray); padding-left: 8px;">04:00 PM</span>
-                                            </div>
+                        @if(compromissos != null){
+                            @for(int i = 0; i < Math.Min(compromissos.Count, 4); i++){
+                                <div style="display: flex; padding-top: 15px">
+                                    <img src="..\\css\\images\\compromisso-ex.svg">
+                                    <div style="padding-left: 15px;">
+                                        <h2 class="weight-600 paragraph-size">@compromissos[i].Servico</h2>
+                                        <div>
+                                            <div style="display: flex; padding-top: 2px;">
+                                                <div class="compromise">
+                                                    <img src="..\\css\\images\\calendario.svg">
+                                                    <span style="color: var(--black-gray); padding-left: 8px;">@compromissos[i].Data.ToString("dd-MM-yyyy")</span>
+                                                </div>
+                                                <div class="compromise">
+                                                    <img src="..\\css\\images\\relogio.svg">
+                                                    <span style="color: var(--black-gray); padding-left: 8px;">@(($"{(@compromissos[i].HoraInicio.Hours % 12):D2}:{@compromissos[i].HoraInicio.Minutes:D2} {( @compromissos[i].HoraInicio.Hours >= 12 ? "PM" : "AM") }"))</span>
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                                
+                            }
+
                         }
                     </div>
 
@@ -67,17 +73,22 @@
                         <div>
                             <h1 style="padding: 20px 20px;" class="px24 weight-700">Serviços</h1>
                             <div id="scroll-container" style="display: flex;  width: 42.5rem; overflow: auto; scrollbar-width: none; user-select: none;">
-                                @for(int i = 1; i < 5; i++){
-                                    <div class="service">
-                                        <img class="@(i == 1 ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i).svg">
-                                        <div class="service-people no-select">
-                                            <div style="padding-left: 10px;">
-                                                <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px;">Lívia Beatriz</h3>
-                                                <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">Psicóloga</p>
+                                @if(servicos != null){
+                                    @for(int i = 0; i < servicos.Count; i++){
+                                        var index = i;
+
+                                        <div class="service" style="@(i != 0 ? "margin-left: 30px;" : "margin-left: 0px;")" @onclick="() => ativarServico(servicos[index], index)">
+                                            <img class="@(i == id_servico_escolhido ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i%4).svg">
+                                            <div class="service-people no-select">
+                                                <div style="padding-left: 10px;">
+                                                    <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px; text-align: left;">@servicos[i].Nome_Profissional</h3>
+                                                    <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">@servicos[i].Tipo_Servico</p>
+                                                </div>
+                                                <img src="..\css\images\servico-ex.svg">
                                             </div>
-                                            <img style="width: 3.5rem; height: 3.5rem;" src="..\css\images\servico-ex.svg">
                                         </div>
-                                    </div>
+                                    }
+
                                 }
                             </div>
                         </div>
@@ -86,9 +97,13 @@
                             <div style="display: flex; align-items: flex-start;">
                                 <img style="width: 5.5rem; height: 5.5rem;" src="..\css\images\info-ex.svg">
                                 <div style="padding: 5px 5px 0px 10px;">
-                                    <h2 class="weight-600" style="font-size: 1.375rem; margin: 0; padding-bottom: 5px;">Lívia Beatriz Maia de Lima</h2>
-                                    <span class="weight-500" style="color: var(--black-gray);">Psicóloga - CRP 17/0000</span>
-                                    <p class="weight-500" style="font-size: 1.125rem; color: var(--black-gray); padding-top: 15px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry indut...</p>
+                                    @if(servicos != null){
+                                        <h2 class="weight-600" style="font-size: 1.375rem; margin: 0; padding-bottom: 5px;">@servico_escolhido.Nome_Profissional</h2>
+                                        <span class="weight-500" style="color: var(--black-gray);">@servico_escolhido.Tipo_Servico - CRP 17/0000</span>
+                                        <p class="weight-500" style="font-size: 1.125rem; color: var(--black-gray); padding-top: 15px;">
+                                            @((servico_escolhido.Descricao.Length > 160) ? servico_escolhido.Descricao.Substring(0, 160) + "..." : servico_escolhido.Descricao)
+                                        </p>
+                                    }
                                 </div>
                                 <div style="padding: 5px 0px; display: flex;">
                                     <img src="..\css\images\info-agendar.svg">
@@ -107,6 +122,28 @@
 </div>
 
 @code {
+    private List<ServicoProfissionalModel> servicos;
+    private ServicoProfissionalModel servico_escolhido;
+    private int id_servico_escolhido = 0;
+
+    private List<CompromissoModel> compromissos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        servicos = await ServicoService.ListServicos();
+        servico_escolhido = servicos[0];
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+        }
+    }
+
+    public void ativarServico(ServicoProfissionalModel servico, int id_servico){
+        servico_escolhido = servico;
+        id_servico_escolhido = id_servico;
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

@@ -1,4 +1,6 @@
 @inject NavigationManager Navigation
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="calendario @HeightClass" style="user-select: none;">
     <div class="calendario-height">
@@ -31,6 +33,12 @@
                     if (dia.Date == DateTime.Today)
                     {
                         classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                    }
+
+                    foreach(var compromisso in compromissos){
+                        if(dia.Date == compromisso.Data){
+                            classeDia += " dia-compromisso";
+                        }
                     }
         
                     <div class="@classeDia weight-600">
@@ -90,8 +98,16 @@
     private List<string> NomesDiasSemana { get; set; } = new() { "D", "S", "T", "Q", "Q", "S", "S" };
     private string HeightClass { get; set; } = "";
 
-    protected override void OnInitialized()
+    private List<CompromissoModel> compromissos;
+
+    protected override async Task OnInitializedAsync()
     {
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+        }
+        
         GerarCalendario(DataAtual);
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
         if (relativePath == "inicio")
@@ -171,9 +187,15 @@
     }
 
     .dia-hoje {
-        background-color: var(--light-blue); /* Cor de fundo amarelo semitransparente */
-        border-radius: 50%; /* Arredondar cantos, opcional */
-        color: var(--blue-ufersa) !important; /* A cor do texto, se necessário */
+        background-color: var(--light-blue);
+        border-radius: 50%;
+        color: var(--blue-ufersa) !important;
+    }
+
+    .dia-compromisso {
+        background-color: #D9D9D9;
+        border-radius: 50%;
+        color: var(--blue-ufersa) !important;
     }
 
     .mes-atual {
