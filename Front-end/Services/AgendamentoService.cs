@@ -63,7 +63,10 @@ public class AgendamentoService{
 
         }
 
-        compromissos = compromissos.OrderBy(c => c.Data).ToList();
+        compromissos = compromissos
+        .OrderBy(c => c.Data)
+        .ThenBy(c => c.HoraInicio)
+        .ToList();
         return compromissos;
     }
 }
