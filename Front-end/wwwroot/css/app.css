@@ -403,7 +403,7 @@ code {
     position: fixed;
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
-    display: block;
+    display: none;
 }
 
 .termos-politicas-container{
@@ -469,7 +469,7 @@ code {
 }
 
 .recuperar-senha-container{
-    display: block;
+    display: none;
     width: 25.438rem;
     height: 48.25rem;
     position: fixed;
