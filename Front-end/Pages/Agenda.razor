@@ -14,8 +14,8 @@
             <div>
                 <div class="mb-4" style="padding-left: 4.5rem;">
                     <InputSelect id="mostrar-calendario" class="input-select-arrow select" style="" @bind-Value="calendario">
-                        <option value="semana">SEMANA</option> <!-- Opção padrão -->
                         <option value="dia">DIA</option>
+                        <option value="semana">SEMANA</option>
                     </InputSelect>
                 </div>
                 @if(calendario == "semana"){
@@ -53,6 +53,7 @@
         padding-left: 0.4rem;
         border-radius: 6px;
         border: 1px solid #C3C3C340;
+        cursor: pointer;
     }
 
     .select:hover{
