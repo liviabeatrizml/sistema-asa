@@ -14,7 +14,9 @@ namespace testeDeUnidade.models.perfil
             {
                 Email = "livia@alunos.ufersa.edu.br",
                 Nome = "Livia",
-                Telefone = "40028922"
+                Telefone = "40028922",
+                Matricula = 2021010871,
+                Curso = "Engenharia"
             };
         }
 
@@ -37,6 +39,20 @@ namespace testeDeUnidade.models.perfil
         {
             atualizarPerfilDTO.Telefone = "998429564";
             Assert.That(atualizarPerfilDTO.Telefone, Is.EqualTo("998429564"));
+        }
+
+        [Test]
+        public void TestGetSetMatricula()
+        {
+            atualizarPerfilDTO.Matricula = 2021010871;
+            Assert.That(atualizarPerfilDTO.Matricula, Is.EqualTo(2021010871));
+        }
+
+        [Test]
+        public void TestGetSetCurso()
+        {
+            atualizarPerfilDTO.Curso = "Engenharia";
+            Assert.That(atualizarPerfilDTO.Curso, Is.EqualTo("Engenharia"));
         }
     }
 }

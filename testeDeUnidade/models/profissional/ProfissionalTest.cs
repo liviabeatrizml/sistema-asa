@@ -48,5 +48,20 @@ namespace testeDeUnidade.models.profissional
             profissional.Salt = "Geisa07.";
             Assert.That(profissional.Salt, Is.EqualTo("Geisa07."));
         }
+
+        [Test]
+        public void TestGetSetServicoId()
+        {
+            profissional.ServicoId = 1;
+            Assert.That(profissional.ServicoId, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestGetSetServicoDisponivel()
+        {
+            var servico = new ServicoDisponivel();
+            profissional.Servico = servico;
+            Assert.That(profissional.Servico, Is.EqualTo(servico));
+        }
     }
 }
