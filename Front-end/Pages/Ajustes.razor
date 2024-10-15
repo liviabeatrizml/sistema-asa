@@ -52,7 +52,7 @@
 
                     <EditForm Model="@infosUser" OnValidSubmit="@EditarDiscente">
                     <DataAnnotationsValidator />
-                        <div class="edit-fields">
+                        <div class="edit-fields" style="flex-wrap: wrap;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Nome <span style="color: #BA3838">*</span></span>
                                 <div class="mb-3">
                                     <InputText id="nome" class="custom-input form-control border-radius-10 my-1" style="width: 12.875rem;" @bind-Value="infosUser.Nome"/>
@@ -60,14 +60,16 @@
                                 <div class="mb-3">
                                     <InputText id="sobrenome" class="custom-input form-control border-radius-10 my-1" style="width: 33.125rem; margin-left: 1.5rem;" @bind-Value="infosUser.Sobrenome"/>
                                 </div>
+                                <ValidationMessage For="@(() => infosUser.Nome)" style="width: 100%"/>
+                                <ValidationMessage For="@(() => infosUser.Sobrenome)" style="width: 100%"/>
                         </div>
-                        <div class="edit-fields" style="display: flex; width: 100%; justify-content: space-between; align-items: flex-start; padding-bottom: 20px;">
+                        <div class="edit-fields" style="display: flex; justify-content: flex-start; align-items: flex-start; padding-bottom: 20px;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 20rem">Foto
                                     <br>
                                     <span class="paragraph-size weight-500" style="color: var(--black-gray);">Isso será exibido em seu perfil</span>
                                 </span>
                                 
-                                <img class="edit-img" src="..\\css\\images\\img-perfil-padrao.svg">
+                                <img class="edit-img" src="..\\css\\images\\img-perfil-padrao.svg" style="margin-right: 2.5rem;">
                                 
                                 <div>
 
@@ -88,20 +90,22 @@
 
                                 </div>
                         </div>
-                        <div class="edit-fields">
+                        <div class="edit-fields" style="flex-wrap: wrap;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Telefone</span>
 
                                 <div class="mb-3">
                                     <InputText id="ddi" class="custom-input form-control border-radius-10 my-1" style="width: 5em; text-align: center;" @bind-Value="infosUser.telefoneModel.DDI" maxlength="3" oninput="formatDDI(this)" placeholder="+xx"/>
                                 </div>
                                 <div class="mb-3">
-                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.DDD" maxlength="4" oninput="formatDDD(this)" onkeydown="handleKeyDownDDD(event, this)" placeholder="(xx)"/>
+                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.DDD" maxlength="4" oninput="formatDDD(this)" placeholder="(xx)"/>
                                 </div>
                                 <div class="mb-3">
                                     <InputText id="numero" class="custom-input form-control border-radius-10 my-1" style="width: 34.5rem; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.Numero" maxlength="10" oninput="formatNumero(this)" placeholder="xxxxx-xxxx"/>
                                 </div>
                                 
-                                <ValidationMessage For="@(() => infosUser.telefoneModel)" />
+                                <ValidationMessage For="@(() => infosUser.telefoneModel.DDI)" />
+                                <ValidationMessage For="@(() => infosUser.telefoneModel.DDD)" />
+                                <ValidationMessage For="@(() => infosUser.telefoneModel.Numero)" />
                         </div>
                         <div class="edit-fields">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Curso</span>
@@ -226,7 +230,18 @@
             discente = await DiscenteService.GetDiscente(userId); 
             contaUser.Email = discente.Email;
             contaUser.Matricula = discente.Matricula.ToString();
-            infosUser.telefoneModel = DividirTelefone(discente.Telefone);
+
+            if(discente.Telefone == null || discente.Telefone == ""){
+                infosUser.telefoneModel = new TelefoneModel
+                {
+                    DDI = null,
+                    DDD = null,
+                    Numero = null,
+                };
+            } else{
+                infosUser.telefoneModel = DividirTelefone(discente.Telefone);
+
+            }
             var (primeiroNome, sobrenome) = DividirNome(discente.Nome);
             infosUser.Nome = primeiroNome;
             infosUser.Sobrenome = sobrenome;
@@ -270,9 +285,9 @@
     }
     public class InfosUser
     {
-
+        [Required(ErrorMessage = "O campo Nome é obrigatório.")]
         public string Nome { get; set; }
-
+        [Required(ErrorMessage = "O campo Sobrenome é obrigatório.")]
         public string Sobrenome { get; set; }
 
         public string Curso { get; set; }

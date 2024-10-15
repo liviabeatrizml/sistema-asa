@@ -152,7 +152,10 @@
                 .Where(compromisso => compromisso.Data.Date >= DateTime.Today)
                 .ToList();
             }
-            DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
+            if(compromissosSemanais != null && compromissosSemanais.Count > 0){
+                DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
+
+            }
             HeightClass = "calendario-services-height";
         }
         GerarCalendario(DataAtual);
