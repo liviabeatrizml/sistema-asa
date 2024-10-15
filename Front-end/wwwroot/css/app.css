@@ -482,12 +482,12 @@ code {
     padding: 32px;
 }
 
-.recuperar-senha-h1{
+.pop-up-h1{
     font-size: 2.75rem;
     font-weight: 700;
 }
 
-.recuperar-senha-p{
+.pop-up-p{
     font-size: 1.1rem;
     font-weight: 500;
 }
@@ -591,4 +591,17 @@ code {
     width: 5rem; 
     height: 5rem;
     border-radius: 50%;
+}
+
+.container-excluir{
+    display: none;
+    width: 25.438rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1000;
+    border-radius: 20px;
+    padding: 32px;
 }
