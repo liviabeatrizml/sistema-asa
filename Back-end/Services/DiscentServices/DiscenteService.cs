@@ -37,7 +37,7 @@ namespace Back_end.Services
                 Senha = senhaCriptografada,
                 Salt = salt, // Armazenar o salt no banco
                 Matricula = registro.Matricula,
-                Telefone = registro.Telefone,
+                Telefone = string.IsNullOrEmpty(registro.Telefone) ? null : registro.Telefone,
                 Curso = registro.Curso
             };
 
