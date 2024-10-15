@@ -48,3 +48,10 @@
     background-color: currentColor;
     border-radius: 10px;
 }
+
+.nav-img{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}

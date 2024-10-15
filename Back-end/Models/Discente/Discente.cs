@@ -34,10 +34,9 @@ namespace Back_end.Models
         [Column("matricula", TypeName = "INT")] // Mapeia a coluna 'matricula'
         public int Matricula { get; set; }
 
-        [Required]
         [StringLength(20)]
         [Column("telefone")] // Mapeia a coluna 'telefone'
-        public string Telefone { get; set; }
+        public string? Telefone { get; set; }
 
         [StringLength(100)]
         [Column("curso")] // Mapeia a coluna 'curso'

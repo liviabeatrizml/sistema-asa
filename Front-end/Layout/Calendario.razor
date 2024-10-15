@@ -35,10 +35,13 @@
                         classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
                     }
 
-                    foreach(var compromisso in compromissos){
-                        if(dia.Date == compromisso.Data){
-                            classeDia += " dia-compromisso";
+                    @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio"){
+                        foreach(var compromisso in compromissos){
+                            if(dia.Date == compromisso.Data){
+                                classeDia += " dia-compromisso";
+                            }
                         }
+                        
                     }
         
                     <div class="@classeDia weight-600">
@@ -54,18 +57,20 @@
     @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio")
     {
     <div class="agendar-relatar">
-        <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8 14H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 14H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 14H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8 18H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 18H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 18H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <a href="/agenda" style="cursor: pointer;">
+            <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 14H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 14H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 14H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 18H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 18H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 18H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
 
         <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -75,18 +80,42 @@
     </div>
     } else if(Navigation.ToBaseRelativePath(Navigation.Uri) == "agenda")
     {
-        <div>
-            <h1 class="weight-700" style="color: var(--white); font-size: 1rem; margin: 0;">HOJE</h1>
-            <span class="weight-500" style="font-size: 0.75rem; color: var(--black-gray);">21/12/2024</span>
+        @if(compromissosSemanais != null){
+            @for (int i = 0; i < Math.Min(compromissosSemanais.Count, 4); i++)
+            {
+                Console.WriteLine(compromissosSemanais[i].Data.Date);
+                Console.WriteLine(DataAtual);
+                var cor= "";
+                @if(compromissosSemanais[i].Servico == "Psicóloga" || compromissosSemanais[i].Servico == "Psicólogo" || compromissosSemanais[i].Servico == "Psicóloga(o)" || compromissosSemanais[i].Servico == "Psicólogo(a)"){
+                    cor = "#F884D7";
+                } else if(compromissosSemanais[i].Servico == "Pedagoga" || compromissosSemanais[i].Servico == "Pedagogo" || compromissosSemanais[i].Servico == "Pedagoga(o)" || compromissosSemanais[i].Servico == "Pedagogo(a)"){
+                    cor = "#95BBF8";
+                } else if(compromissosSemanais[i].Servico == "Nutricionista"){
+                    cor = "#D6F894";
+                } else if(compromissosSemanais[i].Servico == "Educador Físico" || compromissosSemanais[i].Servico == "Educadora Física"){
+                    cor = "#F6C4AF";
+                }
+                <div>
+                    @if(compromissosSemanais[i].Data.Date >= DataAtual){
+                        @if (DataCompromisso.Date != compromissosSemanais[i].Data.Date)
+                        {
+                            DataCompromisso = compromissosSemanais[i].Data;
+                            <h1 class="weight-700" style="color: var(--white); font-size: 1rem; margin: 0; padding-top: 10px;">@ObterTituloData(DataCompromisso)</h1>
+                            <span class="weight-500" style="font-size: 0.75rem; color: var(--black-gray);">@DataCompromisso.ToString("dd/MM/yyyy")</span>
+                        }
+                        <div style="padding: 15px;">
+                            <span style="display: flex; align-items: center; font-size: 0.688rem; color: var(--white);">
+                                <div style="width: 0.75rem; height: 0.75rem; background-color: @cor; border-radius: 50%; padding-top: 10px; margin-right: 10px;"></div>
+                                @(($"{(@compromissosSemanais[i].HoraInicio.Hours % 12):D2}:{@compromissosSemanais[i].HoraInicio.Minutes:D2} {( @compromissosSemanais[i].HoraInicio.Hours >= 12 ? "PM" : "AM") }")) - @(($"{(@compromissosSemanais[i].HoraFim.Hours % 12):D2}:{@compromissosSemanais[i].HoraFim.Minutes:D2} {( @compromissosSemanais[i].HoraFim.Hours >= 12 ? "PM" : "AM") }"))
+                            </span>
+                            <span style="font-size: 0.75rem; padding-left: 0.75rem; margin-left: 10px; color: var(--black-gray);">@compromissosSemanais[i].Servico - @compromissosSemanais[i].Profissional_Nome</span>
+                        </div>
+                        
+                    }
+                </div>
+            }
 
-            <div style="padding: 15px;">
-                <span style="display: flex; align-items: center; font-size: 0.688rem; color: var(--white);">
-                    <div style="width: 0.75rem; height: 0.75rem; background-color: #F884D7; border-radius: 50%; padding-top: 10px; margin-right: 10px;"></div>
-                    08:00 - 09:00 AM
-                </span>
-                <span style="font-size: 0.75rem; padding-left: 0.75rem; margin-left: 10px; color: var(--black-gray);">Psicóloga - Lívia Beatriz</span>
-            </div>
-        </div>
+        }
     }
 
     
@@ -94,28 +123,42 @@
 
 @code {
     private DateTime DataAtual { get; set; } = DateTime.Today;
+    private DateTime DataCompromisso { get; set; }
+
     private List<List<DateTime>> Semanas { get; set; } = new();
     private List<string> NomesDiasSemana { get; set; } = new() { "D", "S", "T", "Q", "Q", "S", "S" };
     private string HeightClass { get; set; } = "";
 
     private List<CompromissoModel> compromissos;
+    private List<CompromissoModel> compromissosSemanais;
 
     protected override async Task OnInitializedAsync()
     {
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
-        if(userId != -1){
-            compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
-        }
+
         
-        GerarCalendario(DataAtual);
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
         if (relativePath == "inicio")
         {
+            if(userId != -1){
+                compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+            }
             HeightClass = "";
         } else{
+            if(userId != -1){
+                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId);
+                compromissosSemanais = compromissosSemanais
+                .Where(compromisso => compromisso.Data.Date >= DateTime.Today)
+                .ToList();
+            }
+            if(compromissosSemanais != null && compromissosSemanais.Count > 0){
+                DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
+
+            }
             HeightClass = "calendario-services-height";
         }
+        GerarCalendario(DataAtual);
     }
 
     private void GerarCalendario(DateTime date)
@@ -128,7 +171,7 @@
         var diaAtual = primeiroDiaDoMes.AddDays(-primeiroDiaDaSemana);
         int totalDias = diasNoMes + primeiroDiaDaSemana;
         int numeroDeSemanas = (int)Math.Ceiling(totalDias / 7.0);
-        for (int i = 0; i < numeroDeSemanas; i++) // Máximo de 6 semanas visíveis
+        for (int i = 0; i < numeroDeSemanas; i++)
         {
             var semana = new List<DateTime>();
             for (int j = 0; j < 7; j++)
@@ -138,6 +181,20 @@
             }
             Semanas.Add(semana);
         }
+    }
+
+    private string ObterTituloData(DateTime data)
+    {
+        DateTime hoje = DateTime.Today;
+        DateTime amanha = hoje.AddDays(1);
+
+        if (data.Date == hoje)
+            return "HOJE";
+        else if (data.Date == amanha)
+            return "AMANHÃ";
+        else
+            return data.ToString("dddd").ToUpper(); // Converte o dia da semana para maiúsculas
+
     }
 
     private void MudarMes(int meses)
@@ -159,11 +216,11 @@
     }
 
     .calendario-height{
-        height: 25.75rem;
+        height: 25.5rem;
     }
 
     .calendario-services-height{
-        height: 56.563rem;
+        min-height: 56.563rem;
     }
 
     .header {

@@ -5,8 +5,11 @@
 @inject DiscenteService DiscenteService
 @using System.Text.RegularExpressions
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
 
 <PageTitle>Ajustes</PageTitle>
+
+<div id="opacidade"></div>
 
 <div class="page" style="background-color: var(--blue-ufersa); height: auto;">
     <NavMenu />
@@ -49,7 +52,7 @@
 
                     <EditForm Model="@infosUser" OnValidSubmit="@EditarDiscente">
                     <DataAnnotationsValidator />
-                        <div class="edit-fields">
+                        <div class="edit-fields" style="flex-wrap: wrap;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Nome <span style="color: #BA3838">*</span></span>
                                 <div class="mb-3">
                                     <InputText id="nome" class="custom-input form-control border-radius-10 my-1" style="width: 12.875rem;" @bind-Value="infosUser.Nome"/>
@@ -57,14 +60,16 @@
                                 <div class="mb-3">
                                     <InputText id="sobrenome" class="custom-input form-control border-radius-10 my-1" style="width: 33.125rem; margin-left: 1.5rem;" @bind-Value="infosUser.Sobrenome"/>
                                 </div>
+                                <ValidationMessage For="@(() => infosUser.Nome)" style="width: 100%"/>
+                                <ValidationMessage For="@(() => infosUser.Sobrenome)" style="width: 100%"/>
                         </div>
-                        <div class="edit-fields" style="display: flex; width: 100%; justify-content: space-between; align-items: flex-start; padding-bottom: 20px;">
+                        <div class="edit-fields" style="display: flex; justify-content: flex-start; align-items: flex-start; padding-bottom: 20px;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 20rem">Foto
                                     <br>
                                     <span class="paragraph-size weight-500" style="color: var(--black-gray);">Isso será exibido em seu perfil</span>
                                 </span>
                                 
-                                <img style="width: 5rem; height: 5rem;" src="..\\css\\images\\img-ilustrativa-edit.svg">
+                                <img class="edit-img" src="..\\css\\images\\img-perfil-padrao.svg" style="margin-right: 2.5rem;">
                                 
                                 <div>
 
@@ -85,20 +90,22 @@
 
                                 </div>
                         </div>
-                        <div class="edit-fields">
+                        <div class="edit-fields" style="flex-wrap: wrap;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Telefone</span>
 
                                 <div class="mb-3">
                                     <InputText id="ddi" class="custom-input form-control border-radius-10 my-1" style="width: 5em; text-align: center;" @bind-Value="infosUser.telefoneModel.DDI" maxlength="3" oninput="formatDDI(this)" placeholder="+xx"/>
                                 </div>
                                 <div class="mb-3">
-                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.DDD" maxlength="4" oninput="formatDDD(this)" onkeydown="handleKeyDownDDD(event, this)" placeholder="(xx)"/>
+                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.DDD" maxlength="4" oninput="formatDDD(this)" placeholder="(xx)"/>
                                 </div>
                                 <div class="mb-3">
                                     <InputText id="numero" class="custom-input form-control border-radius-10 my-1" style="width: 34.5rem; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.Numero" maxlength="10" oninput="formatNumero(this)" placeholder="xxxxx-xxxx"/>
                                 </div>
                                 
-                                <ValidationMessage For="@(() => infosUser.telefoneModel)" />
+                                <ValidationMessage For="@(() => infosUser.telefoneModel.DDI)" />
+                                <ValidationMessage For="@(() => infosUser.telefoneModel.DDD)" />
+                                <ValidationMessage For="@(() => infosUser.telefoneModel.Numero)" />
                         </div>
                         <div class="edit-fields">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Curso</span>
@@ -132,7 +139,7 @@
 
                     <EditForm Model="@contaUser">
                     <DataAnnotationsValidator />
-                        <div class="edit-fields">
+                        <div class="edit-fields" style="flex-wrap: wrap;">
                             <span class="paragraph-size px-2 weight-500" style="width: 12rem">Matrícula <span style="color: #BA3838">*</span></span>
                             <div class="mb-3 input-with-icon">
                                 <span class="input-icon">
@@ -142,7 +149,7 @@
                             </div>
                                 <ValidationMessage For="@(() => contaUser.Matricula)" />
                         </div>
-                        <div class="edit-fields">
+                        <div class="edit-fields" style="flex-wrap: wrap;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Email <span style="color: #BA3838">*</span></span>
                                 <div class="mb-3 input-with-icon">
                                     <svg class="input-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,9 +159,10 @@
 
                                     <InputText id="email" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Email"/>
                                 </div>
+                                <br>
                                 <ValidationMessage For="@(() => contaUser.Email)" />
                         </div>
-                        <div class="edit-fields">
+                        <div class="edit-fields" style="flex-wrap: wrap;">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Senha <span style="color: #BA3838">*</span></span>
                                 <div class="mb-3 input-with-icon">
                                     <svg class="input-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +178,7 @@
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Excluir Perfil</span>
                                 <div style="display: flex; flex-wrap: wrap;">
                                     <span class="weight-500 paragraph-size" style="color: var(--black-gray); width: 100%;">Exclua sua conta e todos os seus dados de origem. Isso é irreversível.</span>
-                                    <button style="background-color: #D20240; color: var(--white); margin: 20px 0px;" class="button-edit">Excluir Conta</button>
+                                    <button style="background-color: #D20240; color: var(--white); margin: 20px 0px;" class="button-edit" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Excluir Conta</button>
                                 </div>
                         </div>
 
@@ -185,6 +193,25 @@
 
         </main>
 
+    </div>
+
+    <div id="excluir-usuario" class="container-excluir">
+        <h1 class="pop-up-h1">
+            Verificação
+        </h1>
+        <p class="pop-up-p pb-4">O Sistema Agendamento está a tentar excluir conta. Escreva a sua senha atual para permitir esta ação.</p>
+        <div class="password-container mb-2">
+            <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="senhaAtual" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
+            <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-on.svg" : "..\\css\\images\\eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+            </span>
+        </div>
+        <a href="/recuperar-senha" class="weight-700 paragraph-size underline">Esqueceu sua senha?</a>
+
+        <div style="display: flex; justify-content: space-between; width: 100%; padding-top: 1rem">
+            <button style="background-color: transparent; border: 2px solid #C3C3C340" class="button-senha" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Cancelar</button>
+            <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-senha" type="submit">Confirmar</button>
+        </div>
     </div>
 
 </div>
@@ -203,7 +230,18 @@
             discente = await DiscenteService.GetDiscente(userId); 
             contaUser.Email = discente.Email;
             contaUser.Matricula = discente.Matricula.ToString();
-            infosUser.telefoneModel = DividirTelefone(discente.Telefone);
+
+            if(discente.Telefone == null || discente.Telefone == ""){
+                infosUser.telefoneModel = new TelefoneModel
+                {
+                    DDI = null,
+                    DDD = null,
+                    Numero = null,
+                };
+            } else{
+                infosUser.telefoneModel = DividirTelefone(discente.Telefone);
+
+            }
             var (primeiroNome, sobrenome) = DividirNome(discente.Nome);
             infosUser.Nome = primeiroNome;
             infosUser.Sobrenome = sobrenome;
@@ -247,9 +285,9 @@
     }
     public class InfosUser
     {
-
+        [Required(ErrorMessage = "O campo Nome é obrigatório.")]
         public string Nome { get; set; }
-
+        [Required(ErrorMessage = "O campo Sobrenome é obrigatório.")]
         public string Sobrenome { get; set; }
 
         public string Curso { get; set; }
@@ -273,6 +311,7 @@
     private Conta contaUserAtual = new Conta();
     private InfosUser infosUser = new InfosUser();
     private InfosUser infosUserAtual = new InfosUser();
+    private string senhaAtual;
 
     private async Task EditarDiscente()
     {
@@ -354,6 +393,19 @@
 
         // O primeiro nome é a primeira parte, e o sobrenome é o restante
         return (partes[0], partes[1]);
+    }
+
+    private bool isPasswordVisible = false;
+
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+
+    private async Task ToggleDisplayById(string id)
+    {
+        await JS.InvokeVoidAsync("toggleDisplayById", id);
+        await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
     }
 }
 

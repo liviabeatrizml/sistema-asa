@@ -13,4 +13,5 @@ public interface IDiscenteService
     Task<DiscenteDto> ObterDiscentePorIdAsync(int id);
     Task<bool> AtualizarPerfilCompletoAsync(AtualizarPerfilDto atualizarPerfil);
     Task<bool> AtualizarPerfilParcialAsync(AtualizarPerfilDto atualizarPerfil);
+    Task<bool> DeletarUsuarioAsync(int id);
 }

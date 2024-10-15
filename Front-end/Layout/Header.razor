@@ -14,7 +14,46 @@
 
             <a href="/" @onmouseover="relatarColor" @onmouseout="relatarColor"><img src="@(relatarHover ? "..\\css\\images\\relatar.svg" : "..\\css\\images\\relatar-hover.svg")" alt="Relatar"></a>
         </div>
+    } else if(Navigation.ToBaseRelativePath(Navigation.Uri) != "" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "home" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "entrar" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "cadastrar" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "ajustes" &&
+        Navigation.ToBaseRelativePath(Navigation.Uri) != "recuperar-senha")
+    {
+        <div style="display: flex;">
+            @if(Navigation.ToBaseRelativePath(Navigation.Uri) == "servicos"){
+                <div style="padding-right: 15px; border-right: 2px solid #C3C3C3;">
+                    <a href="/agenda" style="cursor: pointer; background-color: #C3C3C340; width: 36px; height: 36px; border-radius: 10px; align-items: center; display: flex; justify-content: center;" >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 2V6" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 2V6" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 10H21" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 14H8.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 14H12.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 14H16.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 18H8.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 18H12.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 18H16.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            }
+            <div style="background-color: var(--blue-ufersa); width: 36px; height: 36px; border-radius: 10px; align-items: center; display: flex; justify-content: center; cursor: pointer; margin-left: 15px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 13V6C21 5.46957 20.7893 4.96086 20.4142 4.58579C20.0391 4.21071 19.5304 4 19 4H5C4.46957 4 3.96086 4.21071 3.58579 4.58579C3.21071 4.96086 3 5.46957 3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H13" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 16V22" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 19H22" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+
     }
+
 </header>
 
 <style>
