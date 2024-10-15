@@ -73,7 +73,7 @@
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
         if(userId != -1){
-            compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+            compromissos = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId);
         }
 
         if (compromissos != null && compromissos.Count > 0){
