@@ -203,6 +203,19 @@ namespace Back_end.Controllers
             var profissionais = await _profissionalService.ListarProfissionaisAsync();
             return Ok(profissionais);
         }
-        
+        [HttpDelete("deletar-usuario/{id}")]
+        public async Task<IActionResult> DeletarUsuario(int id)
+        {
+            var resultado = await _discenteService.DeletarUsuarioAsync(id);
+            
+            if (resultado)
+            {
+                return Ok(new { mensagem = "Usuário deletado com sucesso" });
+            }
+            else
+            {
+                return NotFound(new { mensagem = "Usuário não encontrado" });
+            }
+        }
     }
 }
