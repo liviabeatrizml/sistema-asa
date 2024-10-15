@@ -19,9 +19,8 @@ namespace Back_end.Models
 
         [Required]
         public int Matricula { get; set; }
-
-        [Required]
-        public string Telefone { get; set; }
+        
+        public string? Telefone { get; set; }
 
         [StringLength(100)]
         public string Curso { get; set; }

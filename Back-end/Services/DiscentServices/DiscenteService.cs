@@ -37,7 +37,7 @@ namespace Back_end.Services
                 Senha = senhaCriptografada,
                 Salt = salt, // Armazenar o salt no banco
                 Matricula = registro.Matricula,
-                Telefone = registro.Telefone,
+                Telefone = string.IsNullOrEmpty(registro.Telefone) ? null : registro.Telefone,
                 Curso = registro.Curso
             };
 
@@ -339,6 +339,27 @@ namespace Back_end.Services
             }
 
             return false; // Se o usuário não for encontrado
+        }
+
+        public async Task<bool> DeletarUsuarioAsync(int id)
+        {
+            var discente = await _context.Discentes.FindAsync(id);
+            if (discente != null)
+            {
+                _context.Discentes.Remove(discente);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            var profissional = await _context.Profissionais.FindAsync(id);
+            if (profissional != null)
+            {
+                _context.Profissionais.Remove(profissional);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
     }

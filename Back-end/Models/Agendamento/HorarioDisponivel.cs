@@ -16,7 +16,7 @@ namespace Back_end.Models
         public TimeSpan HoraFim { get; set; }
 
         [Column("diaDaSemana")]
-        public string DiaDaSemana { get; set; }
+        public int DiaDaSemana { get; set; }
 
         [ForeignKey("Profissional")]
         [Column("profissional_id")]
