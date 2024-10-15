@@ -4,6 +4,8 @@
 @inject IJSRuntime JS
 @inject ServicoService ServicoService
 
+<div id="opacidade"></div>
+
 <PageTitle>Serviços</PageTitle>
 
 <div class="page" style="background-color: var(--blue-ufersa); height: auto;">
@@ -15,7 +17,7 @@
         <main class="page" style="padding-left: 4rem; padding-right: 3rem; padding-top: 20px; display: flex; flex-wrap: wrap;">
 
             <div style="display: flex; align-items: start; width: 90%;">
-                <img style="padding-right: 35px;" src="..\css\images\p-servico.svg">
+                <img class="servico-img" src="..\css\images\img-perfil-padrao.svg">
 
                 <div style="padding-top: 10px;">
                     @if(servicos != null){
@@ -48,7 +50,7 @@
                                         <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px; text-align: left;">@servicos[i].Nome_Profissional</h3>
                                         <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">@servicos[i].Tipo_Servico</p>
                                     </div>
-                                    <img src="..\css\images\servico-ex.svg">
+                                    <img class="servicos-img" src="..\css\images\img-perfil-padrao.svg">
                                 </div>
                             </div>
                         }
