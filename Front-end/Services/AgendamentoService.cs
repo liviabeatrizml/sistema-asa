@@ -189,6 +189,11 @@ public class AgendamentoService{
         return compromissos;
     }
 
+    public async Task<HttpResponseMessage> SolicitarAgendamento(AgendamentoModel model)
+    {
+        return await _httpClient.PostAsJsonAsync("/api/Agendamento/solicitar", model);
+    }
+
 }
 
 public class CompromissoModel{
@@ -203,4 +208,6 @@ public class AgendamentoModel{
     public DateTime Data { get; set; }
     public int ProfissionalId{get; set;}
     public int HorarioId {get; set;}
+    public int ServicoId {get; set;}
+    public int DiscenteId {get; set;}
 }
