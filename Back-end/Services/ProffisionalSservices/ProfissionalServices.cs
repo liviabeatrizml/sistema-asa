@@ -35,6 +35,7 @@ public class ProfissionalService : IProfissionalService
             .Include(p => p.Servico) // Inclui a relação com o serviço
             .Select(p => new ProfissionalDto
             {
+                IdProfissional = p.IdProfissional,
                 Nome = p.Nome,
                 Email = p.Email,
                 ServicoId = p.ServicoId,
