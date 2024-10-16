@@ -2,6 +2,7 @@
 @attribute [Authorize]
 @inject NavigationManager Navigation
 @using System.ComponentModel.DataAnnotations
+@using System.Collections.Generic;
 @inject DiscenteService DiscenteService
 @using System.Text.RegularExpressions
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -94,18 +95,22 @@
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Telefone</span>
 
                                 <div class="mb-3">
-                                    <InputText id="ddi" class="custom-input form-control border-radius-10 my-1" style="width: 5em; text-align: center;" @bind-Value="infosUser.telefoneModel.DDI" maxlength="3" oninput="formatDDI(this)" placeholder="+xx"/>
+                                    <InputText id="ddi" class="custom-input form-control border-radius-10 my-1" style="width: 5em; text-align: center;" @bind-Value="infosUser.DDI" maxlength="3" oninput="formatDDI(this)" placeholder="+xx"/>
                                 </div>
                                 <div class="mb-3">
-                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.DDD" maxlength="4" oninput="formatDDD(this)" placeholder="(xx)"/>
+                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.DDD" maxlength="4" oninput="formatDDD(this)" placeholder="(xx)"/>
                                 </div>
                                 <div class="mb-3">
-                                    <InputText id="numero" class="custom-input form-control border-radius-10 my-1" style="width: 34.5rem; margin-left: 1.5rem;" @bind-Value="infosUser.telefoneModel.Numero" maxlength="10" oninput="formatNumero(this)" placeholder="xxxxx-xxxx"/>
+                                    <InputText id="numero" class="custom-input form-control border-radius-10 my-1" style="width: 34.5rem; margin-left: 1.5rem;" @bind-Value="infosUser.Numero" maxlength="10" oninput="formatNumero(this)" placeholder="xxxxx-xxxx"/>
                                 </div>
                                 
-                                <ValidationMessage For="@(() => infosUser.telefoneModel.DDI)" />
-                                <ValidationMessage For="@(() => infosUser.telefoneModel.DDD)" />
-                                <ValidationMessage For="@(() => infosUser.telefoneModel.Numero)" />
+                                <ValidationMessage For="@(() => infosUser.DDI)" style="width: 100%"/>
+                                <ValidationMessage For="@(() => infosUser.DDD)" style="width: 100%"/>
+                                <ValidationMessage For="@(() => infosUser.Numero)" style="width: 100%"/>
+                                @if (!string.IsNullOrEmpty(infosUser.ErroTelefone))
+                                {
+                                    <div class="text-danger">@infosUser.ErroTelefone</div>
+                                }
                         </div>
                         <div class="edit-fields">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Curso</span>
@@ -232,14 +237,11 @@
             contaUser.Matricula = discente.Matricula.ToString();
 
             if(discente.Telefone == null || discente.Telefone == ""){
-                infosUser.telefoneModel = new TelefoneModel
-                {
-                    DDI = null,
-                    DDD = null,
-                    Numero = null,
-                };
+                infosUser.DDI = null;
+                infosUser.DDD = null;
+                infosUser.Numero = null;
             } else{
-                infosUser.telefoneModel = DividirTelefone(discente.Telefone);
+                DividirTelefone(discente.Telefone);
 
             }
             var (primeiroNome, sobrenome) = DividirNome(discente.Nome);
@@ -252,12 +254,9 @@
                 Nome = infosUser.Nome,
                 Sobrenome = infosUser.Sobrenome,
                 Curso = infosUser.Curso,
-                telefoneModel = new TelefoneModel
-                {
-                    DDI = infosUser.telefoneModel.DDI,
-                    DDD = infosUser.telefoneModel.DDD,
-                    Numero = infosUser.telefoneModel.Numero
-                }
+                DDI = infosUser.DDI,
+                DDD = infosUser.DDD,
+                Numero = infosUser.DDD
             };
 
             contaUserAtual = new Conta
@@ -283,7 +282,7 @@
         [RegularExpression(@"^\d{10}$", ErrorMessage = "A Matrícula deve ter exatamente 10 dígitos.")]
         public string Matricula { get; set; }
     }
-    public class InfosUser
+    public class InfosUser : IValidatableObject
     {
         [Required(ErrorMessage = "O campo Nome é obrigatório.")]
         public string Nome { get; set; }
@@ -292,11 +291,6 @@
 
         public string Curso { get; set; }
 
-        public TelefoneModel telefoneModel {get; set;} = new TelefoneModel();
-    }
-
-    public class TelefoneModel
-    {
         [RegularExpression(@"^\+\d{1,3}$", ErrorMessage = "O DDI deve iniciar com '+' e ter até 3 dígitos.")]
         public string DDI { get; set; }
 
@@ -305,6 +299,26 @@
 
         [RegularExpression(@"^\d{4,5}-\d{4}$", ErrorMessage = "O número deve estar no formato 'XXXXX-XXXX' ou 'XXXX-XXXX'.")]
         public string Numero { get; set; }
+        
+        // Propriedade para armazenar erro geral de telefone
+        public string ErroTelefone { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            // Limpa o erro anterior
+            ErroTelefone = null;
+
+            if (!string.IsNullOrEmpty(DDI) || !string.IsNullOrEmpty(DDD) || !string.IsNullOrEmpty(Numero))
+            {
+                if (string.IsNullOrEmpty(DDI) || string.IsNullOrEmpty(DDD) || string.IsNullOrEmpty(Numero))
+                {
+                    ErroTelefone = "Todos os campos de telefone (DDI, DDD e Número) devem ser preenchidos.";
+                    yield return new ValidationResult(
+                        ErroTelefone,
+                        new[] { "ErroTelefone" }); // Propriedade para o erro geral
+                }
+            }
+        }
     }
 
     private Conta contaUser = new Conta();
@@ -321,7 +335,7 @@
             Email = contaUser.Email,
             Senha = contaUser.Senha,
             Matricula = int.TryParse(contaUser.Matricula, out var matricula) ? matricula : 0,
-            Telefone = infosUser.telefoneModel.DDI + " " + infosUser.telefoneModel.DDD + " " + infosUser.telefoneModel.Numero,
+            Telefone = infosUser.DDI + " " + infosUser.DDD + " " + infosUser.Numero,
             Curso = infosUser.Curso
         };
 
@@ -342,13 +356,10 @@
         abaAtiva = aba; // Atualiza o estado ativo
     }
 
-    public TelefoneModel DividirTelefone(string telefoneCompleto)
+    public void DividirTelefone(string telefoneCompleto)
     {
         // Remove espaços em branco e caracteres desnecessários
         telefoneCompleto = telefoneCompleto.Trim();
-
-        // Exemplo de telefone esperado: "+55 (84) 12345-6789" ou "+55 (84) 1234-5678"
-        var telefoneModel = new TelefoneModel();
 
         // Verifica se o telefone contém o DDI
         if (telefoneCompleto.StartsWith("+"))
@@ -356,7 +367,7 @@
             int primeiroEspaco = telefoneCompleto.IndexOf(' ');
             if (primeiroEspaco > 0)
             {
-                telefoneModel.DDI = telefoneCompleto.Substring(0, primeiroEspaco); // "+55"
+                infosUser.DDI = telefoneCompleto.Substring(0, primeiroEspaco); // "+55"
                 telefoneCompleto = telefoneCompleto.Substring(primeiroEspaco + 1); // Resto do telefone
             }
         }
@@ -366,15 +377,12 @@
         int indiceDDDFim = telefoneCompleto.IndexOf(')');
         if (indiceDDDInicio >= 0 && indiceDDDFim > indiceDDDInicio)
         {
-            telefoneModel.DDD = telefoneCompleto.Substring(indiceDDDInicio, indiceDDDFim - indiceDDDInicio + 1); // "(84)"
+            infosUser.DDD = telefoneCompleto.Substring(indiceDDDInicio, indiceDDDFim - indiceDDDInicio + 1); // "(84)"
             telefoneCompleto = telefoneCompleto.Substring(indiceDDDFim + 1).Trim(); // Resto do número
         }
 
         // O resto do telefone deve ser o número
-        telefoneModel.Numero = telefoneCompleto.Replace(" ", ""); // Remove espaços desnecessários
-
-        // Retorna o modelo preenchido
-        return telefoneModel;
+        infosUser.Numero = telefoneCompleto.Replace(" ", ""); // Remove espaços desnecessários
     }
 
     public (string PrimeiroNome, string Sobrenome) DividirNome(string nomeCompleto)
