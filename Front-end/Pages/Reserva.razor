@@ -1,0 +1,290 @@
+@page "/reserva"
+@attribute [Authorize]
+@inject ServicoService ServicoService
+@inject ProfissionalService ProfissionalService
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
+@using System.Globalization
+
+<div id="opacidade"></div>
+
+<PageTitle>Reservar</PageTitle>
+
+<div class="page" style="background-color: var(--blue-ufersa); height: auto;">
+    <NavMenu />
+
+    <div style="padding-top: 29px; border-radius: 15px 0px 0px 15px; width: 100%; background-color: white;">
+        <Header />
+        
+        <main class="page" style="padding-left: 4rem; padding-right: 3rem; padding-top: 20px; display: flex; flex-wrap: wrap; width: 92.5%;">
+
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+                <h1 style="font-size: 1.5rem; font-weight: 700;">Serviços</h1>
+                <button style="width: 7.875rem; font-size: 1rem; font-weight: 600; border-radius: 8px; border: none; color: #FAF9F6; @(selectedHorario == -1 ? "background-color: #D9D9D9;" : "background-color: var(--blue-ufersa);")"
+                        disabled="@(selectedHorario == -1)" @onclick="() => solicitarAgendamento()">
+                    Reservar
+                </button>
+
+            </div>
+
+            <div style="width: 100%; padding-top: 30px;" id="parent-container" @ref="parentDivRef">
+                <div id="scroll-container" style="@($"display: flex; overflow-x: auto; scrollbar-width: none; user-select: none; padding-top: 30px; width: {scrollContainerWidth}px; max-width: 100%;")">
+                    @if(servicos != null){
+                        @for(int i = 0; i < servicos.Count; i++){
+                            var index = i;
+                            <div class="service" style="flex-shrink: 0; flex-grow: 0; margin-left: 70px; display: flex; flex-direction: column; justify-content: flex-end; width: 11.25rem; height: 8.75rem; border-radius: 10px; box-shadow: 0px 4px 4px 0px #00000040; padding: 20px; @(i != id_servico_escolhido ? "background-color: var(--blue-ufersa);" : "background-color: var(--green-ufersa);")" @onclick="() => ativarServico(servicos[index], index)">
+                                <img style="width: 5rem; height: 5rem; border-radius: 50%; border: 4px solid var(--OFF-White, #FAF9F6); position: absolute; z-index: 2; left: -1.7rem; top: -1rem;" src="..\css\images\img-perfil-padrao.svg" class="no-select">
+                                <div>
+                                    <div style="padding-left: 10px;">
+                                        <h3 class="weight-700" style="font-size: 1.1rem; color: #FAF9F6; margin: 0px; padding-bottom: 5px; text-align: left;">@servicos[i].Nome_Profissional</h3>
+                                        <p class="weight-500" style="font-size: 0.75rem; color: #FAF9F6; margin: 0px;">@servicos[i].Tipo_Servico</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div style="padding-top: 60px; width: 34rem;">
+                <h1 style="font-size: 1.5rem; font-weight: 700;">Horários</h1>
+
+                <div style="padding: 35px 0px 70px 35px;">
+                    <h2 style="font-size: 1.1rem; font-weight: 500; color: var(--black-gray); padding: 0px 0px 15px 20px;">Datas Sugeridas</h2>
+                    @if(horariosProfissional != null && horariosProfissional.Any()){
+                        @foreach(var diaDaSemana in diasOrdenados) // Para iterar pelos dias da semana de 1 a 7
+                        {
+                            // Filtra os horários para o diaDaSemana atual
+                            var horariosDoDia = horariosProfissional.Where(h => h.DiaDaSemana == diaDaSemana).ToList();
+
+                            if (horariosDoDia.Any()) // Só exibe o dia da semana se houver algum horário nesse dia
+                            {
+                                // Mapeia o número do dia da semana para o nome correspondente
+                                string nomeDia = diaDaSemana switch
+                                {
+                                    0 => "Domingo",
+                                    1 => "Segunda-feira",
+                                    2 => "Terça-feira",
+                                    3 => "Quarta-feira",
+                                    4 => "Quinta-feira",
+                                    5 => "Sexta-feira",
+                                    6 => "Sábado",
+                                    _ => "Desconhecido"
+                                };
+
+                                // Obter a próxima data para esse dia da semana
+                                var proximaData = GetProximaDataDiaDaSemana(diaDaSemana);
+
+                                // Formatar a data no estilo desejado (dd-mm-yyyy)
+                                string dataFormatada = proximaData.ToString("dd 'de' MMMM 'de' yyyy");
+
+                                <span style="font-size: 1.1rem; font-weight: 500;">@($"{nomeDia}, {dataFormatada}")</span>
+
+                                <div style="display: flex; flex-wrap: wrap; padding-top: 10px; padding-bottom: 30px;">
+                                    @for(int i = 0; i < horariosDoDia.Count; i++)
+                                    {
+                                        var index = horariosDoDia[i].IdHorario;
+                                        <div class="horario @GetButtonClass(index)" style="@(i%5 == 0 ? "margin-left: 0px;" : null)" @onclick="() => SelectHorario(index, dataFormatada)">
+                                            <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span style="color: #1E1E1E; font-size: 0.875rem;">@horariosDoDia[i].HoraInicio.ToString("hh\\:mm")</span>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+
+                    }else{
+                        <p>Sem horários</p>
+                        
+                    }
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="confirmar-agendamento" class="container-agendamento">
+        <h1 style="font-size: 2.75rem; font-weight: 700;">Serviços</h1>
+
+        <div style="display: flex; justify-content: center;">
+            <svg width="144" height="144" viewBox="0 0 144 144" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 30px 0px;">
+            <path d="M132 66.4799V71.9999C131.993 84.9385 127.803 97.528 120.056 107.891C112.309 118.254 101.42 125.835 89.0121 129.503C76.6046 133.172 63.3436 132.731 51.2068 128.247C39.0701 123.764 28.7079 115.477 21.6658 104.622C14.6236 93.7681 11.2787 80.9283 12.1301 68.0178C12.9814 55.1073 17.9832 42.8179 26.3897 32.9824C34.7961 23.1468 46.1567 16.2922 58.7771 13.4408C71.3976 10.5894 84.6016 11.8939 96.42 17.1599" stroke="#243E64" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M132 24L72 84.06L54 66.06" stroke="#99CC33" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        @if(servico_escolhido != null){
+            <p style="font-size: 1.1rem; font-weight: 500;">Sua reserva com <strong>@servico_escolhido.Tipo_Servico</strong> foi realizada com sucesso, todos os dados envolvidos estão armazenados com segurança utilizando medidas avançadas de proteção.</p>
+
+        }
+
+        <button style="width: 100%; border-radius: 20px; background-color: var(--green-ufersa); font-size: 1rem; color: #FAF9F6; border: none; height: 2.25rem; margin-top: 20px;" @onclick="@(() => ToggleDisplayById("confirmar-agendamento"))">Fechar</button>
+    </div>
+
+</div>
+
+@code {
+    private List<ServicoProfissionalModel> servicos;
+    private List<ProfissionalHorariosModel> horariosProfissional;
+    private ServicoProfissionalModel servico_escolhido;
+    private int id_servico_escolhido = 0;
+
+    private int diaAtual;
+    private IEnumerable<int> diasOrdenados;
+
+    protected override async Task OnInitializedAsync()
+    {
+        servicos = await ServicoService.ListServicos();
+        servico_escolhido = servicos[0];
+        horariosProfissional = await ProfissionalService.GetProfissionalHorarios(servico_escolhido.Id_Profissional);
+
+        diaAtual = ((int)DateTime.Today.DayOfWeek + 6) % 7 + 1;
+
+        // Gerar a lista de dias ordenados de forma circular a partir do dia atual
+        diasOrdenados = Enumerable.Range(1, 7)
+                                  .OrderBy(d => (d - diaAtual + 7) % 7);
+    }
+
+    private DateTime GetProximaDataDiaDaSemana(int diaDaSemana)
+    {
+        // Obter o dia de hoje
+        var hoje = DateTime.Today;
+
+        // Calcular a diferença entre o dia da semana atual e o desejado
+        int diferencaDias = ((diaDaSemana - (int)hoje.DayOfWeek + 7) % 7);
+
+        // Se a diferença for 0, significa que é o dia da semana atual (hoje)
+        return hoje.AddDays(diferencaDias);
+    }
+
+    private async Task ativarServico(ServicoProfissionalModel servico, int id_servico){
+        servico_escolhido = servico;
+        id_servico_escolhido = id_servico;
+        horariosProfissional = await ProfissionalService.GetProfissionalHorarios(servico_escolhido.Id_Profissional);
+        selectedHorario = -1;
+
+        StateHasChanged();
+    }
+
+    private async Task solicitarAgendamento(){
+        
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+
+        if(userId != -1){
+            var modelAgendamento = new AgendamentoModel
+            {
+                Data = selectedData,
+                ProfissionalId = servico_escolhido.Id_Profissional,
+                HorarioId = selectedHorario,
+                ServicoId = servico_escolhido.Id_Servico,
+                DiscenteId = userId
+            };
+
+            var result = await AgendamentoService.SolicitarAgendamento(modelAgendamento);
+
+            if (result.IsSuccessStatusCode)
+            {
+                ToggleDisplayById("confirmar-agendamento");
+            }
+            else
+            {
+                var errorMessage = await result.Content.ReadAsStringAsync();
+            }
+
+
+        }
+    }
+
+
+    // Variável para armazenar a largura do scroll-container
+    private double scrollContainerWidth;
+
+    // Referência ao elemento pai (parent-container)
+    private ElementReference parentDivRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Habilita a rolagem com o drag
+            await JS.InvokeVoidAsync("enableDragScroll", "scroll-container");
+
+            // Inicia o ResizeObserver e passa a referência ao método Blazor para ser invocado
+            await JS.InvokeVoidAsync("resizeHelper.init", DotNetObjectReference.Create(this), "parent-container");
+
+            // Obtém a largura inicial
+            scrollContainerWidth = await JS.InvokeAsync<double>("domHelper.getElementWidth", parentDivRef);
+            StateHasChanged(); // Atualiza a interface com o novo valor
+        }
+    }
+
+    [JSInvokable]
+    public async Task UpdateScrollContainerWidth()
+    {
+        // Atualiza a largura do scroll-container com a largura atual do elemento pai
+        var newWidth = await JS.InvokeAsync<double>("domHelper.getElementWidth", parentDivRef);
+        
+        // Verifica se a nova largura é válida antes de atualizar
+        if (newWidth > 0 && newWidth != scrollContainerWidth)
+        {
+            scrollContainerWidth = newWidth;
+            StateHasChanged(); // Atualiza a interface com o novo valor
+        }
+    }
+
+    public void Dispose()
+    {
+        // Desconecta o ResizeObserver quando o componente for destruído
+        JS.InvokeVoidAsync("resizeHelper.disconnect");
+    }
+
+    private int selectedHorario = -1;
+    private DateTime selectedData;
+    private void SelectHorario(int index, string dataFormatada)
+    {
+        selectedHorario = index;
+        if (DateTime.TryParseExact(dataFormatada, "dd 'de' MMMM 'de' yyyy", 
+        CultureInfo.GetCultureInfo("pt-BR"), DateTimeStyles.None, out DateTime data))
+        {
+            selectedData = data; 
+        }
+    }
+
+    private string GetButtonClass(int index)
+    {
+        return selectedHorario == index ? "button-selected" : "";
+    }
+    
+    private async Task ToggleDisplayById(string id)
+    {
+        await JS.InvokeVoidAsync("toggleDisplayById", id);
+        await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
+    }
+}
+
+<style>
+    .horario{
+        width: calc(20% - 10px);
+        height: 2.25rem;
+        display: flex;
+        background-color: #D9D9D940;
+        color: #C3C3C3;
+        border: 2px solid #C3C3C340;
+        border-radius: 6px;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0px 0.5rem;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    .button-selected{
+        background-color: #99CC3340;
+        color: var(--green-ufersa);
+        border: 2px solid var(--green-ufersa);
+    }
+</style>

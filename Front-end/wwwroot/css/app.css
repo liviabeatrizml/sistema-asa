@@ -605,3 +605,16 @@ code {
     border-radius: 20px;
     padding: 32px;
 }
+
+.container-agendamento{
+    display: none;
+    width: 31.938rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1000;
+    border-radius: 20px;
+    padding: 32px;
+}
