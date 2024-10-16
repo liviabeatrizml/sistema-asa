@@ -33,6 +33,8 @@ public class ServicoService
 
             var servico_profissional = new ServicoProfissionalModel
             {
+                Id_Profissional = profissional.IdProfissional,
+                Id_Servico = servico.IdServico,
                 Nome_Profissional = profissional.Nome,
                 Tipo_Servico = servico.Tipo,
                 Descricao = servico.Descricao
@@ -46,6 +48,8 @@ public class ServicoService
 }
 
 public class ServicoProfissionalModel{
+    public int Id_Profissional { get; set;}
+    public int Id_Servico {get; set;}
     public string Nome_Profissional {get; set;}
     public string Tipo_Servico {get; set;}
     public string Descricao {get; set;}
