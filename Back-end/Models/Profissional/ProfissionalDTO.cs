@@ -1,5 +1,6 @@
 public class ProfissionalDto
 {
+    public int IdProfissional{ get; set; }
     public string Nome { get; set; }
     public string Email { get; set; }
     public int ServicoId { get; set; }
