@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Back_end.Data;
 using Back_end.Models;
 using Back_end.Helpers;
+using System;//Contratos
+using System.Diagnostics.Contracts;
 
 namespace Back_end.Services
 {
@@ -21,11 +23,22 @@ namespace Back_end.Services
             _config = config;
         }
 
-        // Método para registrar um novo discente
+        // RF010 e RF011 - Método para registrar um novo discente
         public async Task<Discente> RegistrarDiscenteAsync(RegistrarDiscente registro)
         {
             // Verificação de nulidade
             if (registro == null) throw new ArgumentNullException(nameof(registro));
+
+            Contract.Requires(registro.Nome != null, nameof(registro.Nome));
+            Contract.Requires(registro.Email != null, nameof(registro.Email));
+            Contract.Requires(
+                registro.Email.EndsWith("@alunos.ufersa.edu.br"),
+                "O Email deve conter o domínio '@alunos.ufersa.edu.br'.");
+            Contract.Requires(registro.Senha != null, nameof(registro.Senha));
+            Contract.Requires(ValidarSenha(registro.Senha),
+                "A senha deve ter no mínimo 8 caracteres, incluindo um caractere especial e um número.");
+            Contract.Requires(registro.Matricula != null, nameof(registro.Matricula));
+            Contract.Requires(registro.Matricula.Length == 10, "A matrícula deve ter exatamente 10 caracteres.");
 
             // Criptografar a senha e gerar o salt
             var (senhaCriptografada, salt) = CriptografarSenha(registro.Senha);
@@ -47,12 +60,48 @@ namespace Back_end.Services
             return discente;
         }
 
-        // Método para login de discente
+        // ---------------------------RF0 VALIDADORES--------------------------------
+        public void ValidarInvariantes(){
+            Contract.Invariant(Nome != null, "O nome do discente não pode ser nulo.");
+            Contract.Invariant(Email != null, "O email do discente não pode ser nulo.");
+            Contract.Invariant(
+                Email.EndsWith("@alunos.ufersa.edu.br"),
+                "O email do discente deve conter o domínio '@alunos.ufersa.edu.br'."
+            );
+            Contract.Invariant(Senha != null, "A senha do discente não pode ser nula.");
+            Contract.Invariant(ValidarSenha(Senha),
+                "A senha deve ter no mínimo 8 caracteres, incluindo um caractere especial e um número."
+            );
+            Contract.Invariant(Matricula != null, "A matrícula do discente não pode ser nula.");
+            Contract.Invariant(Matricula.Length == 10, "A matrícula deve ter exatamente 10 caracteres.");
+        }
+
+        private bool ValidarSenha(string senha){
+            // A senha deve ter no mínimo 8 caracteres
+            if (senha.Length < 8) return false;
+
+            // A senha deve conter pelo menos um caractere especial
+            if (!Regex.IsMatch(senha, @"[!@#$%^&*(),.?\":{ }|<>]")) return false;
+       
+            // A senha deve conter pelo menos um número
+            if (!Regex.IsMatch(senha, @"\d")) return false;
+
+            return true;
+        }
+        // ---------------------------RF0 VALIDADORES--------------------------------
+
+        // RF0Extra Método para login de discente
         public async Task<LoginResponseDto> LoginDiscenteAsync(LoginDiscente login)
         {
+            Contract.Requires(login != null, nameof(login));
+
             if (login == null) throw new ArgumentNullException(nameof(login));
 
             var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == login.Email);
+            
+            Contract.Requires(discente != null);
+            Contract.Requires(discente.Senha != null);
+            Contract.Requires(discente.Salt);
 
             if (discente == null || string.IsNullOrEmpty(discente.Senha) || string.IsNullOrEmpty(discente.Salt))
             {
@@ -128,7 +177,8 @@ namespace Back_end.Services
                    || await _context.Profissionais.AnyAsync(p => p.Email == email);
         }
 
-       public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
+        // RF010 e RF011 - Método que Registra um Profissional
+        public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
         {
             if (registro == null) throw new ArgumentNullException(nameof(registro));
 
@@ -155,11 +205,19 @@ namespace Back_end.Services
 
             return profissional;
         }
+
+        // RF0Extra - Login do Profissional
         public async Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional login)
         {
+            Contract.Requires(login != null, nameof(login));
+
             if (login == null) throw new ArgumentNullException(nameof(login));
 
             var profissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == login.Email);
+
+            Contract.Requires(profissional != null);
+            Contract.Requires(profissional.Senha != null);
+            Contract.Requires(profissional.Salt);
 
             if (profissional == null || string.IsNullOrEmpty(profissional.Senha) || string.IsNullOrEmpty(profissional.Salt))
             {
@@ -179,6 +237,8 @@ namespace Back_end.Services
                 Token = token
             };
         }
+
+        //RF012
         public async Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil)
         {
             // Buscando o discente no banco de dados
@@ -205,8 +265,8 @@ namespace Back_end.Services
 
             return false; // Se o usuário não for encontrado
         }
+        //RF012
         public async Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha)
-        {
             // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
             var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == alterarSenha.Email);
             var usuarioProfissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == alterarSenha.Email);
