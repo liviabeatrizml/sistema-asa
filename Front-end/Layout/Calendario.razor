@@ -30,8 +30,9 @@
                     var classeDia = (dia.DayOfWeek == DayOfWeek.Saturday || dia.DayOfWeek == DayOfWeek.Sunday)
                         ? (dia.Month == DiaSelecionado.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
                         : (dia.Month == DiaSelecionado.Month ? "dia mes-atual" : "dia outro-mes");
-                    if (dia.Date == DiaSelecionado)
+                    if (dia.Date == data_clicada.Date)
                     {
+                        Console.WriteLine(DiaSelecionado.Date);
                         classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
                     }
 
@@ -44,7 +45,7 @@
                         
                     }
         
-                    <div class="@classeDia weight-600" style="cursor: pointer;" @onclick="() => MudarDataSelecionada(dia.Date)">
+                    <div class="@classeDia weight-600" style="@Cursor()" @onclick="() => MudarDataSelecionada(dia.Date)">
                         @dia.Day
                     </div>
                 }
@@ -274,11 +275,25 @@
         legenda = !legenda;
     }
 
-    private DateTime data_clicada;
+    private DateTime data_clicada = DateTime.Today;
 
     private async Task MudarDataSelecionada(DateTime data){
         data_clicada = data;
         await OnDiaSelecionadoChange.InvokeAsync(data_clicada);
+    }
+
+    private string Cursor()
+    {
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        
+        // Aplica o estilo somente se não estiver na página 'inicio'
+        if (relativePath != "inicio")
+        {
+            return "cursor: pointer;";
+        }
+        
+        // Se estiver na página 'inicio', retorna um estilo vazio ou diferente
+        return string.Empty;
     }
 }
 

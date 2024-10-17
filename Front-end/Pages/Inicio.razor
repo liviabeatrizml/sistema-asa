@@ -113,7 +113,7 @@
                         </div>
                     </div>
 
-                    <Calendario />
+                    <Calendario DiaSelecionado="@diaSelecionado" />
                     
                 </div>
 
@@ -122,6 +122,7 @@
 </div>
 
 @code {
+    private DateTime diaSelecionado = DateTime.Today;
     private List<ServicoProfissionalModel> servicos;
     private ServicoProfissionalModel servico_escolhido;
     private int id_servico_escolhido = 0;
