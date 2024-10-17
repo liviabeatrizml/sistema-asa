@@ -24,6 +24,11 @@ public class DiscenteService
     {
         return await _httpClient.PutAsJsonAsync("/api/Discente/atualizar-perfil", model);
     }
+    // Método para registrar discente
+    public async Task<HttpResponseMessage> EditarSenha(DiscenteEditarSenhaModel model)
+    {
+        return await _httpClient.PutAsJsonAsync("/api/Discente/alterar-senha", model);
+    }
 
     // Método para login de discente
     public async Task<HttpResponseMessage> LoginDiscente(DiscenteLoginModel model)
@@ -85,4 +90,16 @@ public class DiscenteLoginModel
     public string Email { get; set; }
     [Required(ErrorMessage = "O campo Senha é obrigatório.")]
     public string Senha { get; set; }
+}
+
+public class DiscenteEditarSenhaModel
+{
+    [Required(ErrorMessage = "O campo Email é obrigatório.")]
+    public string Email { get; set; }
+
+    [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+    public string SenhaAtual { get; set; }  
+
+    [Required(ErrorMessage = "O campo da nova senha é obrigatório.")]
+    public string NovaSenha { get; set; }
 }

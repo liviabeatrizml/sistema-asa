@@ -502,7 +502,23 @@
 
     private async Task AlterarSenhaUsuario()
     {
-        
+        var modelDiscente = new DiscenteEditarSenhaModel
+        {
+            Email = alterarSenha.Email,
+            SenhaAtual = alterarSenha.Senha,
+            NovaSenha = alterarSenha.NovaSenha
+        };
+
+        var result = await DiscenteService.EditarSenha(modelDiscente);
+
+        if (result.IsSuccessStatusCode)
+            {
+                ToggleDisplayById("editar-senha");
+            }
+            else
+            {
+                var errorMessage = await result.Content.ReadAsStringAsync();
+            }
     }
 }
 
