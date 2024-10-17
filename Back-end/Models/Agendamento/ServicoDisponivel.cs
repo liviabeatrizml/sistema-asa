@@ -12,10 +12,7 @@ namespace Back_end.Models
         [Column("tipo")]
         public string Tipo { get; set; }
 
-        [Column("descricao")]
-        public string Descricao { get; set; }
-
-        [Column("tipoAtendimento")]
-        public string TipoAtendimento { get; set; }
+        [Column("status")]
+        public string status { get; set; }
     }
 }
