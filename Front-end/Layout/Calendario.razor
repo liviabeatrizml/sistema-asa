@@ -32,7 +32,6 @@
                         : (dia.Month == DiaSelecionado.Month ? "dia mes-atual" : "dia outro-mes");
                     if (dia.Date == data_clicada.Date)
                     {
-                        Console.WriteLine(DiaSelecionado.Date);
                         classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
                     }
 
@@ -163,13 +162,20 @@
 
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
         
+        if (relativePath == "inicio" || relativePath == "reserva")
+        {
+            HeightClass = "";
+        }else{
+            HeightClass = "calendario-services-height";
+
+        }
+
         if (relativePath == "inicio")
         {
             if (userId != -1)
             {
                 compromissos = await AgendamentoService.GetCompromissosDiscente(userId, DiaSelecionado);
             }
-            HeightClass = "";
         }
         else
         {
@@ -186,7 +192,6 @@
                 DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
             }
 
-            HeightClass = "calendario-services-height";
         }
 
         GerarCalendario(DiaSelecionado);
@@ -201,6 +206,11 @@
 
         
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        if (relativePath == "reserva")
+        {
+            data_clicada = DateTime.MinValue;
+        }
+
         if (relativePath == "inicio")
         {
             if(userId != -1){
