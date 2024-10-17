@@ -148,10 +148,47 @@
     private List<CompromissoModel> compromissos;
     private List<CompromissoModel> compromissosSemanais;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
         DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+        
+        // Obtém o userId
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+
+        // Atualiza os dias da semana
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        
+        if (relativePath == "inicio")
+        {
+            if (userId != -1)
+            {
+                compromissos = await AgendamentoService.GetCompromissosDiscente(userId, DiaSelecionado);
+            }
+            HeightClass = "";
+        }
+        else
+        {
+            if (userId != -1)
+            {
+                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
+                compromissosSemanais = compromissosSemanais
+                    .Where(compromisso => compromisso.Data.Date >= DiaSelecionado)
+                    .ToList();
+            }
+
+            if (compromissosSemanais != null && compromissosSemanais.Count > 0)
+            {
+                DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
+            }
+
+            HeightClass = "calendario-services-height";
+        }
+
+        GerarCalendario(DiaSelecionado);
     }
 
     protected override async Task OnInitializedAsync()
@@ -166,12 +203,12 @@
         if (relativePath == "inicio")
         {
             if(userId != -1){
-                compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+                compromissos = await AgendamentoService.GetCompromissosDiscente(userId, DiaSelecionado);
             }
             HeightClass = "";
         } else{
             if(userId != -1){
-                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId);
+                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
                 compromissosSemanais = compromissosSemanais
                 .Where(compromisso => compromisso.Data.Date >= DiaSelecionado)
                 .ToList();
@@ -183,6 +220,10 @@
             HeightClass = "calendario-services-height";
         }
         GerarCalendario(DiaSelecionado);
+    }
+
+    private async Task AtualizarCompromissos(){
+
     }
 
     private void GerarCalendario(DateTime date)

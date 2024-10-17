@@ -12,7 +12,7 @@ public class AgendamentoService{
         _profissionalService = profissionalService;
     }
 
-    public async Task<List<CompromissoModel>> GetCompromissosDiscente(int id_discente)
+    public async Task<List<CompromissoModel>> GetCompromissosDiscente(int id_discente, DateTime dataSelecionada)
     {
         var compromissos = new List<CompromissoModel>();
 
@@ -25,7 +25,7 @@ public class AgendamentoService{
                 PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
             });
 
-            DateTime dataHoje = DateTime.Today;
+            DateTime dataHoje = dataSelecionada;
 
             foreach (var agendamento in agendamentos)
             {
@@ -70,7 +70,7 @@ public class AgendamentoService{
         return compromissos;
     }
 
-    public async Task<List<CompromissoModel>> GetCompromissosDiscenteSemanaAtual(int id_discente)
+    public async Task<List<CompromissoModel>> GetCompromissosDiscenteSemanaAtual(int id_discente, DateTime dataSelecionada)
     {
         var compromissos = new List<CompromissoModel>();
 
@@ -83,7 +83,7 @@ public class AgendamentoService{
                 PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
             });
 
-            DateTime hoje = DateTime.Today;
+            DateTime hoje = dataSelecionada;
 
             // Calcula o primeiro e o último dia da semana atual
             DateTime primeiroDiaSemana = hoje.AddDays(-(int)hoje.DayOfWeek);
@@ -131,7 +131,7 @@ public class AgendamentoService{
         return compromissos;
     }
 
-    public async Task<List<CompromissoModel>> GetCompromissosDiscenteHoje(int id_discente)
+    public async Task<List<CompromissoModel>> GetCompromissosDiscenteHoje(int id_discente, DateTime dataSelecionada)
     {
         var compromissos = new List<CompromissoModel>();
 
@@ -144,7 +144,7 @@ public class AgendamentoService{
                 PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
             });
 
-            DateTime hoje = DateTime.Today;
+            DateTime hoje = dataSelecionada;
 
             foreach (var agendamento in agendamentos)
             {
