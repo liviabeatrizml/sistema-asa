@@ -52,53 +52,101 @@
 
                 <div style="padding: 35px 0px 70px 35px; display: flex; justify-content: space-between; width: 100%;">
                     <div style=" width: 34rem;">
-                        <h2 style="font-size: 1.1rem; font-weight: 500; color: var(--black-gray); padding: 0px 0px 15px 20px;">Datas Sugeridas</h2>
-                        @if(horariosProfissional != null && horariosProfissional.Any()){
-                            @foreach(var diaDaSemana in diasOrdenados) // Para iterar pelos dias da semana de 1 a 7
-                            {
-                                // Filtra os horários para o diaDaSemana atual
-                                var horariosDoDia = horariosProfissional.Where(h => h.DiaDaSemana == diaDaSemana).ToList();
-                                if (horariosDoDia.Any()) // Só exibe o dia da semana se houver algum horário nesse dia
+                        @if(mostrarDatasSugeridas){
+                            <h2 style="font-size: 1.1rem; font-weight: 500; color: var(--black-gray); padding: 0px 0px 15px 20px;">Datas Sugeridas</h2>
+                            @if(horariosProfissional != null && horariosProfissional.Any()){
+                                @foreach(var diaDaSemana in diasOrdenados) // Para iterar pelos dias da semana de 1 a 7
                                 {
-                                    // Mapeia o número do dia da semana para o nome correspondente
-                                    string nomeDia = diaDaSemana switch
+                                    // Filtra os horários para o diaDaSemana atual
+                                    var horariosDoDia = horariosProfissional.Where(h => h.DiaDaSemana == diaDaSemana).ToList();
+                                    if (horariosDoDia.Any()) // Só exibe o dia da semana se houver algum horário nesse dia
                                     {
-                                        0 => "Domingo",
-                                        1 => "Segunda-feira",
-                                        2 => "Terça-feira",
-                                        3 => "Quarta-feira",
-                                        4 => "Quinta-feira",
-                                        5 => "Sexta-feira",
-                                        6 => "Sábado",
-                                        _ => "Desconhecido"
-                                    };
-                                    // Obter a próxima data para esse dia da semana
-                                    var proximaData = GetProximaDataDiaDaSemana(diaDaSemana);
-                                    // Formatar a data no estilo desejado (dd-mm-yyyy)
-                                    string dataFormatada = proximaData.ToString("dd 'de' MMMM 'de' yyyy");
-                                    <span style="font-size: 1.1rem; font-weight: 500;">@($"{nomeDia}, {dataFormatada}")</span>
-                                    <div style="display: flex; flex-wrap: wrap; padding-top: 10px; padding-bottom: 30px;">
-                                        @for(int i = 0; i < horariosDoDia.Count; i++)
+                                        // Mapeia o número do dia da semana para o nome correspondente
+                                        string nomeDia = diaDaSemana switch
                                         {
-                                            var index = horariosDoDia[i].IdHorario;
-                                            <div class="horario @GetButtonClass(index)" style="@(i%5 == 0 ? "margin-left: 0px;" : null)" @onclick="() => SelectHorario(index, dataFormatada)">
-                                                <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                <span style="color: #1E1E1E; font-size: 0.875rem;">@horariosDoDia[i].HoraInicio.ToString(@"hh\:mm")</span>
-                                            </div>
-                                        }
-                                    </div>
+                                            0 => "Domingo",
+                                            1 => "Segunda-feira",
+                                            2 => "Terça-feira",
+                                            3 => "Quarta-feira",
+                                            4 => "Quinta-feira",
+                                            5 => "Sexta-feira",
+                                            6 => "Sábado",
+                                            _ => "Desconhecido"
+                                        };
+                                        // Obter a próxima data para esse dia da semana
+                                        var proximaData = GetProximaDataDiaDaSemana(diaDaSemana);
+                                        // Formatar a data no estilo desejado (dd-mm-yyyy)
+                                        string dataFormatada = proximaData.ToString("dd 'de' MMMM 'de' yyyy");
+                                        <span style="font-size: 1.1rem; font-weight: 500;">@($"{nomeDia}, {dataFormatada}")</span>
+                                        <div style="display: flex; flex-wrap: wrap; padding-top: 10px; padding-bottom: 30px;">
+                                            @for(int i = 0; i < horariosDoDia.Count; i++)
+                                            {
+                                                var index = horariosDoDia[i].IdHorario;
+                                                <div class="horario @GetButtonClass(index)" style="@(i%5 == 0 ? "margin-left: 0px;" : null)" @onclick="() => SelectHorario(index, dataFormatada)">
+                                                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    <span style="color: #1E1E1E; font-size: 0.875rem;">@horariosDoDia[i].HoraInicio.ToString(@"hh\:mm")</span>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
                                 }
+                            }else{
+                                <p>Sem horários</p>
                             }
-                        }else{
-                            <p>Sem horários</p>
-                    
+                            
+                        } else{
+                            <h2 style="font-size: 1.1rem; font-weight: 500; color: var(--black-gray); padding: 0px 0px 15px 20px;">Horários Disponíveis</h2>
+                            @if(horariosProfissional != null && horariosProfissional.Any()){
+                                @foreach(var diaDaSemana in diasOrdenados) // Para iterar pelos dias da semana de 1 a 7
+                                {
+                                    // Filtra os horários para o diaDaSemana atual
+                                    var horariosDoDia = horariosProfissional.Where(h => h.DiaDaSemana == diaDaSemana).ToList();
+                                    if (horariosDoDia.Any()) // Só exibe o dia da semana se houver algum horário nesse dia
+                                    {
+                                        // Mapeia o número do dia da semana para o nome correspondente
+                                        string nomeDia = diaDaSemana switch
+                                        {
+                                            0 => "Domingo",
+                                            1 => "Segunda-feira",
+                                            2 => "Terça-feira",
+                                            3 => "Quarta-feira",
+                                            4 => "Quinta-feira",
+                                            5 => "Sexta-feira",
+                                            6 => "Sábado",
+                                            _ => "Desconhecido"
+                                        };
+
+                                        if((int)diaSelecionado.DayOfWeek == diaDaSemana && diaSelecionado >= DateTime.Today){
+                                            // Formatar a data no estilo desejado (dd-mm-yyyy)
+                                            string dataFormatada = diaSelecionado.ToString("dd 'de' MMMM 'de' yyyy");
+                                            <span style="font-size: 1.1rem; font-weight: 500;">@($"{nomeDia}, {dataFormatada}")</span>
+                                            <div style="display: flex; flex-wrap: wrap; padding-top: 10px; padding-bottom: 30px;">
+                                                @for(int i = 0; i < horariosDoDia.Count; i++)
+                                                {
+                                                    var index = horariosDoDia[i].IdHorario;
+                                                    <div class="horario @GetButtonClass(index)" style="@(i%5 == 0 ? "margin-left: 0px;" : null)" @onclick="() => SelectHorario(index, dataFormatada)">
+                                                        <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        <span style="color: #1E1E1E; font-size: 0.875rem;">@horariosDoDia[i].HoraInicio.ToString(@"hh\:mm")</span>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                        }
+                                    }
+                                }
+                            }else{
+                                <p>Sem horários</p>
+                            }
                         }
                     </div>
-                    <div style="height: 26.5rem; margin-left: 7rem;">
-                        <Calendario DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
+                    <div style="height: 26.5rem; margin-left: 7rem;" @onclick="() => alterarVisualizacaoDatas(false)">
+                        <Calendario DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange" />
                     </div>
                 </div>
             </div>
@@ -128,9 +176,14 @@
 
 @code {
     private DateTime diaSelecionado = DateTime.Today;
+    private bool mostrarDatasSugeridas = true;
     private void HandleDiaSelecionadoChange(DateTime novoDia)
     {
         diaSelecionado = novoDia;
+    }
+
+    private void alterarVisualizacaoDatas(bool mostrar){
+        mostrarDatasSugeridas = mostrar;
     }
     
     private List<ServicoProfissionalModel> servicos;
@@ -172,6 +225,7 @@
         horariosProfissional = await ProfissionalService.GetProfissionalHorarios(servico_escolhido.Id_Profissional);
         selectedHorario = -1;
 
+        mostrarDatasSugeridas = true;
         StateHasChanged();
     }
 
