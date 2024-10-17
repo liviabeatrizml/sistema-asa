@@ -167,23 +167,18 @@
                                 <br>
                                 <ValidationMessage For="@(() => contaUser.Email)" />
                         </div>
-                        <div class="edit-fields" style="flex-wrap: wrap;">
-                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Senha <span style="color: #BA3838">*</span></span>
-                                <div class="mb-3 input-with-icon">
-                                    <svg class="input-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-
-                                    <InputText id="senha" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Senha" type="password"/>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Senha</span>
+                                <div style="display: flex; flex-wrap: wrap;">
+                                    <span class="weight-500 paragraph-size" style="color: var(--black-gray); width: 100%;">Crie uma nova senha para garantir a segurança da sua conta.</span>
+                                    <button style="background-color: var(--blue-ufersa); color: #FAF9F6; margin: 20px 0px; font-weight: 600;" class="button-edit" type="button" @onclick="@(() => ToggleDisplayById("editar-senha"))">Alterar Senha</button>
                                 </div>
-                                <ValidationMessage For="@(() => contaUser.Senha)" style="width: 100%;"/>
                         </div>
                         <div class="edit-fields">
                                 <span class="paragraph-size px-2 weight-500" style="width: 12rem">Excluir Perfil</span>
                                 <div style="display: flex; flex-wrap: wrap;">
                                     <span class="weight-500 paragraph-size" style="color: var(--black-gray); width: 100%;">Exclua sua conta e todos os seus dados de origem. Isso é irreversível.</span>
-                                    <button style="background-color: #D20240; color: var(--white); margin: 20px 0px;" class="button-edit" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Excluir Conta</button>
+                                    <button style="background-color: var(--white); color: var(--blue-ufersa);border: 2px solid var(--blue-ufersa); margin: 20px 0px; font-weight: 600;" class="button-edit" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Excluir Conta</button>
                                 </div>
                         </div>
 
@@ -219,6 +214,63 @@
         </div>
     </div>
 
+    <div id="editar-senha" class="container-excluir">
+        <h1 class="pop-up-h1">
+            Alterar Senha
+        </h1>
+        <p class="pop-up-p pb-3">Insira sua senha atual para validar a troca.</p>
+        <EditForm  Model="@alterarSenha" OnValidSubmit="@AlterarSenhaUsuario">
+            <DataAnnotationsValidator />
+
+            <div class="password-container mb-2">
+                <InputText class="custom-input form-control border-radius-10" @bind-Value="alterarSenha.Senha" type="@(isPasswordVisibleSenha ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibilitySenha">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisibleSenha ? "../css/images/eye-on.svg" : "../css/images/eye-off.svg")" alt="@(isPasswordVisibleSenha ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+            <ValidationMessage For="@(() => alterarSenha.Senha)" />
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="text-danger py-3">
+                    @errorMessage
+                </div>
+            }
+            
+            <div class="container-hr" style="padding: 30px 0px 20px 0px;">
+                <hr class="custom-hr">
+                <span class="texto-hr" style="color: #D9D9D9;">Nova Senha</span>
+                <hr class="custom-hr">
+            </div>
+            <p class="pop-up-p pb-3">Crie uma nova senha para garantir a segurança da sua conta.</p>
+            <div class="password-container mb-2">
+                <InputText class="custom-input form-control border-radius-10" @bind-Value="alterarSenha.NovaSenha" type="@(isPasswordVisibleNovaSenha ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibilityNovaSenha">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisibleNovaSenha ? "../css/images/eye-on.svg" : "../css/images/eye-off.svg")" alt="@(isPasswordVisibleNovaSenha ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+            <ValidationMessage For="@(() => alterarSenha.NovaSenha)" />
+            <div style="color: var(--cinza-escuro);" class="paragraph-size py-1">
+                <div class="py-1">
+                    <img src="@(HasMinimumLength() ? "../css/images/check-verde.svg" : "../css/images/check-cinza.svg")" alt="@(HasMinimumLength() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasMinimumLength() ? "text-gray" : "text-green")">Mínimo 8 caracteres</span>
+                </div>
+                <div class="py-1">
+                    <img src="@(HasNumber() ? "../css/images/check-verde.svg" : "../css/images/check-cinza.svg")" alt="@(HasNumber() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasNumber() ? "text-gray" : "text-green")">Número</span>
+                </div>
+                <div class="py-1">
+                    <img src="@(HasSpecialCharacter() ? "../css/images/check-verde.svg" : "../css/images/check-cinza.svg")" alt="@(HasSpecialCharacter() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasSpecialCharacter() ? "text-gray" : "text-green")">Caractere especial</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; width: 100%; padding-top: 1rem">
+                <button style="background-color: transparent; border: 2px solid #C3C3C340" class="button-senha" type="button" @onclick="@(() => ToggleDisplayById("editar-senha"))">Cancelar</button>
+                <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-senha" type="submit">Salvar</button>
+            </div>
+        </EditForm>
+    </div>
+
 </div>
 
 @code{
@@ -233,6 +285,7 @@
         {
             // Chame o método GetDiscente e armazene o resultado
             discente = await DiscenteService.GetDiscente(userId); 
+            alterarSenha.Email = discente.Email;
             contaUser.Email = discente.Email;
             contaUser.Matricula = discente.Matricula.ToString();
 
@@ -404,16 +457,52 @@
     }
 
     private bool isPasswordVisible = false;
+    private bool isPasswordVisibleSenha = false;
+    private bool isPasswordVisibleNovaSenha = false;
 
     private void TogglePasswordVisibility()
     {
         isPasswordVisible = !isPasswordVisible;
     }
 
+    private void TogglePasswordVisibilitySenha()
+    {
+        isPasswordVisibleSenha = !isPasswordVisibleSenha;
+    }
+
+    private void TogglePasswordVisibilityNovaSenha()
+    {
+        isPasswordVisibleNovaSenha = !isPasswordVisibleNovaSenha;
+    }
+
     private async Task ToggleDisplayById(string id)
     {
         await JS.InvokeVoidAsync("toggleDisplayById", id);
         await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
+        alterarSenha.Senha = null;
+        alterarSenha.NovaSenha = null;
+    }
+
+    private AlterarSenha alterarSenha = new AlterarSenha();
+    private string errorMessage;
+    public class AlterarSenha{
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Senha { get; set; }
+
+        [Required(ErrorMessage = "O campo da nova senha é obrigatório.")]
+        public string NovaSenha { get; set; }
+    }
+
+    private bool HasMinimumLength() => alterarSenha.NovaSenha?.Length >= 8;
+    private bool HasNumber() => alterarSenha.NovaSenha?.Any(char.IsDigit) ?? false;
+    private bool HasSpecialCharacter() => alterarSenha.NovaSenha?.Any(ch => !char.IsLetterOrDigit(ch)) ?? false;
+
+    private async Task AlterarSenhaUsuario()
+    {
+        
     }
 }
 

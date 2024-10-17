@@ -495,14 +495,13 @@ code {
 .container-hr {
     display: flex; 
     width: 100%; 
-    justify-content: center; 
     align-items: center;
 }
 
 .custom-hr {
     border: none;
     border-top: 1px solid #D9D9D9;
-    width: 5rem;
+    width: 100%;
 }
 
 .texto-hr{
