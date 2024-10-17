@@ -12,11 +12,11 @@ namespace testeDeUnidade.models.agendamento
         {
             agendamento = new Agendamento
             {
-                IdAgendamento = 0,
-                DiscenteId = 0,
-                ProfissionalId = 0,
-                ServicoId = 0,
-                HorarioId = 0
+                IdAgendamento = 1,
+                DiscenteId = 1,
+                ProfissionalId = 1,
+                ServicoId = 1,
+                HorarioId = 1
             };
         }
 

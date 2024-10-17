@@ -10,7 +10,17 @@ namespace testeDeUnidade.models.discente
         [SetUp]
         public void Setup()
         {
-            discente = new Discente();
+            discente = new Discente
+            {
+                IdDiscente = 1,
+                Nome = "Livia",
+                Email = "livia.lima@alunos.ufersa.edu.br",
+                Senha = "Livia10.",
+                Salt = "Livia10.",
+                Matricula = 2021010871,
+                Telefone = "40028922",
+                Curso = "Engenharia"
+            };
         }
 
         [Test]

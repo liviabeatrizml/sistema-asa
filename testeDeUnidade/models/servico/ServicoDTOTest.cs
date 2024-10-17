@@ -10,7 +10,12 @@ namespace testeDeUnidade.models.servico
         [SetUp]
         public void Setup()
         {
-            servicoDTO = new ServicoDto();
+            servicoDTO = new ServicoDto
+            {
+                Tipo = "Psicologo",
+                Descricao = "Atendimento prestado pela Psicologa Lívia",
+                TipoAtendimento = "Consulta"
+            };
         }
 
         [Test]

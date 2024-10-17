@@ -10,7 +10,13 @@ namespace testeDeUnidade.models.profissional
         [SetUp]
         public void Setup()
         {
-            registrarProfissional = new RegistrarProfissional();
+            registrarProfissional = new RegistrarProfissional
+            {
+                Nome = "Eriky",
+                Email = "eriky.abreu@alunos.ufersa.edu.br",
+                Senha = "Eriky10.",
+                AreaAtuacao = "Pedagogo"
+            };
         }
 
         [Test]

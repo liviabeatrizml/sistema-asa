@@ -10,7 +10,11 @@ namespace testeDeUnidade.models.discente
         [SetUp]
         public void Setup()
         {
-            login = new LoginDiscente();
+            login = new LoginDiscente
+            {
+                Email = "livia.lima@alunos.ufersa.edu.br",
+                Senha = "Livia10."
+            };
         }
 
         [Test]

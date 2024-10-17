@@ -10,7 +10,13 @@ namespace testeDeUnidade.models.discente
         [SetUp]
         public void Setup()
         {
-            profissionalDTO = new ProfissionalDto();
+            profissionalDTO = new ProfissionalDto
+            {
+                Nome = "Eriky",
+                Email = "eriky.abreu@alunos.ufersa.edu.br",
+                ServicoId = 1,
+                ServicoNome = "Assistente Social"
+            };
         }
 
         [Test]
@@ -37,8 +43,8 @@ namespace testeDeUnidade.models.discente
         [Test]
         public void TestGetSetServicoNome()
         {
-            profissionalDTO.ServicoNome = "Educador Fisico"; 
-            Assert.That(profissionalDTO.ServicoNome, Is.EqualTo("Educador Fisico"));
+            profissionalDTO.ServicoNome = "Assistente Social"; 
+            Assert.That(profissionalDTO.ServicoNome, Is.EqualTo("Assistente Social"));
         }
     }
 }

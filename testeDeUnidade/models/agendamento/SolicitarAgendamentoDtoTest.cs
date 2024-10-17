@@ -11,7 +11,13 @@ namespace testeDeUnidade.models.agendamento
         [SetUp]
         public void Setup()
         {
-            solicitarAgendamentoDto = new SolicitarAgendamentoDto();
+            solicitarAgendamentoDto = new SolicitarAgendamentoDto
+            {
+                DiscenteId = 1,
+                ProfissionalId = 1,
+                ServicoId = 1,
+                HorarioId = 123
+            };
         }
 
         [Test]

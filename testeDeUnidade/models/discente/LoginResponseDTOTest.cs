@@ -10,7 +10,11 @@ namespace testeDeUnidade.models.discente
         [SetUp]
         public void Setup()
         {
-            login = new LoginResponseDto();
+            login = new LoginResponseDto
+            {
+                UserId = "1",
+                Token = "#ABC1234"
+            };
         }
 
         [Test]

@@ -10,7 +10,15 @@ namespace testeDeUnidade.models.profissional
         [SetUp]
         public void Setup()
         {
-            profissional = new Profissional();
+            profissional = new Profissional
+            {
+                IdProfissional = 1,
+                Nome = "Eriky",
+                Email = "eriky.abreu@alunos.ufersa.edu.br",
+                Senha = "Eriky10.",
+                Salt = "Eriky10.",
+                ServicoId = 1
+            };
         }
 
         [Test]
@@ -41,7 +49,6 @@ namespace testeDeUnidade.models.profissional
             Assert.That(profissional.Senha, Is.EqualTo("Geisa07."));
         }
 
-        // ISSO DAQUI É ALGUMA COISA DO BANCO DE DADOS PARA A LÓGICA DE LÁ -- Não sei direito
         [Test]
         public void TestGetSetSalt()
         {

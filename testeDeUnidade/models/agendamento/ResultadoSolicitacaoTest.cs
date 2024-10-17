@@ -10,7 +10,12 @@ namespace testeDeUnidade.models.agendamento
         [SetUp]
         public void Setup()
         {
-            resultadoSolicitacao = new ResultadoSolicitacao();
+            resultadoSolicitacao = new ResultadoSolicitacao
+            {
+                Sucesso = true,
+                Mensagem = "Agendamento aceito com sucesso",
+                Agendamento = new Agendamento()
+            };
         }
 
         [Test]

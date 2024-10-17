@@ -13,8 +13,8 @@ namespace testeDeUnidade.models.perfil
             alterarSenhaDTO = new AlterarSenhaDto
             {
                 Email = "livia.lima30332@ufersa.edu.br",
-                SenhaAtual = "",
-                NovaSenha = ""
+                SenhaAtual = "Livia10.",
+                NovaSenha = "Beatriz10."
             };
         }
 

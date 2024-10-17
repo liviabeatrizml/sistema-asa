@@ -10,7 +10,11 @@ namespace testeDeUnidade.models.profissional
         [SetUp]
         public void Setup()
         {
-            login = new LoginProfissional();
+            login = new LoginProfissional
+            {
+                Email = "geisa.gabriel@ufersa.edu.br",
+                Senha = "Geisa07."
+            };
         }
 
         [Test]

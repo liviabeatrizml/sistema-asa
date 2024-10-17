@@ -39,9 +39,8 @@ namespace testeDeUnidade.models.agendamento
         [Test]
         public void TestGetSetDiaDaSemana()
         {
-            var diaDaSemana = "Segunda";
-            horarioDisponivel.DiaDaSemana = diaDaSemana;
-            Assert.That(horarioDisponivel.DiaDaSemana, Is.EqualTo(diaDaSemana));
+            horarioDisponivel.DiaDaSemana = 1;
+            Assert.That(horarioDisponivel.DiaDaSemana, Is.EqualTo(1));
         }
 
         [Test]

@@ -10,7 +10,13 @@ namespace testeDeUnidade.models.agendamento
         [SetUp]
         public void Setup()
         {
-            servicoDisponivel = new ServicoDisponivel();
+            servicoDisponivel = new ServicoDisponivel
+            {
+                IdServico = 1,
+                Tipo = "Psicologo",
+                Descricao = "Atendimento prestado pela Pedagoga Geísa",
+                TipoAtendimento = "Consulta"
+            };
         }
 
         [Test]

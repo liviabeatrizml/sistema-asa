@@ -10,7 +10,15 @@ namespace testeDeUnidade.models.discente
         [SetUp]
         public void Setup()
         {
-            discenteDTO = new DiscenteDto();
+            discenteDTO = new DiscenteDto
+            {
+                Nome = "Livia",
+                Email = "livia.lima@alunos.ufersa.edu.br",
+                Senha = "Livia10.",
+                Matricula = 2021010871,
+                Telefone = "40028922",
+                Curso = "Engenharia"
+            };
         }
 
         [Test]
