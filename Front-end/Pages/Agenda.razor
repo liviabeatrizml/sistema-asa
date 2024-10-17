@@ -32,14 +32,14 @@
                     </div>
                 </div>
                 @if(calendario == "semana"){
-                    <CalendarioSemanal/>
+                    <CalendarioSemanal DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
                 } else if(calendario == "dia"){
-                    <CalendarioDiario/>
+                    <CalendarioDiario DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
                 }
             </div>
 
             <div>
-                <Calendario />
+                <Calendario DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
             </div>
 
         </main>
@@ -49,6 +49,13 @@
 </div>
 
 @code{
+    private DateTime diaSelecionado = DateTime.Today;
+
+    private void HandleDiaSelecionadoChange(DateTime novoDia)
+    {
+        diaSelecionado = novoDia;
+    }
+    
     private string calendario = "semana"; 
 }
 

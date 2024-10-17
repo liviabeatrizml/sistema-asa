@@ -16,15 +16,15 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="day-of-week">@DateTime.Today.ToString("ddd").ToUpper().TrimEnd('.')</div>
-                        <div class="day-number">@DateTime.Today.Day</div>
+                        <div class="day-of-week">@DiaSelecionado.ToString("ddd").ToUpper().TrimEnd('.')</div>
+                        <div class="day-number">@DiaSelecionado.Day</div>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var time in TimeSlots)
                 {
-                        var eventItem = GetEventForDayAndTime(DateTime.Today, time);
+                        var eventItem = GetEventForDayAndTime(DiaSelecionado, time);
                     <tr>
                         @if (eventItem != null)
                         {
@@ -65,12 +65,18 @@
 </div>
 
 @code {
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
     private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
 
     private List<string> pink, green, orange, blue;
     private List<CompromissoModel> compromissos;
     private List<EventItem> Events = new List<EventItem>();
 
+    
 
     protected override async Task OnInitializedAsync()
     {

@@ -5,7 +5,7 @@
 <div class="calendario @HeightClass" style="user-select: none;">
     <div class="calendario-height">
         <div class="header">
-            <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DataAtual.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DataAtual.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
+            <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DiaSelecionado.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DiaSelecionado.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
             <div>
                 <svg @onclick="() => MudarMes(-1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 18L9 12L15 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,9 +28,9 @@
                 @foreach (var dia in semana)
                 {
                     var classeDia = (dia.DayOfWeek == DayOfWeek.Saturday || dia.DayOfWeek == DayOfWeek.Sunday)
-                        ? (dia.Month == DataAtual.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
-                        : (dia.Month == DataAtual.Month ? "dia mes-atual" : "dia outro-mes");
-                    if (dia.Date == DateTime.Today)
+                        ? (dia.Month == DiaSelecionado.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
+                        : (dia.Month == DiaSelecionado.Month ? "dia mes-atual" : "dia outro-mes");
+                    if (dia.Date == DiaSelecionado)
                     {
                         classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
                     }
@@ -44,7 +44,7 @@
                         
                     }
         
-                    <div class="@classeDia weight-600">
+                    <div class="@classeDia weight-600" style="cursor: pointer;" @onclick="() => MudarDataSelecionada(dia.Date)">
                         @dia.Day
                     </div>
                 }
@@ -106,7 +106,7 @@
                     cor = "#F6C4AF";
                 }
                 <div>
-                    @if(compromissosSemanais[i].Data.Date >= DataAtual){
+                    @if(compromissosSemanais[i].Data.Date >= DiaSelecionado && compromissosSemanais[i].Data.Date <= DiaFimDaSemana){
                         @if (DataCompromisso.Date != compromissosSemanais[i].Data.Date)
                         {
                             DataCompromisso = compromissosSemanais[i].Data;
@@ -132,8 +132,14 @@
 </div>
 
 @code {
-    private DateTime DataAtual { get; set; } = DateTime.Today;
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
     private DateTime DataCompromisso { get; set; }
+    private DateTime DiaInicioDaSemana { get; set; }
+    private DateTime DiaFimDaSemana { get; set; }
 
     private List<List<DateTime>> Semanas { get; set; } = new();
     private List<string> NomesDiasSemana { get; set; } = new() { "D", "S", "T", "Q", "Q", "S", "S" };
@@ -142,11 +148,18 @@
     private List<CompromissoModel> compromissos;
     private List<CompromissoModel> compromissosSemanais;
 
+    protected override void OnParametersSet()
+    {
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+    }
 
     protected override async Task OnInitializedAsync()
     {
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
 
         
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
@@ -160,7 +173,7 @@
             if(userId != -1){
                 compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId);
                 compromissosSemanais = compromissosSemanais
-                .Where(compromisso => compromisso.Data.Date >= DateTime.Today)
+                .Where(compromisso => compromisso.Data.Date >= DiaSelecionado)
                 .ToList();
             }
             if(compromissosSemanais != null && compromissosSemanais.Count > 0){
@@ -169,7 +182,7 @@
             }
             HeightClass = "calendario-services-height";
         }
-        GerarCalendario(DataAtual);
+        GerarCalendario(DiaSelecionado);
     }
 
     private void GerarCalendario(DateTime date)
@@ -196,7 +209,7 @@
 
     private string ObterTituloData(DateTime data)
     {
-        DateTime hoje = DateTime.Today;
+        DateTime hoje = DiaSelecionado;
         DateTime amanha = hoje.AddDays(1);
 
         if (data.Date == hoje)
@@ -210,14 +223,21 @@
 
     private void MudarMes(int meses)
     {
-        DataAtual = DataAtual.AddMonths(meses);
-        GerarCalendario(DataAtual);
+        DiaSelecionado = DiaSelecionado.AddMonths(meses);
+        GerarCalendario(DiaSelecionado);
     }
 
     private bool legenda = false;
     private void mostrarLegenda()
     {
         legenda = !legenda;
+    }
+
+    private DateTime data_clicada;
+
+    private async Task MudarDataSelecionada(DateTime data){
+        data_clicada = data;
+        await OnDiaSelecionadoChange.InvokeAsync(data_clicada);
     }
 }
 

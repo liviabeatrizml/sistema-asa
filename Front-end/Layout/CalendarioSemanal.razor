@@ -17,7 +17,7 @@
                 <tr>
                     @foreach (var day in WeekDays)
                     {
-                        bool isToday = day.Date == DateTime.Today;
+                        bool isToday = day.Date == DiaSelecionado;
                         <th style="@(isToday ? "background-color: #ABC8E24D;" : "")">
                             <div class="day-of-week">@day.ToString("ddd").ToUpper().TrimEnd('.')</div>
                             <div class="day-number">@day.Day</div>
@@ -32,7 +32,7 @@
                         @foreach (var day in WeekDays)
                         {
                             var eventItem = GetEventForDayAndTime(day, time);
-                            bool isToday = day.Date == DateTime.Today;
+                            bool isToday = day.Date == DiaSelecionado;
     
                             if (eventItem != null)
                             {
@@ -57,7 +57,20 @@
 
 
 @code {
-    private List<DateTime> WeekDays = Enumerable.Range(0, 7).Select(i => DateTime.Today.AddDays(i - (int)DateTime.Today.DayOfWeek)).ToList(); // Ajustando para começar no domingo
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
+    private List<DateTime> WeekDays { get; set; } = new List<DateTime>();
+
+    protected override void OnParametersSet()
+    {
+        WeekDays = Enumerable.Range(0, 7)
+            .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
+            .ToList();
+    }
+
     private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
 
     private List<string> pink, green, orange, blue;
@@ -70,6 +83,11 @@
         green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
         orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
         blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+
+        WeekDays = Enumerable.Range(0, 7)
+        .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
+        .ToList();
+
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
         if(userId != -1){
