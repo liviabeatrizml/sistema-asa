@@ -30,9 +30,23 @@
                     var classeDia = (dia.DayOfWeek == DayOfWeek.Saturday || dia.DayOfWeek == DayOfWeek.Sunday)
                         ? (dia.Month == DiaSelecionado.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
                         : (dia.Month == DiaSelecionado.Month ? "dia mes-atual" : "dia outro-mes");
-                    if (dia.Date == data_clicada.Date)
-                    {
-                        classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+
+                    @if(Navigation.ToBaseRelativePath(Navigation.Uri) == "reserva"){
+                        if (dia.Date == data_clicada.Date)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+
+                    } else{
+                        if (dia.Date == DateTime.Today)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+
+                        if (dia.Date == data_clicada.Date)
+                        {
+                            classeDia += " dia-selecionado"; // Adiciona a classe "dia-hoje"
+                        }
                     }
 
                     @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio"){
@@ -206,7 +220,7 @@
 
         
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
-        if (relativePath == "reserva")
+        if (relativePath == "reserva" || relativePath == "agenda")
         {
             data_clicada = DateTime.MinValue;
         }
@@ -347,9 +361,15 @@
     }
 
     .dia-hoje {
-        background-color: var(--light-blue);
+        background-color: var(--light-blue) !important;
         border-radius: 50%;
         color: var(--blue-ufersa) !important;
+    }
+
+    .dia-selecionado {
+        background-color: var(--green-ufersa);
+        border-radius: 50%;
+        color: #FAF9F6 !important;
     }
 
     .dia-compromisso {
