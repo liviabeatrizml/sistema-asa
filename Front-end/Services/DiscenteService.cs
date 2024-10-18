@@ -62,6 +62,17 @@ public class DiscenteService
             throw new Exception("Falha ao obter os dados do discente.");
         }
     }
+
+    public async Task<HttpResponseMessage> ExcluirDiscente(ExcluirDiscenteModel model)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Delete, "/api/Discente/deletar-usuario/")
+        {
+            Content = JsonContent.Create(model) // Adiciona o corpo da requisição
+        };
+
+        return await _httpClient.SendAsync(request);
+    }
+
 }
 
 // Modelos de dados
@@ -102,4 +113,13 @@ public class DiscenteEditarSenhaModel
 
     [Required(ErrorMessage = "O campo da nova senha é obrigatório.")]
     public string NovaSenha { get; set; }
+}
+
+public class ExcluirDiscenteModel
+{
+    [Required(ErrorMessage = "O campo Email é obrigatório.")]
+    public int IdUsuario { get; set; }
+
+    [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+    public string Senha { get; set; }  
 }

@@ -2,11 +2,13 @@
 @attribute [Authorize]
 @inject NavigationManager Navigation
 @using System.ComponentModel.DataAnnotations
-@using System.Collections.Generic;
-@inject DiscenteService DiscenteService
+@using System.Collections.Generic
 @using System.Text.RegularExpressions
+@using Blazored.LocalStorage
+@inject DiscenteService DiscenteService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime JS
+@inject ILocalStorageService localStorage
 
 <PageTitle>Ajustes</PageTitle>
 
@@ -200,18 +202,29 @@
             Verificação
         </h1>
         <p class="pop-up-p pb-4">O Sistema Agendamento está a tentar excluir conta. Escreva a sua senha atual para permitir esta ação.</p>
-        <div class="password-container mb-2">
-            <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="senhaAtual" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
-            <span class="toggle-password" @onclick="TogglePasswordVisibility">
-                <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-on.svg" : "..\\css\\images\\eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
-            </span>
-        </div>
-        <a href="/recuperar-senha" class="weight-700 paragraph-size underline">Esqueceu sua senha?</a>
+        <EditForm Model="@excluirUsuario" OnValidSubmit="@ExcluirUsuario">
+            <DataAnnotationsValidator />
+            
+            <div class="password-container mb-2">
+                <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="excluirUsuario.Senha" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "../css/images/eye-on.svg" : "../css/images/eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+            <ValidationMessage For="@(() => excluirUsuario.Senha)" />
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="text-danger py-3">
+                    @errorMessage
+                </div>
+            }
 
-        <div style="display: flex; justify-content: space-between; width: 100%; padding-top: 1rem">
-            <button style="background-color: transparent; border: 2px solid #C3C3C340" class="button-senha" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Cancelar</button>
-            <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-senha" type="submit">Confirmar</button>
-        </div>
+            <a href="/recuperar-senha" class="weight-700 paragraph-size underline">Esqueceu sua senha?</a>
+            <div style="display: flex; justify-content: space-between; width: 100%; padding-top: 1rem">
+                <button style="background-color: transparent; border: 2px solid #C3C3C340" class="button-senha" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Cancelar</button>
+                <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-senha" type="submit">Confirmar</button>
+            </div>
+        </EditForm>
     </div>
 
     <div id="editar-senha" class="container-excluir">
@@ -219,7 +232,7 @@
             Alterar Senha
         </h1>
         <p class="pop-up-p pb-3">Insira sua senha atual para validar a troca.</p>
-        <EditForm  Model="@alterarSenha" OnValidSubmit="@AlterarSenhaUsuario">
+        <EditForm Model="@alterarSenha" OnValidSubmit="@AlterarSenhaUsuario">
             <DataAnnotationsValidator />
 
             <div class="password-container mb-2">
@@ -275,11 +288,12 @@
 
 @code{
     private DiscenteRegistroModel discente;
+    public int userId = -1;
 
     protected override async Task OnInitializedAsync()
     {
         // Obtenha o ID do usuário do localStorage usando o CustomAuthStateProvider
-        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
 
         if (userId != -1)
         {
@@ -378,7 +392,6 @@
     private Conta contaUserAtual = new Conta();
     private InfosUser infosUser = new InfosUser();
     private InfosUser infosUserAtual = new InfosUser();
-    private string senhaAtual;
 
     private async Task EditarDiscente()
     {
@@ -481,11 +494,12 @@
         await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
         alterarSenha.Senha = null;
         alterarSenha.NovaSenha = null;
+        errorMessage = null;
     }
 
     private AlterarSenha alterarSenha = new AlterarSenha();
-    private string errorMessage;
-    public class AlterarSenha{
+    
+        public class AlterarSenha{
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
         public string Email { get; set; }
 
@@ -494,6 +508,16 @@
 
         [Required(ErrorMessage = "O campo da nova senha é obrigatório.")]
         public string NovaSenha { get; set; }
+    }
+
+    private ExcluirUsuarioModel excluirUsuario = new ExcluirUsuarioModel();
+    private string errorMessage;
+    public class ExcluirUsuarioModel{
+        [Required(ErrorMessage = "O campo ID é obrigatório.")]
+        public int ID { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Senha { get; set; }
     }
 
     private bool HasMinimumLength() => alterarSenha.NovaSenha?.Length >= 8;
@@ -519,6 +543,30 @@
             {
                 var errorMessage = await result.Content.ReadAsStringAsync();
             }
+    }
+
+    private async Task ExcluirUsuario(){
+
+        var modelDiscente = new ExcluirDiscenteModel
+        {
+            IdUsuario = userId,
+            Senha = excluirUsuario.Senha
+        };
+
+        var result = await DiscenteService.ExcluirDiscente(modelDiscente);
+
+        if (result.IsSuccessStatusCode)
+        {
+            await localStorage.RemoveItemAsync("authToken");
+
+            // Notifica que o estado de autenticação mudou
+            var customAuthStateProvider = (CustomAuthStateProvider)AuthenticationStateProvider;
+            customAuthStateProvider.NotifyUserLogout();
+        }
+        else
+        {
+            var errorMessage = await result.Content.ReadAsStringAsync();
+        }
     }
 }
 
