@@ -195,6 +195,11 @@ public class AgendamentoService{
         return await _httpClient.PostAsJsonAsync("/api/Agendamento/solicitar", model);
     }
 
+    public async Task<HttpResponseMessage> ExcluirAgendamento(int id_agendamento)
+    {
+        return await _httpClient.DeleteAsync($"/api/Agendamento/cancelar/{id_agendamento}");
+    }
+
 }
 
 public class CompromissoModel{
