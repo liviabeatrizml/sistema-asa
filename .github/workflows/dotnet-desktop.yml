@@ -23,7 +23,7 @@ jobs:
           dotnet-version: '8.0.401'
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore Back-end/Back-end.csproj
 
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef
@@ -31,16 +31,20 @@ jobs:
       - name: Add dotnet tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
+      - name: Change directory to Back-end
+        run: cd Back-end
+
       - name: Apply database migrations
-        run: dotnet ef database update
+        run: dotnet ef database update --project Back-end.csproj
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
 
       - name: Build project
-        run: dotnet build
+        run: dotnet build Back-end.csproj
 
       - name: Run backend application
-        run: dotnet run --project Back-end/Back-end.csproj
+        run: dotnet run --project Back-end.csproj
+
     
   build-frontend:
     runs-on: windows-latest
