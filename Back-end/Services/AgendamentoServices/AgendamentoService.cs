@@ -2,6 +2,7 @@ using Back_end.Data;
 using Back_end.Dtos;
 using Back_end.Models;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 
 namespace Back_end.Services
 {
@@ -72,5 +73,29 @@ namespace Back_end.Services
                 .Where(h => h.ProfissionalId == profissionalId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<AgendamentoDto>> BuscarAgendamentosPorProfissionalAsync(int profissionalId)
+        {
+            var agendamentos = await _context.Agendamento
+                .Where(a => a.ProfissionalId == profissionalId && a.Data >= DateTime.Today)
+                .Join(_context.HorarioDisponivel, 
+                    a => a.HorarioId, 
+                    h => h.IdHorario, 
+                    (a, h) => new AgendamentoDto
+                    {
+                        IdAgendamento = a.IdAgendamento,
+                        Data = a.Data,
+                        DiscenteId = a.DiscenteId,
+                        ProfissionalId = a.ProfissionalId,
+                        ServicoId = a.ServicoId,
+                        HorarioId = a.HorarioId,
+                        HoraInicio = h.HoraInicio,
+                        HoraFim = h.HoraFim
+                    })
+                .ToListAsync();
+
+            return agendamentos;
+        }
+
     }
 }

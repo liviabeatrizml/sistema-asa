@@ -51,4 +51,24 @@ public class AgendamentoController : ControllerBase
         var result = await _agendamentoService.ListarHorariosDisponiveisAsync(profissionalId);
         return Ok(result);
     }
+
+
+    [HttpGet("buscarAgendamentosPorProfissional/{profissionalId}")]
+    public async Task<IActionResult> BuscarAgendamentosPorProfissional(int profissionalId)
+    {
+        try
+        {
+            var agendamentos = await _agendamentoService.BuscarAgendamentosPorProfissionalAsync(profissionalId);
+            if (agendamentos == null || !agendamentos.Any())
+            {
+                return NotFound("Nenhum agendamento encontrado para esse profissional.");
+            }
+            return Ok(agendamentos);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Erro interno do servidor: " + ex.Message);
+        }
+    }
+
 }
