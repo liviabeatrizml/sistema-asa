@@ -35,7 +35,8 @@ namespace Back_end.Services
                 DiscenteId = dto.DiscenteId,
                 HorarioId = dto.HorarioId,
                 ProfissionalId = dto.ProfissionalId,
-                ServicoId = dto.ServicoId
+                ServicoId = dto.ServicoId,
+                Status = dto.Status
             };
 
             _context.Agendamento.Add(novoAgendamento);
@@ -90,7 +91,8 @@ namespace Back_end.Services
                         ServicoId = a.ServicoId,
                         HorarioId = a.HorarioId,
                         HoraInicio = h.HoraInicio,
-                        HoraFim = h.HoraFim
+                        HoraFim = h.HoraFim,
+                        Status = a.Status,
                     })
                 .ToListAsync();
 

@@ -39,7 +39,8 @@ public class ProfissionalService : IProfissionalService
                 Nome = p.Nome,
                 Email = p.Email,
                 ServicoId = p.ServicoId,
-                ServicoNome = p.Servico.Tipo // Pegando o nome do serviço
+                ServicoNome = p.Servico.Tipo, // Pegando o nome do serviço
+                Descricao = p.Descricao,
             })
             .ToListAsync();
 
