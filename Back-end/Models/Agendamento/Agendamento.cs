@@ -26,6 +26,9 @@ public class Agendamento
 
         [Column("horario_id")]
         public int HorarioId { get; set; }
+
+        [Column("status")]
+        public string Status { get; set; }
     }
 
 }
