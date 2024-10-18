@@ -101,7 +101,7 @@
                                         <h2 class="weight-600" style="font-size: 1.375rem; margin: 0; padding-bottom: 5px;">@servico_escolhido.Nome_Profissional</h2>
                                         <span class="weight-500" style="color: var(--black-gray);">@servico_escolhido.Tipo_Servico - CRP 17/0000</span>
                                         <p class="weight-500" style="font-size: 1.125rem; color: var(--black-gray); padding-top: 15px;">
-                                            @((servico_escolhido.Descricao.Length > 160) ? servico_escolhido.Descricao.Substring(0, 160) + "..." : servico_escolhido.Descricao)
+                                            @((servico_escolhido.Descricao.Length > 150) ? servico_escolhido.Descricao.Substring(0, 150) + "..." : servico_escolhido.Descricao)
                                         </p>
                                     }
                                 </div>
@@ -132,7 +132,14 @@
     protected override async Task OnInitializedAsync()
     {
         servicos = await ServicoService.ListServicos();
-        servico_escolhido = servicos[0];
+        if (servicos != null && servicos.Count > 0)
+        {
+            servico_escolhido = servicos[0];
+        }
+        else
+        {
+            servico_escolhido = null;
+        }
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
         if(userId != -1){

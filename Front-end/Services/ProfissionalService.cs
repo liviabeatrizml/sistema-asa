@@ -97,6 +97,7 @@ public class ProfissionalModel{
     public string Email {get; set;}
     public int ServicoId {get; set;}
     public string ServicoNome {get; set;} 
+    public string Descricao {get; set;} 
 }
 
 public class ProfissionalHorariosModel{

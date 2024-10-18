@@ -37,7 +37,7 @@ public class ServicoService
                 Id_Servico = servico.IdServico,
                 Nome_Profissional = profissional.Nome,
                 Tipo_Servico = servico.Tipo,
-                Descricao = servico.Descricao
+                Descricao = profissional.Descricao
             };
 
             servicos.Add(servico_profissional);
