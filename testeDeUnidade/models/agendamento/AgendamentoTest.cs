@@ -16,7 +16,8 @@ namespace testeDeUnidade.models.agendamento
                 DiscenteId = 1,
                 ProfissionalId = 1,
                 ServicoId = 1,
-                HorarioId = 1
+                HorarioId = 1,
+                Status = "Concluido"
             };
         }
 
@@ -77,6 +78,13 @@ namespace testeDeUnidade.models.agendamento
         {
             agendamento.HorarioId = 123;
             Assert.That(agendamento.HorarioId, Is.EqualTo(123));
+        }
+
+        [Test]
+        public void TestGetSetStatus()
+        {
+            agendamento.Status = "Cancelado";
+            Assert.That(agendamento.Status, Is.EqualTo("Cancelado"));
         }
     }
 }

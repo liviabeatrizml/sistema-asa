@@ -17,7 +17,8 @@ namespace testeDeUnidade.models.profissional
                 Email = "eriky.abreu@alunos.ufersa.edu.br",
                 Senha = "Eriky10.",
                 Salt = "Eriky10.",
-                ServicoId = 1
+                ServicoId = 1,
+                Descricao = "Servico ofertado por Eriky Abreu"
             };
         }
 
@@ -69,6 +70,13 @@ namespace testeDeUnidade.models.profissional
             var servico = new ServicoDisponivel();
             profissional.Servico = servico;
             Assert.That(profissional.Servico, Is.EqualTo(servico));
+        }
+
+        [Test]
+        public void TestGetSetDescricao()
+        {
+            profissional.Descricao = "Servico prestado por Eriky Abreu";
+            Assert.That(profissional.Descricao, Is.EqualTo("Servico prestado por Eriky Abreu"));
         }
     }
 }

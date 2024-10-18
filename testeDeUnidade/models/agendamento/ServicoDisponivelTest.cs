@@ -14,7 +14,6 @@ namespace testeDeUnidade.models.agendamento
             {
                 IdServico = 1,
                 Tipo = "Psicologo",
-                Descricao = "Atendimento prestado pela Pedagoga Geísa",
                 TipoAtendimento = "Consulta"
             };
         }
@@ -31,13 +30,6 @@ namespace testeDeUnidade.models.agendamento
         {
             servicoDisponivel.Tipo = "Psicologo";
             Assert.That(servicoDisponivel.Tipo, Is.EqualTo("Psicologo"));
-        }
-
-        [Test]
-        public void TestGetSetDescricao()
-        {
-            servicoDisponivel.Descricao = "Atendimento prestado pela Pedagoga Geísa";
-            Assert.That(servicoDisponivel.Descricao, Is.EqualTo("Atendimento prestado pela Pedagoga Geísa"));
         }
 
         [Test]

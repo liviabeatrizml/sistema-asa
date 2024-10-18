@@ -67,7 +67,6 @@ namespace testeDeUnidade.controller
             {
                 IdServico = 1,
                 Tipo = "Pedagogo",
-                Descricao = "Servico prestado pela pedagoga Geisa Morais",
                 TipoAtendimento = "Consulta"
             };
 
@@ -78,7 +77,8 @@ namespace testeDeUnidade.controller
                 Email = "eriky.abreu@ufersa.edu.br",
                 Senha = "Eriky07.",
                 Salt = "Eriky07.",
-                ServicoId = servico.IdServico
+                ServicoId = servico.IdServico,
+                Descricao = "Servico prestado por Eriky Abreu"
             };
 
             await context.Discentes.AddAsync(discente);
@@ -92,7 +92,8 @@ namespace testeDeUnidade.controller
                 ProfissionalId = profissional.IdProfissional,
                 ServicoId = servico.IdServico,
                 HorarioId = 1,
-                Data = DateTime.Now
+                Data = DateTime.Now,
+                Status = "Pendente"
             };
 
             var result = await controller.SolicitarAgendamento(dto);
@@ -111,7 +112,8 @@ namespace testeDeUnidade.controller
                 ProfissionalId = 1,
                 ServicoId = 1,
                 HorarioId = 1,
-                Data = DateTime.Now
+                Data = DateTime.Now,
+                Status = "Pendente"
             };
 
             var result = await controller.SolicitarAgendamento(solicitarAgendamentoDto);
@@ -162,7 +164,6 @@ namespace testeDeUnidade.controller
             {
                 IdServico = 1,
                 Tipo = "Psicologo",
-                Descricao = "Servico prestado por Geisa Morais",
                 TipoAtendimento = "Retorno"
             };
 
@@ -173,7 +174,8 @@ namespace testeDeUnidade.controller
                 Email = "geisa.gabriel@alunos.ufersa.edu.br",
                 Senha = "Geisa07.",
                 Salt = "Geisa07.",
-                ServicoId = servico.IdServico
+                ServicoId = servico.IdServico,
+                Descricao = "Servico prestado por Geisa Morais"
             };
 
             var agendamentos = new List<Agendamento>
@@ -185,7 +187,8 @@ namespace testeDeUnidade.controller
                     DiscenteId = discente.IdDiscente,
                     ProfissionalId = profissional.IdProfissional,
                     ServicoId = servico.IdServico,
-                    HorarioId = 1
+                    HorarioId = 1,
+                    Status = "Concluido"
                 },
             new Agendamento
                 {
@@ -194,7 +197,8 @@ namespace testeDeUnidade.controller
                     DiscenteId = discente.IdDiscente,
                     ProfissionalId = profissional.IdProfissional,
                     ServicoId = servico.IdServico,
-                    HorarioId = 2
+                    HorarioId = 2,
+                    Status = "Concluido"
                 }
             };
 

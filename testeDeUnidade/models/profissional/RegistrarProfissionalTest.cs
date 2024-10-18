@@ -15,7 +15,8 @@ namespace testeDeUnidade.models.profissional
                 Nome = "Eriky",
                 Email = "eriky.abreu@alunos.ufersa.edu.br",
                 Senha = "Eriky10.",
-                AreaAtuacao = "Pedagogo"
+                AreaAtuacao = "Pedagogo",
+                descricao = "Servico prestado por Eriky Abreu"
             };
         }
 
@@ -45,6 +46,13 @@ namespace testeDeUnidade.models.profissional
         {
             registrarProfissional.AreaAtuacao = "Pedagoga"; 
             Assert.That(registrarProfissional.AreaAtuacao, Is.EqualTo("Pedagoga"));
+        }
+
+        [Test]
+        public void RegistrarProfissionalGetSetDescricao()
+        {
+            registrarProfissional.descricao = "Servico prestado por Geisa Morais"; 
+            Assert.That(registrarProfissional.descricao, Is.EqualTo("Servico prestado por Geisa Morais"));
         }
     }
 }

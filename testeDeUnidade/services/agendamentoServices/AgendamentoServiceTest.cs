@@ -60,7 +60,6 @@ namespace testeDeUnidade.services.agendamentoService
             {
                 IdServico = servicoId,
                 Tipo = "Psicologa",
-                Descricao = "Servico prestado por Livia Lima",
                 TipoAtendimento = "Consulta"
             });
             await context.SaveChangesAsync();
@@ -72,7 +71,8 @@ namespace testeDeUnidade.services.agendamentoService
                 Email = "geisa.gabriel@ufersa.edu.br",
                 Senha = "Geisa07.",
                 Salt = "Geisa07.",
-                ServicoId = servicoId
+                ServicoId = servicoId,
+                Descricao = "Servico prestado por Geisa Morais"
             });
             await context.SaveChangesAsync();
 
@@ -106,7 +106,8 @@ namespace testeDeUnidade.services.agendamentoService
                 ProfissionalId = profissionalId,
                 ServicoId = servicoId,
                 HorarioId = horarioId,
-                Data = DateTime.Now
+                Data = DateTime.Now,
+                Status = "Concluido"
             };
 
             var agendamento = await agendamentoService.SolicitarAgendamentoAsync(agendamentoDto);
@@ -131,7 +132,6 @@ namespace testeDeUnidade.services.agendamentoService
             {
                 IdServico = servicoId,
                 Tipo = "Psicologa",
-                Descricao = "Servico prestado por Livia Lima",
                 TipoAtendimento = "Consulta"
             });
             await context.SaveChangesAsync();
@@ -143,7 +143,8 @@ namespace testeDeUnidade.services.agendamentoService
                 Email = "geisa.gabriel@ufersa.edu.br",
                 Senha = "Geisa07.",
                 Salt = "Geisa07.",
-                ServicoId = servicoId
+                ServicoId = servicoId,
+                Descricao = "Servico prestado por Geisa Morais"
             });
             await context.SaveChangesAsync();
 
@@ -175,7 +176,8 @@ namespace testeDeUnidade.services.agendamentoService
                 ProfissionalId = profissionalId,
                 ServicoId = servicoId,
                 HorarioId = horarioId,
-                Data = DateTime.Now
+                Data = DateTime.Now,
+                Status = "Cancelado"
             };
             var agendamento = await agendamentoService.SolicitarAgendamentoAsync(agendamentoDto);
 
@@ -189,14 +191,14 @@ namespace testeDeUnidade.services.agendamentoService
             var agendamentoId = 123;
             var result = await agendamentoService.CancelarAgendamentoAsync(agendamentoId);
 
-            Assert.That(result, Is.False); 
+            Assert.That(result, Is.False);
         }
 
         [Test]
         public async Task SolicitarAgendamento_HorarioIndisponivel()
         {
             var profissionalId = 2;
-            var horarioIdInexistente = 1234; 
+            var horarioIdInexistente = 1234;
             var discenteId = 1;
             var servicoId = 3;
 
@@ -204,7 +206,6 @@ namespace testeDeUnidade.services.agendamentoService
             {
                 IdServico = servicoId,
                 Tipo = "Psicologa",
-                Descricao = "Servico prestado por Livia Lima",
                 TipoAtendimento = "Consulta"
             });
             await context.SaveChangesAsync();
@@ -216,7 +217,8 @@ namespace testeDeUnidade.services.agendamentoService
                 Email = "geisa.gabriel@ufersa.edu.br",
                 Senha = "Geisa07.",
                 Salt = "Geisa07.",
-                ServicoId = servicoId
+                ServicoId = servicoId,
+                Descricao = "Servico prestado por Geisa Morais"
             });
             await context.SaveChangesAsync();
 
@@ -239,7 +241,8 @@ namespace testeDeUnidade.services.agendamentoService
                 ProfissionalId = profissionalId,
                 ServicoId = servicoId,
                 HorarioId = horarioIdInexistente,
-                Data = DateTime.Now
+                Data = DateTime.Now,
+                Status = "Concluido"
             };
 
             var agendamento = await agendamentoService.SolicitarAgendamentoAsync(agendamentoDto);
@@ -268,14 +271,14 @@ namespace testeDeUnidade.services.agendamentoService
                 Email = "renan.costa@ufersa.edu.br",
                 Senha = "Renan06.",
                 Salt = "Renan06.",
-                ServicoId = 1
+                ServicoId = 1,
+                Descricao = "Servico prestado por Renan Costa"
             };
 
             var servico = new ServicoDisponivel
             {
                 IdServico = 1,
                 Tipo = "Psicologa",
-                Descricao = "Atendimento prestado por Lívia Beatriz",
                 TipoAtendimento = "Retorno"
             };
 
@@ -300,7 +303,8 @@ namespace testeDeUnidade.services.agendamentoService
                 DiscenteId = discente.IdDiscente,
                 ProfissionalId = profissional.IdProfissional,
                 ServicoId = servico.IdServico,
-                HorarioId = horario.IdHorario
+                HorarioId = horario.IdHorario,
+                Status = "Concluido"
             };
 
             context.Agendamento.Add(agendamento);
@@ -319,7 +323,6 @@ namespace testeDeUnidade.services.agendamentoService
             {
                 IdServico = 1,
                 Tipo = "Psicóloga",
-                Descricao = "Atendimento prestado por Lívia Beatriz",
                 TipoAtendimento = "Consulta"
             };
 
@@ -330,7 +333,8 @@ namespace testeDeUnidade.services.agendamentoService
                 Email = "renan.costa@ufersa.edu.br",
                 Senha = "Renan06.",
                 Salt = "Renan06.",
-                ServicoId = servico.IdServico
+                ServicoId = servico.IdServico,
+                Descricao = "Servico prestado por Renan Costa"
             };
 
             var horarios = new List<HorarioDisponivel>
@@ -349,6 +353,74 @@ namespace testeDeUnidade.services.agendamentoService
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Count, Is.EqualTo(horarios.Count));
+        }
+
+        [Test]
+        public async Task BuscarAgendamentosPorProfissionalAsync()
+        {
+            var profissionalId = 2;
+            var horarioId = 1;
+            var discenteId = 1;
+            var servicoId = 3;
+
+            context.ServicoDisponivel.Add(new ServicoDisponivel
+            {
+                IdServico = servicoId,
+                Tipo = "Pedagoga",
+                TipoAtendimento = "Consulta"
+            });
+            await context.SaveChangesAsync();
+
+            context.Profissionais.Add(new Profissional
+            {
+                IdProfissional = profissionalId,
+                Nome = "Geisa Morais",
+                Email = "geisa.gabriel@ufersa.edu.br",
+                Senha = "Geisa07.",
+                Salt = "Geisa07.",
+                ServicoId = servicoId,
+                Descricao = "Servico prestado por Geisa Morais"
+            });
+            await context.SaveChangesAsync();
+
+            context.Discentes.Add(new Discente
+            {
+                IdDiscente = discenteId,
+                Nome = "Renan Costa",
+                Email = "renan.costa@alunos.ufersa.edu.br",
+                Senha = "Renan06.",
+                Salt = "Renan06.",
+                Telefone = "40028922",
+                Curso = "Engenharia"
+            });
+            await context.SaveChangesAsync();
+
+            context.HorarioDisponivel.Add(new HorarioDisponivel
+            {
+                IdHorario = horarioId,
+                ProfissionalId = profissionalId,
+                HoraInicio = new TimeSpan(9, 0, 0),
+                HoraFim = new TimeSpan(10, 0, 0),
+                DiaDaSemana = 1
+            });
+            await context.SaveChangesAsync();
+
+            context.Agendamento.Add(new Agendamento
+            {
+                DiscenteId = discenteId,
+                ProfissionalId = profissionalId,
+                ServicoId = servicoId,
+                HorarioId = horarioId,
+                Data = DateTime.Now.AddDays(1),
+                Status = "Concluido"
+            });
+            await context.SaveChangesAsync();
+
+            var result = await agendamentoService.BuscarAgendamentosPorProfissionalAsync(profissionalId);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Count(), Is.EqualTo(1));
+            Assert.That(result.First().ProfissionalId, Is.EqualTo(profissionalId));
         }
     }
 }

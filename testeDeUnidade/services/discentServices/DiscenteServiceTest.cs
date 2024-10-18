@@ -156,7 +156,6 @@ namespace testeDeUnidade.services.discentServices
             {
                 IdServico = 1,
                 Tipo = "Psicologa",
-                Descricao = "Atendimento prestado por Lívia Beatriz",
                 TipoAtendimento = "Retorno"
             };
 
@@ -168,7 +167,8 @@ namespace testeDeUnidade.services.discentServices
                 Nome = "Livia Lima",
                 Email = "livia.lima@ufersa.edu.br",
                 Senha = "Livia10.",
-                ServicoId = servico.IdServico
+                ServicoId = servico.IdServico,
+                descricao = "Servico prestado por Livia Lima"
             };
 
             var resultado = await discenteService.RegistrarProfissionalAsync(registro);
@@ -185,7 +185,6 @@ namespace testeDeUnidade.services.discentServices
             {
                 IdServico = 1,
                 Tipo = "Psicologa",
-                Descricao = "Atendimento prestado por Lívia Beatriz",
                 TipoAtendimento = "Retorno"
             };
 
@@ -197,7 +196,8 @@ namespace testeDeUnidade.services.discentServices
                 Nome = "Livia Lima",
                 Email = "livia.lima@ufersa.edu.br",
                 Senha = "Livia10.",
-                ServicoId = servico.IdServico
+                ServicoId = servico.IdServico,
+                descricao = "Servico prestado por Livia Lima"
             };
 
             await discenteService.RegistrarProfissionalAsync(registro);
@@ -209,9 +209,58 @@ namespace testeDeUnidade.services.discentServices
             };
 
             var response = await discenteService.LoginProfissionalAsync(login);
+
             Assert.That(response, Is.Not.Null);
             Assert.That(response.UserId, Is.Not.Empty);
             Assert.That(response.Token, Is.Not.Empty);
+        }
+
+        [Test]
+        public async Task LoginProfissional_Inexistente()
+        {
+            var login = new LoginProfissional
+            {
+                Email = "antonio.caue@ufersa.edu.br",
+                Senha = "Antonio10."
+            };
+
+            var response = await discenteService.LoginProfissionalAsync(login);
+            Assert.That(response, Is.Null);
+        }
+
+        [Test]
+        public async Task LoginProfissional_SenhaIncorreta()
+        {
+            var servico = new ServicoDisponivel
+            {
+                IdServico = 1,
+                Tipo = "Psicologa",
+                TipoAtendimento = "Retorno"
+            };
+
+            context.ServicoDisponivel.Add(servico);
+            await context.SaveChangesAsync();
+
+            var registro = new RegistrarProfissional
+            {
+                Nome = "Livia Lima",
+                Email = "livia.lima@ufersa.edu.br",
+                Senha = "Livia10.",
+                ServicoId = servico.IdServico,
+                descricao = "Servico prestado por Livia Lima"
+            };
+
+            await discenteService.RegistrarProfissionalAsync(registro);
+
+            var login = new LoginProfissional
+            {
+                Email = "livia.lima@ufersa.edu.br",
+                Senha = "Biatrizes10."
+            };
+
+            var response = await discenteService.LoginProfissionalAsync(login);
+
+            Assert.That(response, Is.Null);
         }
 
         [Test]
@@ -273,7 +322,6 @@ namespace testeDeUnidade.services.discentServices
             var discente = await context.Discentes.SingleOrDefaultAsync(d => d.Email == alterarSenhaDto.Email);
 
             Assert.That(discente, Is.Not.Null);
-
             Assert.That(discente.Senha, Is.Not.EqualTo("Livia10."));
             Assert.That(discente.Senha, Is.Not.Null);
         }
@@ -304,7 +352,6 @@ namespace testeDeUnidade.services.discentServices
             {
                 IdServico = 1,
                 Tipo = "Psicologa",
-                Descricao = "Serviço prestado por Livia Lima",
                 TipoAtendimento = "Consulta"
             };
             context.ServicoDisponivel.Add(servico);
@@ -316,7 +363,8 @@ namespace testeDeUnidade.services.discentServices
                 Email = "livia.lima@ufersa.edu.br",
                 Senha = "Livia10.",
                 Salt = "Livia10.",
-                ServicoId = 1
+                ServicoId = 1,
+                Descricao = "Servico prestado por Livia Lima"
             });
 
             await context.SaveChangesAsync();
@@ -398,7 +446,6 @@ namespace testeDeUnidade.services.discentServices
             {
                 IdServico = 1,
                 Tipo = "Psicóloga",
-                Descricao = "Atendimento prestado por Lívia Lima",
                 TipoAtendimento = "Consulta"
             };
             context.ServicoDisponivel.Add(servico);
@@ -411,7 +458,8 @@ namespace testeDeUnidade.services.discentServices
                 Email = "livia.lima@ufersa.edu.br",
                 Senha = "Livia10.",
                 Salt = "Livia10.",
-                ServicoId = servico.IdServico 
+                ServicoId = servico.IdServico,
+                Descricao = "Servico prestado por Livia Lima"
             };
 
             context.Profissionais.Add(profissional);

@@ -15,7 +15,8 @@ namespace testeDeUnidade.models.discente
                 Nome = "Eriky",
                 Email = "eriky.abreu@alunos.ufersa.edu.br",
                 ServicoId = 1,
-                ServicoNome = "Assistente Social"
+                ServicoNome = "Assistente Social",
+                Descricao = "Servico prestado por Eriky Abreu"
             };
         }
 
@@ -45,6 +46,13 @@ namespace testeDeUnidade.models.discente
         {
             profissionalDTO.ServicoNome = "Assistente Social"; 
             Assert.That(profissionalDTO.ServicoNome, Is.EqualTo("Assistente Social"));
+        }
+
+        [Test]
+        public void TestGetSetDescricao()
+        {
+            profissionalDTO.Descricao = "Servico prestado por Eriky Abreu"; 
+            Assert.That(profissionalDTO.Descricao, Is.EqualTo("Servico prestado por Eriky Abreu"));
         }
     }
 }

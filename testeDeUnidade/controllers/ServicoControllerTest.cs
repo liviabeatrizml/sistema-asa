@@ -53,7 +53,6 @@ namespace testeDeUnidade.controller
             var servicoDto = new ServicoDto
             {
                 Tipo = "Pedagogo",
-                Descricao = "Atendimento prestado por Geísa Morais Gabriel",
                 TipoAtendimento = "Consulta"
             };
 
@@ -74,7 +73,6 @@ namespace testeDeUnidade.controller
             { 
                 IdServico = 1, 
                 Tipo = "Psicologa", 
-                Descricao = "Atendimento prestado por Lívia Beatriz", 
                 TipoAtendimento = "Retorno" 
             };
             context.ServicoDisponivel.Add(servico);
@@ -98,8 +96,8 @@ namespace testeDeUnidade.controller
         [Test]
         public async Task ListarServicos()
         {
-            context.ServicoDisponivel.Add(new ServicoDisponivel { IdServico = 1, Tipo = "Pedagogo", Descricao = "Atendimento prestado por Geísa Morais", TipoAtendimento = "Retorno" });
-            context.ServicoDisponivel.Add(new ServicoDisponivel { IdServico = 2, Tipo = "Psicologo", Descricao = "Atendimento prestado por Livia Lima", TipoAtendimento = "Consulta" });
+            context.ServicoDisponivel.Add(new ServicoDisponivel { IdServico = 1, Tipo = "Pedagogo", TipoAtendimento = "Retorno" });
+            context.ServicoDisponivel.Add(new ServicoDisponivel { IdServico = 2, Tipo = "Psicologo", TipoAtendimento = "Consulta" });
             await context.SaveChangesAsync();
 
             var result = await controller.ListarServicos();

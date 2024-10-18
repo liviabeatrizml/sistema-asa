@@ -25,7 +25,7 @@
 </tr>
 <tr>
 <th>File(s):</th>
-<td class="overflow-wrap"><a href="#CworkspacesistemadeagendamentodeservicosacademicosBackendControllersAgendamentosControllercs" class="navigatetohash">C:\workspace\sistema-de-agendamento-de-servicos-academicos\Back-end\Controllers\AgendamentosController.cs</a></td>
+<td class="overflow-wrap"><a href="#CworkspacesistemaasaBackendControllersAgendamentosControllercs" class="navigatetohash">C:\workspace\sistema-asa\Back-end\Controllers\AgendamentosController.cs</a></td>
 </tr>
 </table>
 </div>
@@ -36,7 +36,7 @@
 <div class="card">
 <div class="card-header">Line coverage</div>
 <div class="card-body">
-<div class="large cardpercentagebar cardpercentagebar8">92%</div>
+<div class="large cardpercentagebar cardpercentagebar35">64%</div>
 <div class="table">
 <table>
 <tr>
@@ -45,19 +45,19 @@
 </tr>
 <tr>
 <th>Uncovered lines:</th>
-<td class="limit-width right" title="2">2</td>
+<td class="limit-width right" title="13">13</td>
 </tr>
 <tr>
 <th>Coverable lines:</th>
-<td class="limit-width right" title="26">26</td>
+<td class="limit-width right" title="37">37</td>
 </tr>
 <tr>
 <th>Total lines:</th>
-<td class="limit-width right" title="54">54</td>
+<td class="limit-width right" title="74">74</td>
 </tr>
 <tr>
 <th>Line coverage:</th>
-<td class="limit-width right" title="24 of 26">92.3%</td>
+<td class="limit-width right" title="24 of 37">64.8%</td>
 </tr>
 </table>
 </div>
@@ -66,7 +66,7 @@
 <div class="card">
 <div class="card-header">Branch coverage</div>
 <div class="card-body">
-<div class="large cardpercentagebar cardpercentagebar50">50%</div>
+<div class="large cardpercentagebar cardpercentagebar75">25%</div>
 <div class="table">
 <table>
 <tr>
@@ -75,11 +75,11 @@
 </tr>
 <tr>
 <th>Total branches:</th>
-<td class="limit-width right" title="4">4</td>
+<td class="limit-width right" title="8">8</td>
 </tr>
 <tr>
 <th>Branch coverage:</th>
-<td class="limit-width right" title="2 of 4">50%</td>
+<td class="limit-width right" title="2 of 8">25%</td>
 </tr>
 </table>
 </div>
@@ -112,11 +112,12 @@
 <tr><td title="CancelarAgendamento()"><a href="#file0_line32" class="navigatetohash">CancelarAgendamento()</a></td><td>50%</td><td>2.01</td><td>2</td><td>85.71%</td></tr>
 <tr><td title="ListarAgendamentosPorDiscente()"><a href="#file0_line43" class="navigatetohash">ListarAgendamentosPorDiscente()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
 <tr><td title="ListarHorariosDisponiveis()"><a href="#file0_line50" class="navigatetohash">ListarHorariosDisponiveis()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
+<tr><td title="BuscarAgendamentosPorProfissional()"><a href="#file0_line58" class="navigatetohash">BuscarAgendamentosPorProfissional()</a></td><td>0%</td><td>20</td><td>4</td><td>0%</td></tr>
 </tbody>
 </table>
 </div>
 <h1>File(s)</h1>
-<h2 id="CworkspacesistemadeagendamentodeservicosacademicosBackendControllersAgendamentosControllercs">C:\workspace\sistema-de-agendamento-de-servicos-academicos\Back-end\Controllers\AgendamentosController.cs</h2>
+<h2 id="CworkspacesistemaasaBackendControllersAgendamentosControllercs">C:\workspace\sistema-asa\Back-end\Controllers\AgendamentosController.cs</h2>
 <div class="table-responsive">
 <table class="lineAnalysis">
 <thead><tr><th></th><th>#</th><th>Line</th><th></th><th>Line coverage</th></tr></thead>
@@ -174,11 +175,31 @@
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line51"></a><code>51</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;result&nbsp;=&nbsp;await&nbsp;_agendamentoService.ListarHorariosDisponiveisAsync(profissionalId);</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line52"></a><code>52</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;Ok(result);</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line53"></a><code>53</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line54"></a><code>54</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line54"></a><code>54</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line55"></a><code>55</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line56"></a><code>56</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;[HttpGet(&quot;buscarAgendamentosPorProfissional/{profissionalId}&quot;)]</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line57"></a><code>57</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;async&nbsp;Task&lt;IActionResult&gt;&nbsp;BuscarAgendamentosPorProfissional(int&nbsp;profissionalId)</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line58"></a><code>58</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line59"></a><code>59</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line60"></a><code>60</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line61"></a><code>61</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;agendamentos&nbsp;=&nbsp;await&nbsp;_agendamentoService.BuscarAgendamentosPorProfissionalAsync(profissionalId);</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits, 0 of 4 branches are covered)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line62"></a><code>62</code></td><td class="percentagebar percentagebar0"><i class="icon-fork"></i></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(agendamentos&nbsp;==&nbsp;null&nbsp;||&nbsp;!agendamentos.Any())</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line63"></a><code>63</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line64"></a><code>64</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;NotFound(&quot;Nenhum&nbsp;agendamento&nbsp;encontrado&nbsp;para&nbsp;esse&nbsp;profissional.&quot;);</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line65"></a><code>65</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line66"></a><code>66</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;Ok(agendamentos);</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line67"></a><code>67</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line68"></a><code>68</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch&nbsp;(Exception&nbsp;ex)</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line69"></a><code>69</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line70"></a><code>70</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;StatusCode(500,&nbsp;&quot;Erro&nbsp;interno&nbsp;do&nbsp;servidor:&nbsp;&quot;&nbsp;+&nbsp;ex.Message);</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line71"></a><code>71</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line72"></a><code>72</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line73"></a><code>73</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line74"></a><code>74</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
 </tbody>
 </table>
 </div>
-<div class="footer">Generated by: ReportGenerator 5.3.11.0<br />17/10/2024 - 20:05:40<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.3.11.0<br />18/10/2024 - 15:11:06<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>
@@ -187,6 +208,7 @@
 <a href="#file0_line32" class="navigatetohash percentagebar percentagebar80" title="Line coverage: 85.7% - CancelarAgendamento()"><i class="icon-cube"></i>CancelarAgendamento()</a><br />
 <a href="#file0_line43" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - ListarAgendamentosPorDiscente()"><i class="icon-cube"></i>ListarAgendamentosPorDiscente()</a><br />
 <a href="#file0_line50" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - ListarHorariosDisponiveis()"><i class="icon-cube"></i>ListarHorariosDisponiveis()</a><br />
+<a href="#file0_line58" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - BuscarAgendamentosPorProfissional()"><i class="icon-cube"></i>BuscarAgendamentosPorProfissional()</a><br />
 <br/></div>
 </div></div>
 <script type="text/javascript">
