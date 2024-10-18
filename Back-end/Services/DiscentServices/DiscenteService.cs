@@ -147,7 +147,9 @@ namespace Back_end.Services
                 Email = registro.Email,
                 Senha = senhaCriptografada,
                 Salt = salt,
-                ServicoId = registro.ServicoId // Associar o ServicoId ao profissional
+                ServicoId = registro.ServicoId, // Associar o ServicoId ao profissional
+                Descricao = registro.descricao
+                
             };
 
             _context.Profissionais.Add(profissional);
