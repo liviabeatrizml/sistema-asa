@@ -94,7 +94,7 @@ namespace testeDeUnidade.services.agendamentoService
                 IdHorario = horarioId,
                 ProfissionalId = profissionalId,
                 HoraInicio = new TimeSpan(9, 0, 0),
-                HoraFim = new TimeSpan(10, 0, 0),
+                HoraFim = new TimeSpan(11, 0, 0),
                 DiaDaSemana = 1
             });
 
