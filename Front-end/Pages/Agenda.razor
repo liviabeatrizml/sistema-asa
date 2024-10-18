@@ -99,7 +99,7 @@
                     }
 
                 } else{
-                    <div style="width: 44.4rem;">
+                    <div style="width: 44.4rem; height: 56.563rem; overflow-y: auto; scrollbar-width: none;">
                         @if(Events != null){
                             @foreach (var compromisso in Events){
                                 var diaSemana = compromisso.Day.ToString("dddd", new System.Globalization.CultureInfo("pt-BR"));
