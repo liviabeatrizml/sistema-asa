@@ -49,6 +49,7 @@ public class AgendamentoService{
 
                     var compromisso = new CompromissoModel
                     {
+                        IdAgendamento = agendamento.IdAgendamento,
                         Data = agendamento.Data,
                         HoraInicio = horario_inicio,
                         HoraFim = horario_fim,
@@ -197,6 +198,7 @@ public class AgendamentoService{
 }
 
 public class CompromissoModel{
+    public int IdAgendamento { get; set; }
     public DateTime Data { get; set; }
     public TimeSpan HoraInicio { get; set; }
     public TimeSpan HoraFim {get; set;}
@@ -205,6 +207,7 @@ public class CompromissoModel{
 }
 
 public class AgendamentoModel{
+    public int IdAgendamento { get; set; }
     public DateTime Data { get; set; }
     public int ProfissionalId{get; set;}
     public int HorarioId {get; set;}
