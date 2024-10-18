@@ -12,29 +12,35 @@ env:
 
 jobs:
   build-backend:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  runs-on: windows-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.401'
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.401'
 
-      - name: Install dependencies
-        run: dotnet restore
+    - name: Install dependencies
+      run: dotnet restore
 
-      - name: Apply database migrations
-        run: dotnet ef database update
-        env:
-          ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
+    - name: Install dotnet-ef tool
+      run: dotnet tool install --global dotnet-ef
 
-      - name: Build project
-        run: dotnet build
+    - name: Add dotnet tools to PATH
+      run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-      - name: Run backend application
-        run: dotnet run --project Back-end/Back-end.csproj
+    - name: Apply database migrations
+      run: dotnet ef database update
+      env:
+        ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
+
+    - name: Build project
+      run: dotnet build
+
+    - name: Run backend application
+      run: dotnet run --project Back-end/Back-end.csproj
     
   build-frontend:
     runs-on: windows-latest
