@@ -145,8 +145,8 @@
                             }
                         }
                     </div>
-                    <div style="height: 26.5rem; margin-left: 7rem;" @onclick="() => alterarVisualizacaoDatas(false)">
-                        <Calendario DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange" />
+                    <div style="height: 26.5rem; margin-left: 7rem;">
+                        <Calendario DiaSelecionado="@diaSelecionado" MostrarDatasSugeridas = "@mostrarDatasSugeridas" OnDiaSelecionadoChange="HandleDiaSelecionadoChange" OnMostrarDatasSugeridasChange="HandleMostrarDatasSugeridasChange"/>
                     </div>
                 </div>
             </div>
@@ -180,6 +180,11 @@
     private void HandleDiaSelecionadoChange(DateTime novoDia)
     {
         diaSelecionado = novoDia;
+    }
+
+    private void HandleMostrarDatasSugeridasChange(bool mostrarDatas)
+    {
+        mostrarDatasSugeridas = mostrarDatas;
     }
 
     private void alterarVisualizacaoDatas(bool mostrar){

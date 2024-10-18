@@ -148,9 +148,13 @@
 @code {
     [Parameter]
     public DateTime DiaSelecionado { get; set; }
+    [Parameter]
+    public bool MostrarDatasSugeridas { get; set; }
 
     [Parameter]
     public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnMostrarDatasSugeridasChange { get; set; }
     private DateTime DataCompromisso { get; set; }
     private DateTime DiaInicioDaSemana { get; set; }
     private DateTime DiaFimDaSemana { get; set; }
@@ -304,6 +308,7 @@
     private async Task MudarDataSelecionada(DateTime data){
         data_clicada = data;
         await OnDiaSelecionadoChange.InvokeAsync(data_clicada);
+        await OnMostrarDatasSugeridasChange.InvokeAsync(false);
     }
 
     private string Cursor()
