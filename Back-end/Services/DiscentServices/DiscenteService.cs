@@ -360,7 +360,7 @@ namespace Back_end.Services
             }
 
             return false;
-        }
+}
 
     }
     

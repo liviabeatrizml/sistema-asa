@@ -11,5 +11,6 @@ namespace Back_end.Services
         Task<bool> CancelarAgendamentoAsync(int agendamentoId);
         Task<List<Agendamento>> ListarAgendamentosPorDiscenteAsync(int discenteId);
         Task<List<HorarioDisponivel>> ListarHorariosDisponiveisAsync(int profissionalId);
+        Task<IEnumerable<AgendamentoDto>> BuscarAgendamentosPorProfissionalAsync(int profissionalId);
     }
 }

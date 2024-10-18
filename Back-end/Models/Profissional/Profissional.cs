@@ -35,5 +35,7 @@ namespace Back_end.Models
 
         [ForeignKey("ServicoId")]
         public ServicoDisponivel Servico { get; set; }
+
+
     }
 }
