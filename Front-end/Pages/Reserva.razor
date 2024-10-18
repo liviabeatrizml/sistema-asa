@@ -245,7 +245,8 @@
                 ProfissionalId = servico_escolhido.Id_Profissional,
                 HorarioId = selectedHorario,
                 ServicoId = servico_escolhido.Id_Servico,
-                DiscenteId = userId
+                DiscenteId = userId,
+                Status = "pendente"
             };
 
             var result = await AgendamentoService.SolicitarAgendamento(modelAgendamento);

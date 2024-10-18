@@ -210,4 +210,5 @@ public class AgendamentoModel{
     public int HorarioId {get; set;}
     public int ServicoId {get; set;}
     public int DiscenteId {get; set;}
+    public string Status { get; set; }
 }
