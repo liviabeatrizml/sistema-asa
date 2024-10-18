@@ -25,7 +25,7 @@ namespace Back_end.Controllers
             var novoServico = new ServicoDisponivel
             {
                 Tipo = servicoDto.Tipo,
-                status = servicoDto.status
+                TipoAtendimento = servicoDto.TipoAtendimento
             };
 
             _context.ServicoDisponivel.Add(novoServico);
