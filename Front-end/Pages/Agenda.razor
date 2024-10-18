@@ -106,7 +106,7 @@
                                 var diaSemanaSemFeira = char.ToUpper(diaSemana.Replace("-feira", "")[0]) + diaSemana.Replace("-feira", "").Substring(1);
 
                                 if(servicoMostrado == "todos"){
-                                    if(compromisso.Title != Title && compromisso.Person != Person){
+                                    if(compromisso.Title != Title || compromisso.Person != Person){
                                         Title = compromisso.Title;
                                         Person = compromisso.Person;
 
@@ -118,24 +118,24 @@
                                     }
 
                                     <div style="display: flex; justify-content: space-between; padding: 0px 30px 15px 30px; align-items: center;">
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Data</span>
                                             <span class="data-agendamento">@compromisso.Day.ToString("dd/MM/yyyy")</span>
                                         </div>
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Semana</span>
                                             <span class="data-agendamento">@diaSemanaSemFeira</span>
                                         </div>
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Início</span>
                                             <span class="data-agendamento">@compromisso.TimeInicio</span>
                                         </div>  
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Fim</span>
                                             <span class="data-agendamento">@compromisso.TimeFim</span>
                                         </div>
                                         <div style="cursor: pointer;" @onclick="() => excluirCompromisso(compromisso.ID)">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -144,36 +144,36 @@
                                     </div>
 
                                 } else if(servicoMostrado == compromisso.Title){
-                                    if(compromisso.Title != Title && compromisso.Person != Person){
+                                    if(compromisso.Title != Title || compromisso.Person != Person){
                                         Title = compromisso.Title;
                                         Person = compromisso.Person;
 
-                                        <div class="event" style="display: flex; background-color:@compromisso.Colors[0]; color: @compromisso.Colors[1]; border-color: @compromisso.Colors[2]; height: 2.5rem; align-items: center;">
+                                        <div class="event" style="display: flex; background-color:@compromisso.Colors[0]; color: @compromisso.Colors[1]; border-color: @compromisso.Colors[2]; height: 2.5rem; align-items: center; margin-bottom: 10px;">
                                             <div class="event-title">@compromisso.Title</div>
                                             <div class="event-title">&nbsp;| @compromisso.Person</div>
                                         </div>
 
                                     }
 
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <div style="display: flex; flex-direction: column;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0px 30px 15px 30px;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Data</span>
                                             <span class="data-agendamento">@compromisso.Day.ToString("dd/MM/yyyy")</span>
                                         </div>
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Semana</span>
                                             <span class="data-agendamento">@diaSemanaSemFeira</span>
                                         </div>
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Início</span>
                                             <span class="data-agendamento">@compromisso.TimeInicio</span>
                                         </div>  
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="agendamento">
                                             <span class="topico-agendamento">Fim</span>
                                             <span class="data-agendamento">@compromisso.TimeFim</span>
                                         </div>
                                         <div style="cursor: pointer;" @onclick="() => excluirCompromisso(compromisso.ID)">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -262,6 +262,7 @@
             }
             Events = Events
             .OrderBy(e => e.Title)
+            .ThenBy(e => e.Person)
             .ThenBy(e => DateTime.ParseExact(e.TimeInicio, "hh:mm tt", System.Globalization.CultureInfo.InvariantCulture).TimeOfDay)
             .ToList();
             Title = null;

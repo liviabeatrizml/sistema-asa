@@ -636,6 +636,12 @@ code {
     font-weight: 500;
 }
 
+.agendamento {
+    display: flex; 
+    flex-direction: column; 
+    width: 20%;
+}
+
 .topico-agendamento{
     font-size: 0.75rem;
     font-weight: 500;
