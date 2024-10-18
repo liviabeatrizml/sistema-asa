@@ -10,4 +10,5 @@ public class RegistrarProfissional
     public string Senha { get; set; }
     public string AreaAtuacao { get; set; } // Campo para a área de atuação
     public int ServicoId { get; set; }
+    public string descricao { get; set; }
 }
