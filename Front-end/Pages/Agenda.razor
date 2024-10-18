@@ -99,7 +99,7 @@
                     }
 
                 } else{
-                    <div style="width: 44.4rem; height: 56.563rem; overflow-y: auto; scrollbar-width: none;">
+                    <div style="width: 44.4rem; height: 52.813rem; overflow-y: auto; scrollbar-width: none;">
                         @if(Events != null){
                             @foreach (var compromisso in Events){
                                 var diaSemana = compromisso.Day.ToString("dddd", new System.Globalization.CultureInfo("pt-BR"));
@@ -263,6 +263,7 @@
             Events = Events
             .OrderBy(e => e.Title)
             .ThenBy(e => e.Person)
+            .ThenBy(e => e.Day)
             .ThenBy(e => DateTime.ParseExact(e.TimeInicio, "hh:mm tt", System.Globalization.CultureInfo.InvariantCulture).TimeOfDay)
             .ToList();
             Title = null;
