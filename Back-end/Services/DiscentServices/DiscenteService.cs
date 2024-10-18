@@ -343,27 +343,26 @@ namespace Back_end.Services
             return false; // Se o usuário não for encontrado
         }
 
-        public async Task<bool> DeletarUsuarioAsync(int id)
+       public async Task<bool> DeletarUsuarioAsync(int id, string senha)
         {
+            // Verifica se o discente existe no banco de dados
             var discente = await _context.Discentes.FindAsync(id);
-            if (discente != null)
+            if (discente == null)
             {
-                _context.Discentes.Remove(discente);
-                await _context.SaveChangesAsync();
-                return true;
+                return false; // Discente não encontrado
             }
 
-            var profissional = await _context.Profissionais.FindAsync(id);
-            if (profissional != null)
+            // Verifica se a senha fornecida corresponde ao hash e salt armazenados
+            if (!VerificarSenha(senha, discente.Senha, discente.Salt))
             {
-                _context.Profissionais.Remove(profissional);
-                await _context.SaveChangesAsync();
-                return true;
+                return false; // Senha incorreta
             }
 
-            return false;
-}
+            // Se a senha estiver correta, remover o discente
+            _context.Discentes.Remove(discente);
+            await _context.SaveChangesAsync();
 
-    }
-    
+            return true; // Exclusão realizada com sucesso
+        }
+    }  
 }
