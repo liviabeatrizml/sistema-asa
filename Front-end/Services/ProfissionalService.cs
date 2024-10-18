@@ -76,6 +76,11 @@ public class ProfissionalService
                 PropertyNameCaseInsensitive = true // Ignora a diferença de maiúsculas e minúsculas
             });
             
+            profissional_horarios = profissional_horarios
+            .OrderBy(c => c.DiaDaSemana)
+            .ThenBy(c => c.HoraInicio)
+            .ToList();
+            
             return profissional_horarios;
         }
         else
@@ -87,16 +92,18 @@ public class ProfissionalService
 }
 
 public class ProfissionalModel{
+    public int IdProfissional { get; set;}
     public string Nome {get; set;}
     public string Email {get; set;}
     public int ServicoId {get; set;}
     public string ServicoNome {get; set;} 
+    public string Descricao {get; set;} 
 }
 
 public class ProfissionalHorariosModel{
     public int IdHorario {get; set;}
     public TimeSpan HoraInicio { get; set; }
     public TimeSpan HoraFim {get; set;}
-    public string DiaDaSemana{get; set;}
+    public int DiaDaSemana{get; set;}
     public int ProfissionalId {get; set;}
 }

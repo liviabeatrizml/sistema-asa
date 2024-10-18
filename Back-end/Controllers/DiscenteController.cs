@@ -217,5 +217,6 @@ namespace Back_end.Controllers
                 return NotFound(new { mensagem = "Usuário não encontrado" });
             }
         }
+
     }
 }

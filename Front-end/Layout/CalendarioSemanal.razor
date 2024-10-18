@@ -17,7 +17,7 @@
                 <tr>
                     @foreach (var day in WeekDays)
                     {
-                        bool isToday = day.Date == DateTime.Today;
+                        bool isToday = day.Date == DiaSelecionado;
                         <th style="@(isToday ? "background-color: #ABC8E24D;" : "")">
                             <div class="day-of-week">@day.ToString("ddd").ToUpper().TrimEnd('.')</div>
                             <div class="day-number">@day.Day</div>
@@ -32,7 +32,7 @@
                         @foreach (var day in WeekDays)
                         {
                             var eventItem = GetEventForDayAndTime(day, time);
-                            bool isToday = day.Date == DateTime.Today;
+                            bool isToday = day.Date == DiaSelecionado;
     
                             if (eventItem != null)
                             {
@@ -57,7 +57,53 @@
 
 
 @code {
-    private List<DateTime> WeekDays = Enumerable.Range(0, 7).Select(i => DateTime.Today.AddDays(i - (int)DateTime.Today.DayOfWeek)).ToList(); // Ajustando para começar no domingo
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
+    private List<DateTime> WeekDays { get; set; } = new List<DateTime>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+
+        WeekDays = Enumerable.Range(0, 7)
+        .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
+        .ToList();
+
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan hora = @compromisso.HoraInicio;
+                string horaFormatada = (hora.Hours % 12).ToString("D2") + ":" + hora.Minutes.ToString("D2") + " " + (hora.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Educador Físico" || compromisso.Servico == "Educadora Física"){
+                    colors = new List<string> (orange);
+                }
+
+                var evento = new EventItem { Day = compromisso.Data, Time = horaFormatada, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+
+        }
+    }
+
     private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
 
     private List<string> pink, green, orange, blue;
@@ -71,9 +117,14 @@
         orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
         blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
 
+        WeekDays = Enumerable.Range(0, 7)
+        .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
+        .ToList();
+
+
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
         if(userId != -1){
-            compromissos = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId);
+            compromissos = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
         }
 
         if (compromissos != null && compromissos.Count > 0){

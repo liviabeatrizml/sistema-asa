@@ -16,15 +16,15 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="day-of-week">@DateTime.Today.ToString("ddd").ToUpper().TrimEnd('.')</div>
-                        <div class="day-number">@DateTime.Today.Day</div>
+                        <div class="day-of-week">@DiaSelecionado.ToString("ddd").ToUpper().TrimEnd('.')</div>
+                        <div class="day-number">@DiaSelecionado.Day</div>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var time in TimeSlots)
                 {
-                        var eventItem = GetEventForDayAndTime(DateTime.Today, time);
+                        var eventItem = GetEventForDayAndTime(DiaSelecionado, time);
                     <tr>
                         @if (eventItem != null)
                         {
@@ -65,12 +65,53 @@
 </div>
 
 @code {
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
     private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
 
     private List<string> pink, green, orange, blue;
     private List<CompromissoModel> compromissos;
     private List<EventItem> Events = new List<EventItem>();
 
+
+    protected override async Task OnParametersSetAsync(){
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscenteHoje(userId, DiaSelecionado);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan horaInicio = @compromisso.HoraInicio;
+                string horaFormatadaInicio = (horaInicio.Hours % 12).ToString("D2") + ":" + horaInicio.Minutes.ToString("D2") + " " + (horaInicio.Hours >= 12 ? "PM" : "AM");
+                TimeSpan horaFim = @compromisso.HoraFim;
+                string horaFormatadaFim = (horaFim.Hours % 12).ToString("D2") + ":" + horaFim.Minutes.ToString("D2") + " " + (horaFim.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Educador Físico" || compromisso.Servico == "Educadora Física"){
+                    colors = new List<string> (orange);
+                }
+
+                var evento = new EventItem { Day = compromisso.Data, TimeInicio = horaFormatadaInicio, TimeFim = horaFormatadaFim, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -81,7 +122,7 @@
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
         if(userId != -1){
-            compromissos = await AgendamentoService.GetCompromissosDiscenteHoje(userId);
+            compromissos = await AgendamentoService.GetCompromissosDiscenteHoje(userId, DiaSelecionado);
         }
 
         if (compromissos != null && compromissos.Count > 0){

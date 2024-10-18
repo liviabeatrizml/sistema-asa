@@ -5,7 +5,7 @@
 <div class="calendario @HeightClass" style="user-select: none;">
     <div class="calendario-height">
         <div class="header">
-            <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DataAtual.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DataAtual.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
+            <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DiaSelecionado.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DiaSelecionado.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
             <div>
                 <svg @onclick="() => MudarMes(-1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 18L9 12L15 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,11 +28,25 @@
                 @foreach (var dia in semana)
                 {
                     var classeDia = (dia.DayOfWeek == DayOfWeek.Saturday || dia.DayOfWeek == DayOfWeek.Sunday)
-                        ? (dia.Month == DataAtual.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
-                        : (dia.Month == DataAtual.Month ? "dia mes-atual" : "dia outro-mes");
-                    if (dia.Date == DateTime.Today)
-                    {
-                        classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        ? (dia.Month == DiaSelecionado.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
+                        : (dia.Month == DiaSelecionado.Month ? "dia mes-atual" : "dia outro-mes");
+
+                    @if(Navigation.ToBaseRelativePath(Navigation.Uri) == "reserva"){
+                        if (dia.Date == data_clicada.Date)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+
+                    } else{
+                        if (dia.Date == DateTime.Today)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+
+                        if (dia.Date == data_clicada.Date)
+                        {
+                            classeDia += " dia-selecionado"; // Adiciona a classe "dia-hoje"
+                        }
                     }
 
                     @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio"){
@@ -44,7 +58,7 @@
                         
                     }
         
-                    <div class="@classeDia weight-600">
+                    <div class="@classeDia weight-600" style="@Cursor()" @onclick="() => MudarDataSelecionada(dia.Date)">
                         @dia.Day
                     </div>
                 }
@@ -53,38 +67,48 @@
     </div>
 
     <div class="horizontal-bar final-calendario"></div>
-
     @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio")
     {
-    <div class="agendar-relatar">
-        <a href="/agenda" style="cursor: pointer;">
-            <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 14H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 14H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 14H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 18H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 18H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 18H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
-
-        <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 16V12" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 8H11.99" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
+        <div class="agendar-relatar">
+            @if(legenda){
+                <div class="legenda-calendario">
+                    <div style="display: flex; align-items: center; padding-left: 15px;">
+                        <div class="legenda-cor" style="background-color: #ABC8E2;"></div>
+                        <span>Hoje</span>
+                    </div>
+                    <div style="display: flex; align-items: center; padding-right: 15px;">
+                        <div class="legenda-cor" style="background-color: #D9D9D9;"></div>
+                        <span>Agendamento</span>
+                    </div>
+                </div>
+                
+            } else{
+                <a href="/agenda" style="cursor: pointer;">
+                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 14H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 14H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 14H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 18H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 18H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 18H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>                
+            }
+                <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" @onclick="mostrarLegenda" style="cursor: pointer; margin-left: 10px;">
+                    <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 16V12" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8H11.99" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+        </div>
     } else if(Navigation.ToBaseRelativePath(Navigation.Uri) == "agenda")
     {
         @if(compromissosSemanais != null){
             @for (int i = 0; i < Math.Min(compromissosSemanais.Count, 4); i++)
             {
-                Console.WriteLine(compromissosSemanais[i].Data.Date);
-                Console.WriteLine(DataAtual);
                 var cor= "";
                 @if(compromissosSemanais[i].Servico == "Psicóloga" || compromissosSemanais[i].Servico == "Psicólogo" || compromissosSemanais[i].Servico == "Psicóloga(o)" || compromissosSemanais[i].Servico == "Psicólogo(a)"){
                     cor = "#F884D7";
@@ -96,7 +120,7 @@
                     cor = "#F6C4AF";
                 }
                 <div>
-                    @if(compromissosSemanais[i].Data.Date >= DataAtual){
+                    @if(compromissosSemanais[i].Data.Date >= DiaSelecionado && compromissosSemanais[i].Data.Date <= DiaFimDaSemana){
                         @if (DataCompromisso.Date != compromissosSemanais[i].Data.Date)
                         {
                             DataCompromisso = compromissosSemanais[i].Data;
@@ -122,8 +146,18 @@
 </div>
 
 @code {
-    private DateTime DataAtual { get; set; } = DateTime.Today;
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+    [Parameter]
+    public bool MostrarDatasSugeridas { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnMostrarDatasSugeridasChange { get; set; }
     private DateTime DataCompromisso { get; set; }
+    private DateTime DiaInicioDaSemana { get; set; }
+    private DateTime DiaFimDaSemana { get; set; }
 
     private List<List<DateTime>> Semanas { get; set; } = new();
     private List<string> NomesDiasSemana { get; set; } = new() { "D", "S", "T", "Q", "Q", "S", "S" };
@@ -132,24 +166,80 @@
     private List<CompromissoModel> compromissos;
     private List<CompromissoModel> compromissosSemanais;
 
+    protected override async Task OnParametersSetAsync()
+    {
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+        
+        // Obtém o userId
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+
+        // Atualiza os dias da semana
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        
+        if (relativePath == "inicio" || relativePath == "reserva")
+        {
+            HeightClass = "";
+        }else{
+            HeightClass = "calendario-services-height";
+
+        }
+
+        if (relativePath == "inicio")
+        {
+            if (userId != -1)
+            {
+                compromissos = await AgendamentoService.GetCompromissosDiscente(userId, DiaSelecionado);
+            }
+        }
+        else
+        {
+            if (userId != -1)
+            {
+                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
+                compromissosSemanais = compromissosSemanais
+                    .Where(compromisso => compromisso.Data.Date >= DiaSelecionado)
+                    .ToList();
+            }
+
+            if (compromissosSemanais != null && compromissosSemanais.Count > 0)
+            {
+                DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
+            }
+
+        }
+
+        GerarCalendario(DiaSelecionado);
+    }
+
     protected override async Task OnInitializedAsync()
     {
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
 
         
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        if (relativePath == "reserva" || relativePath == "agenda")
+        {
+            data_clicada = DateTime.MinValue;
+        }
+
         if (relativePath == "inicio")
         {
             if(userId != -1){
-                compromissos = await AgendamentoService.GetCompromissosDiscente(userId);
+                compromissos = await AgendamentoService.GetCompromissosDiscente(userId, DiaSelecionado);
             }
             HeightClass = "";
         } else{
             if(userId != -1){
-                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId);
+                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
                 compromissosSemanais = compromissosSemanais
-                .Where(compromisso => compromisso.Data.Date >= DateTime.Today)
+                .Where(compromisso => compromisso.Data.Date >= DiaSelecionado)
                 .ToList();
             }
             if(compromissosSemanais != null && compromissosSemanais.Count > 0){
@@ -158,7 +248,11 @@
             }
             HeightClass = "calendario-services-height";
         }
-        GerarCalendario(DataAtual);
+        GerarCalendario(DiaSelecionado);
+    }
+
+    private async Task AtualizarCompromissos(){
+
     }
 
     private void GerarCalendario(DateTime date)
@@ -185,7 +279,7 @@
 
     private string ObterTituloData(DateTime data)
     {
-        DateTime hoje = DateTime.Today;
+        DateTime hoje = DiaSelecionado;
         DateTime amanha = hoje.AddDays(1);
 
         if (data.Date == hoje)
@@ -199,8 +293,36 @@
 
     private void MudarMes(int meses)
     {
-        DataAtual = DataAtual.AddMonths(meses);
-        GerarCalendario(DataAtual);
+        DiaSelecionado = DiaSelecionado.AddMonths(meses);
+        GerarCalendario(DiaSelecionado);
+    }
+
+    private bool legenda = false;
+    private void mostrarLegenda()
+    {
+        legenda = !legenda;
+    }
+
+    private DateTime data_clicada = DateTime.Today;
+
+    private async Task MudarDataSelecionada(DateTime data){
+        data_clicada = data;
+        await OnDiaSelecionadoChange.InvokeAsync(data_clicada);
+        await OnMostrarDatasSugeridasChange.InvokeAsync(false);
+    }
+
+    private string Cursor()
+    {
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        
+        // Aplica o estilo somente se não estiver na página 'inicio'
+        if (relativePath != "inicio")
+        {
+            return "cursor: pointer;";
+        }
+        
+        // Se estiver na página 'inicio', retorna um estilo vazio ou diferente
+        return string.Empty;
     }
 }
 
@@ -244,9 +366,15 @@
     }
 
     .dia-hoje {
-        background-color: var(--light-blue);
+        background-color: var(--light-blue) !important;
         border-radius: 50%;
         color: var(--blue-ufersa) !important;
+    }
+
+    .dia-selecionado {
+        background-color: var(--green-ufersa);
+        border-radius: 50%;
+        color: #FAF9F6 !important;
     }
 
     .dia-compromisso {
@@ -274,6 +402,8 @@
         bottom: 20px;
         text-align: right;
         align-content: end;
+        justify-content: flex-end;
+        display: flex;
     }
 
     .final-calendario{
@@ -286,6 +416,24 @@
 
     .agendar-relatar > svg{
         margin: 0px 5px;
+    }
+
+    .legenda-calendario{
+        width: 9.5rem;
+        height: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        color: var(--blue-ufersa);
+        background-color: #FAF9F6;
+        font-size: 0.5rem;
+        border-radius: 4px;
+    }
+
+    .legenda-cor{
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        margin-right: 8px;
     }
 
 </style>

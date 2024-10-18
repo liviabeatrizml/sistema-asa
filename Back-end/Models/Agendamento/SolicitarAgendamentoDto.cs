@@ -9,5 +9,6 @@ namespace Back_end.Dtos
         public int ServicoId { get; set; }
         public int HorarioId { get; set; }
         public DateTime Data { get; set; }
+        public string Status { get; set; }
     }
 }

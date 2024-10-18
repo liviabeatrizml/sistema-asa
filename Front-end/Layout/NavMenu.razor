@@ -2,13 +2,16 @@
 @inject ILocalStorageService localStorage
 @inject NavigationManager Navigation
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject DiscenteService DiscenteService
 
 <div style="background-color: var(--blue-ufersa); width: 22rem; height: auto; min-height: 100vh; position: relative;">
     <div style="padding-left: 55px;" class="pt-5 pb-4">
         <img class="nav-img" src="..\\css\\images\\img-perfil-padrao.svg" alt="">
+        @if(discente != null){
+            <p class="weight-500" style="font-size: 0.75rem; color: var(--black-gray); margin: 5px 0px;">Olá,</p>
+            <h1 class="weight-700" style="font-size: 1.375rem; color: white; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); width: 6.563rem;">@discente.Nome</h1>
 
-        <p class="weight-500" style="font-size: 0.75rem; color: var(--black-gray); margin: 5px 0px;">Olá,</p>
-        <h1 class="weight-700" style="font-size: 1.375rem; color: white; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Eriky <br> Veloso</h1>
+        }
     </div>
     
     <div class="@NavMenuCssClass nav-scrollable" style="height: auto;" @onclick="ToggleNavMenu">
@@ -24,6 +27,22 @@
                         </svg>
                     </div>
                     Início
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/reserva">
+                    <div class="vertical-bar"></div>
+                    <div style="align-items: center; display: flex;" class="px-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 13V6C21 5.46957 20.7893 4.96086 20.4142 4.58579C20.0391 4.21071 19.5304 4 19 4H5C4.46957 4 3.96086 4.21071 3.58579 4.58579C3.21071 4.96086 3 5.46957 3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19 16V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 19H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    Reserva
                 </NavLink>
             </div>
             <div class="nav-item px-3">
@@ -102,6 +121,19 @@
 </div>
 
 @code {
+    private DiscenteRegistroModel discente;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtenha o ID do usuário do localStorage usando o CustomAuthStateProvider
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+
+        if (userId != -1)
+        {
+            // Chame o método GetDiscente e armazene o resultado
+            discente = await DiscenteService.GetDiscente(userId); 
+        }
+    }
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
