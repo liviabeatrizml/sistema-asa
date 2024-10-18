@@ -92,7 +92,7 @@ namespace Back_end.Services
                         HorarioId = a.HorarioId,
                         HoraInicio = h.HoraInicio,
                         HoraFim = h.HoraFim,
-                        Status = a.Status,
+                        Status = a.Status
                     })
                 .ToListAsync();
 
