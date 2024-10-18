@@ -77,7 +77,7 @@ jobs:
           sleep 15 
 
       - name: Run unit tests
-        run: dotnet test --project testeDeUnidade
+        run: dotnet test ./testeDeUnidade/testeDeUnidade.csproj
 
       - name: Run system tests
-        run: dotnet test --project testeDeSistema
+        run: dotnet test ./testeDeSistema/testeDeSistema.csproj
