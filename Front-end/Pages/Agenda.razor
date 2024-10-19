@@ -1,6 +1,8 @@
 @page "/agenda"
 @attribute [Authorize]
 @inject NavigationManager Navigation
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Agenda</PageTitle>
 
@@ -13,31 +15,183 @@
 
             <div>
                 <div style="display: flex; justify-content: space-between;">
-                    <div class="mb-4" style="padding-left: 4.5rem;">
-                        <InputSelect id="mostrar-calendario" class="input-select-arrow select" style="" @bind-Value="calendario">
-                            <option value="dia">DIA</option>
-                            <option value="semana">SEMANA</option>
-                        </InputSelect>
+                    <div class="mb-4" >
+                        @if(visualizarCalendario){
+                            <InputSelect id="mostrar-calendario" class="input-select-arrow select" style="margin-left: 4.5rem;" @bind-Value="calendario">
+                                <option value="dia">DIA</option>
+                                <option value="semana">SEMANA</option>
+                            </InputSelect>
+
+                        } else{
+                            <InputSelect class="input-select-arrow select" style="text-transform: uppercase; width: auto; padding-right: 2rem;" @bind-Value="servicoMostrado">
+                                <option value="todos">TODOS</option>
+                                @if(Events != null){
+                                    @foreach (var compromisso in Events){
+
+                                        if(compromisso.Title != Title){
+                                            Title = compromisso.Title;
+                                            <option value="@compromisso.Title">@compromisso.Title</option>
+                                        }
+                                    }
+                                    Title = null;
+                                    Person = null;
+
+                                }
+                            </InputSelect>
+                        }
                     </div>
 
-                    <div style="background-color: var(--blue-ufersa); width: 36px; height: 36px; border-radius: 10px; align-items: center; display: flex; justify-content: center; cursor: pointer; margin-left: 15px;">
-                        <a href="reserva">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 13V6C21 5.46957 20.7893 4.96086 20.4142 4.58579C20.0391 4.21071 19.5304 4 19 4H5C4.46957 4 3.96086 4.21071 3.58579 4.58579C3.21071 4.96086 3 5.46957 3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H13" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M19 16V22" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16 19H22" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
+                    <div style="display: flex;">
+
+                        @if(visualizarCalendario){
+                            <div style="padding-right: 15px; border-right: 2px solid #C3C3C3; height: 36px;">
+                                <div style="cursor: pointer; background-color: #C3C3C340; width: 36px; height: 36px; border-radius: 10px; align-items: center; display: flex; justify-content: center;" @onclick="() => alterarVisualizacaoCalendario()">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16 2V6" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 2V6" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3 10H21" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 14H8.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 14H12.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16 14H16.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 18H8.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 18H12.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16 18H16.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                        } else{
+                            <div style="padding-right: 15px; border-right: 2px solid #C3C3C3; height: 36px;">
+                                <div style="cursor: pointer; background-color: #C3C3C340; width: 36px; height: 36px; border-radius: 10px; align-items: center; display: flex; justify-content: center;" @onclick="() => alterarVisualizacaoCalendario()">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 6H21" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 12H21" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 18H21" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 6H3.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 12H3.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 18H3.01" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                        }
+
+                        <div style="background-color: var(--blue-ufersa); width: 36px; height: 36px; border-radius: 10px; align-items: center; display: flex; justify-content: center; cursor: pointer; margin-left: 15px;">
+                            <a href="reserva">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 13V6C21 5.46957 20.7893 4.96086 20.4142 4.58579C20.0391 4.21071 19.5304 4 19 4H5C4.46957 4 3.96086 4.21071 3.58579 4.58579C3.21071 4.96086 3 5.46957 3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H13" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M19 16V22" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 19H22" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                @if(calendario == "semana"){
-                    <CalendarioSemanal DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
-                } else if(calendario == "dia"){
-                    <CalendarioDiario DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
+                @if(visualizarCalendario){
+                    @if(calendario == "semana"){
+                        <CalendarioSemanal DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
+                    } else if(calendario == "dia"){
+                        <CalendarioDiario DiaSelecionado="@diaSelecionado" OnDiaSelecionadoChange="HandleDiaSelecionadoChange"/>
+                    }
+
+                } else{
+                    <div style="width: 44.4rem; height: 52.813rem; overflow-y: auto; scrollbar-width: none;">
+                        @if(Events != null){
+                            @foreach (var compromisso in Events){
+                                var diaSemana = compromisso.Day.ToString("dddd", new System.Globalization.CultureInfo("pt-BR"));
+                                var diaSemanaSemFeira = char.ToUpper(diaSemana.Replace("-feira", "")[0]) + diaSemana.Replace("-feira", "").Substring(1);
+
+                                if(servicoMostrado == "todos"){
+                                    if(compromisso.Title != Title || compromisso.Person != Person){
+                                        Title = compromisso.Title;
+                                        Person = compromisso.Person;
+
+                                        <div class="event" style="display: flex; background-color:@compromisso.Colors[0]; color: @compromisso.Colors[1]; border-color: @compromisso.Colors[2]; height: 2.5rem; align-items: center; margin-bottom: 10px;">
+                                            <div class="event-title">@compromisso.Title</div>
+                                            <div class="event-title">&nbsp;| @compromisso.Person</div>
+                                        </div>
+
+                                    }
+
+                                    <div style="display: flex; justify-content: space-between; padding: 0px 30px 15px 30px; align-items: center;">
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Data</span>
+                                            <span class="data-agendamento">@compromisso.Day.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Semana</span>
+                                            <span class="data-agendamento">@diaSemanaSemFeira</span>
+                                        </div>
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Início</span>
+                                            <span class="data-agendamento">@compromisso.TimeInicio</span>
+                                        </div>  
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Fim</span>
+                                            <span class="data-agendamento">@compromisso.TimeFim</span>
+                                        </div>
+                                        <div style="cursor: pointer;" @onclick="() => excluirCompromisso(compromisso.ID)">
+                                            <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                } else if(servicoMostrado == compromisso.Title){
+                                    if(compromisso.Title != Title || compromisso.Person != Person){
+                                        Title = compromisso.Title;
+                                        Person = compromisso.Person;
+
+                                        <div class="event" style="display: flex; background-color:@compromisso.Colors[0]; color: @compromisso.Colors[1]; border-color: @compromisso.Colors[2]; height: 2.5rem; align-items: center; margin-bottom: 10px;">
+                                            <div class="event-title">@compromisso.Title</div>
+                                            <div class="event-title">&nbsp;| @compromisso.Person</div>
+                                        </div>
+
+                                    }
+
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0px 30px 15px 30px;">
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Data</span>
+                                            <span class="data-agendamento">@compromisso.Day.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Semana</span>
+                                            <span class="data-agendamento">@diaSemanaSemFeira</span>
+                                        </div>
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Início</span>
+                                            <span class="data-agendamento">@compromisso.TimeInicio</span>
+                                        </div>  
+                                        <div class="agendamento">
+                                            <span class="topico-agendamento">Fim</span>
+                                            <span class="data-agendamento">@compromisso.TimeFim</span>
+                                        </div>
+                                        <div style="cursor: pointer;" @onclick="() => excluirCompromisso(compromisso.ID)">
+                                            <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+
+                            Title = null;
+                            Person = null;
+
+                        }
+                    </div>
+
                 }
+
             </div>
 
             <div>
@@ -52,13 +206,93 @@
 
 @code{
     private DateTime diaSelecionado = DateTime.Today;
+    
 
     private void HandleDiaSelecionadoChange(DateTime novoDia)
     {
         diaSelecionado = novoDia;
     }
-    
+
+    private bool visualizarCalendario = true;
+    private void alterarVisualizacaoCalendario()
+    {
+        visualizarCalendario = !visualizarCalendario;
+    }    
     private string calendario = "semana"; 
+    private string servicoMostrado = "todos"; 
+
+    private List<string> pink, green, orange, blue;
+    private List<CompromissoModel> compromissos;
+    private List<EventItem> Events = new List<EventItem>();
+    private string Title { get; set; }
+    private string Person { get; set; }
+
+        protected override async Task OnInitializedAsync()
+    {
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscente(userId, diaSelecionado);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan horaInicio = @compromisso.HoraInicio;
+                string horaFormatadaInicio = (horaInicio.Hours % 12).ToString("D2") + ":" + horaInicio.Minutes.ToString("D2") + " " + (horaInicio.Hours >= 12 ? "PM" : "AM");
+                TimeSpan horaFim = @compromisso.HoraFim;
+                string horaFormatadaFim = (horaFim.Hours % 12).ToString("D2") + ":" + horaFim.Minutes.ToString("D2") + " " + (horaFim.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Assistente Social"){
+                    colors = new List<string> (orange);
+                }
+
+                var evento = new EventItem { ID = compromisso.IdAgendamento, Day = compromisso.Data, TimeInicio = horaFormatadaInicio, TimeFim = horaFormatadaFim, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+            Events = Events
+            .OrderBy(e => e.Title)
+            .ThenBy(e => e.Person)
+            .ThenBy(e => e.Day)
+            .ThenBy(e => DateTime.ParseExact(e.TimeInicio, "hh:mm tt", System.Globalization.CultureInfo.InvariantCulture).TimeOfDay)
+            .ToList();
+            Title = null;
+            Person = null;
+        }
+    }
+
+    private EventItem GetEventForDayAndTime(DateTime day, string time) => Events.FirstOrDefault(e => e.Day.Date == day.Date && e.TimeInicio == time);
+
+    private class EventItem
+    {
+        public int ID { get; set; }
+        public DateTime Day { get; set; }
+        public string TimeInicio { get; set; }
+        public string TimeFim { get; set; }
+        public string Title { get; set; }
+        public string Person { get; set; }
+        public List<string> Colors { get; set; }
+    }
+
+    private async Task excluirCompromisso(int id_compromisso){
+        var result = await AgendamentoService.ExcluirAgendamento(id_compromisso);
+
+        if (result.IsSuccessStatusCode)
+        {
+            Events.RemoveAll(e => e.ID == id_compromisso);
+            
+        }
+    }
 }
 
 <style>

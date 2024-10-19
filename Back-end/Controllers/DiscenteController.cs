@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Back_end.Controllers
 {
@@ -203,20 +204,20 @@ namespace Back_end.Controllers
             var profissionais = await _profissionalService.ListarProfissionaisAsync();
             return Ok(profissionais);
         }
-        [HttpDelete("deletar-usuario/{id}")]
-        public async Task<IActionResult> DeletarUsuario(int id)
+
+       [HttpDelete("deletar-usuario")]
+        public async Task<IActionResult> DeletarUsuario([FromBody] DeleteUserDto dto)
         {
-            var resultado = await _discenteService.DeletarUsuarioAsync(id);
-            
+            var resultado = await _discenteService.DeletarUsuarioAsync(dto.IdUsuario, dto.Senha);
+
             if (resultado)
             {
                 return Ok(new { mensagem = "Usuário deletado com sucesso" });
             }
             else
             {
-                return NotFound(new { mensagem = "Usuário não encontrado" });
+                return NotFound(new { mensagem = "Usuário não encontrado ou senha incorreta" });
             }
         }
-
-    }
+    }   
 }

@@ -37,7 +37,13 @@
                             classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
                         }
 
-                    } else{
+                    } else if(Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio"){
+                        if (dia.Date == DateTime.Today)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+                        
+                    }else{
                         if (dia.Date == DateTime.Today)
                         {
                             classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
