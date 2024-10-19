@@ -13,6 +13,21 @@ env:
 jobs:
   build-backend:
     runs-on: windows-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: admin
+          MYSQL_DATABASE: asa
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -34,6 +49,9 @@ jobs:
 
       - name: Add dotnet tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Wait for MySQL
+        run: sleep 15
 
       - name: Apply database migrations
         run: |
