@@ -37,7 +37,7 @@
                             if (eventItem != null)
                             {
                                 <td title="@eventItem.Title">
-                                    <div class="event" style="background-color:@eventItem.Colors[0]; color: @eventItem.Colors[1]; border-color: @eventItem.Colors[2];">
+                                    <div class="event" style="background-color:@(eventItem.Colors.Count > 0 ? eventItem.Colors[0] : "defaultColor"); color:@(eventItem.Colors.Count > 1 ? eventItem.Colors[1] : "defaultTextColor"); border-color:@(eventItem.Colors.Count > 2 ? eventItem.Colors[2] : "defaultBorderColor");">
                                         <div class="event-title">@eventItem.Title</div>
                                         <div class="event-person">@eventItem.Person</div>
                                     </div>
@@ -136,14 +136,16 @@
                 string horaFormatada = (hora.Hours % 12).ToString("D2") + ":" + hora.Minutes.ToString("D2") + " " + (hora.Hours >= 12 ? "PM" : "AM");
                 List<string> colors = new List<string>();
 
-                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
                     colors = new List<string> (pink);
-                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagoga"){
                     colors = new List<string> (blue);
                 } else if(compromisso.Servico == "Nutricionista"){
                     colors = new List<string> (green);
                 } else if(compromisso.Servico == "Educador Físico" || compromisso.Servico == "Educadora Física"){
                     colors = new List<string> (orange);
+                } else{
+                    colors = new List<string> (gray);
                 }
 
                 var evento = new EventItem { Day = compromisso.Data, Time = horaFormatada, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
