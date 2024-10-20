@@ -82,6 +82,7 @@
         green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
         orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
         blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+        gray = new List<string> { "#A9A9A980", "#6E6E6E", "#A9A9A9" };
 
         int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
         if(userId != -1){
@@ -96,14 +97,16 @@
                 string horaFormatadaFim = (horaFim.Hours % 12).ToString("D2") + ":" + horaFim.Minutes.ToString("D2") + " " + (horaFim.Hours >= 12 ? "PM" : "AM");
                 List<string> colors = new List<string>();
 
-                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
                     colors = new List<string> (pink);
-                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagogia"){
                     colors = new List<string> (blue);
                 } else if(compromisso.Servico == "Nutricionista"){
                     colors = new List<string> (green);
                 } else if(compromisso.Servico == "Assistente Social"){
                     colors = new List<string> (orange);
+                } else{
+                    colors = new List<string> (gray);
                 }
 
                 var evento = new EventItem { Day = compromisso.Data, TimeInicio = horaFormatadaInicio, TimeFim = horaFormatadaFim, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
