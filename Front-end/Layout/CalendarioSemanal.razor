@@ -37,7 +37,7 @@
                             if (eventItem != null)
                             {
                                 <td title="@eventItem.Title">
-                                    <div class="event" style="background-color:@eventItem.Colors[0]; color: @eventItem.Colors[1]; border-color: @eventItem.Colors[2];">
+                                    <div class="event" style="background-color:@(eventItem.Colors.Count > 0 ? eventItem.Colors[0] : "defaultColor"); color:@(eventItem.Colors.Count > 1 ? eventItem.Colors[1] : "defaultTextColor"); border-color:@(eventItem.Colors.Count > 2 ? eventItem.Colors[2] : "defaultBorderColor");">
                                         <div class="event-title">@eventItem.Title</div>
                                         <div class="event-person">@eventItem.Person</div>
                                     </div>
@@ -70,6 +70,7 @@
         green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
         orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
         blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+        gray = new List<string> { "#A9A9A980", "#6E6E6E", "#A9A9A9" };
 
         WeekDays = Enumerable.Range(0, 7)
         .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
@@ -87,14 +88,16 @@
                 string horaFormatada = (hora.Hours % 12).ToString("D2") + ":" + hora.Minutes.ToString("D2") + " " + (hora.Hours >= 12 ? "PM" : "AM");
                 List<string> colors = new List<string>();
 
-                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
                     colors = new List<string> (pink);
-                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagogia"){
                     colors = new List<string> (blue);
                 } else if(compromisso.Servico == "Nutricionista"){
                     colors = new List<string> (green);
                 } else if(compromisso.Servico == "Assistente Social"){
                     colors = new List<string> (orange);
+                } else{
+                    colors = new List<string> (gray);
                 }
 
                 var evento = new EventItem { Day = compromisso.Data, Time = horaFormatada, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
@@ -106,7 +109,7 @@
 
     private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
 
-    private List<string> pink, green, orange, blue;
+    private List<string> pink, green, orange, blue, gray;
     private List<CompromissoModel> compromissos;
     private List<EventItem> Events = new List<EventItem>();
 
@@ -116,6 +119,7 @@
         green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
         orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
         blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+        gray = new List<string> { "#A9A9A980", "#6E6E6E", "#A9A9A9" };
 
         WeekDays = Enumerable.Range(0, 7)
         .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
@@ -133,14 +137,16 @@
                 string horaFormatada = (hora.Hours % 12).ToString("D2") + ":" + hora.Minutes.ToString("D2") + " " + (hora.Hours >= 12 ? "PM" : "AM");
                 List<string> colors = new List<string>();
 
-                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)"){
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
                     colors = new List<string> (pink);
-                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)"){
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagoga"){
                     colors = new List<string> (blue);
                 } else if(compromisso.Servico == "Nutricionista"){
                     colors = new List<string> (green);
-                } else if(compromisso.Servico == "Educador Físico" || compromisso.Servico == "Educadora Física"){
+                } else if(compromisso.Servico == "Assistente Social"){
                     colors = new List<string> (orange);
+                } else{
+                    colors = new List<string> (gray);
                 }
 
                 var evento = new EventItem { Day = compromisso.Data, Time = horaFormatada, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
