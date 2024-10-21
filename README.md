@@ -25,6 +25,7 @@ Durante o desenvolvimento do ASA, esses contratos podem ser inseridos no código
 - **Entity Framework Core** (para gerenciamento do banco de dados)
 - **MySQL** (banco de dados relacional)
 - **JWT** (para autenticação e autorização)
+- - **Code Contracts** (para validação dos requisitos)
 
 ## 📦 Estrutura de Pastas
 
