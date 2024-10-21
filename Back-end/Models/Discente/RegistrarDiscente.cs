@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace Back_end.Models
 {
     public class RegistrarDiscente
     {
+
         [Required]
         [StringLength(70)]
         public string Nome { get; set; }

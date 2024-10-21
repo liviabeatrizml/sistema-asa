@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,7 +7,7 @@ using System.Security.Claims;
 using Back_end.Data;
 using Back_end.Models;
 using Back_end.Helpers;
-using System;//Contratos
+using System;
 using System.Diagnostics.Contracts;
 
 namespace Back_end.Services
@@ -23,7 +23,7 @@ namespace Back_end.Services
             _config = config;
         }
 
-        // RF010 e RF011 - Método para registrar um novo discente
+        // Método para registrar um novo discente
         public async Task<Discente> RegistrarDiscenteAsync(RegistrarDiscente registro)
         {
             // Verificação de nulidade
@@ -35,10 +35,7 @@ namespace Back_end.Services
                 registro.Email.EndsWith("@alunos.ufersa.edu.br"),
                 "O Email deve conter o domínio '@alunos.ufersa.edu.br'.");
             Contract.Requires(registro.Senha != null, nameof(registro.Senha));
-            Contract.Requires(ValidarSenha(registro.Senha),
-                "A senha deve ter no mínimo 8 caracteres, incluindo um caractere especial e um número.");
             Contract.Requires(registro.Matricula != null, nameof(registro.Matricula));
-            Contract.Requires(registro.Matricula.Length == 10, "A matrícula deve ter exatamente 10 caracteres.");
 
             // Criptografar a senha e gerar o salt
             var (senhaCriptografada, salt) = CriptografarSenha(registro.Senha);
@@ -52,56 +49,26 @@ namespace Back_end.Services
                 Matricula = registro.Matricula,
                 Telefone = string.IsNullOrEmpty(registro.Telefone) ? null : registro.Telefone,
                 Curso = registro.Curso
-            };
+        };
 
             _context.Discentes.Add(discente);
             await _context.SaveChangesAsync();
 
+            Contract.Ensures(discente != null, "O objeto Discente não deve ser nulo ao final do método.");
+            Contract.Ensures(discente.Email.EndsWith("@alunos.ufersa.edu.br"), "O email deve conter o domínio correto após a inserção.");
+
             return discente;
         }
 
-        // ---------------------------RF0 VALIDADORES--------------------------------
-        public void ValidarInvariantes(){
-            Contract.Invariant(Nome != null, "O nome do discente não pode ser nulo.");
-            Contract.Invariant(Email != null, "O email do discente não pode ser nulo.");
-            Contract.Invariant(
-                Email.EndsWith("@alunos.ufersa.edu.br"),
-                "O email do discente deve conter o domínio '@alunos.ufersa.edu.br'."
-            );
-            Contract.Invariant(Senha != null, "A senha do discente não pode ser nula.");
-            Contract.Invariant(ValidarSenha(Senha),
-                "A senha deve ter no mínimo 8 caracteres, incluindo um caractere especial e um número."
-            );
-            Contract.Invariant(Matricula != null, "A matrícula do discente não pode ser nula.");
-            Contract.Invariant(Matricula.Length == 10, "A matrícula deve ter exatamente 10 caracteres.");
-        }
-
-        private bool ValidarSenha(string senha){
-            // A senha deve ter no mínimo 8 caracteres
-            if (senha.Length < 8) return false;
-
-            // A senha deve conter pelo menos um caractere especial
-            if (!Regex.IsMatch(senha, @"[!@#$%^&*(),.?\":{ }|<>]")) return false;
-       
-            // A senha deve conter pelo menos um número
-            if (!Regex.IsMatch(senha, @"\d")) return false;
-
-            return true;
-        }
-        // ---------------------------RF0 VALIDADORES--------------------------------
-
-        // RF0Extra Método para login de discente
+        // Método para login de discente
         public async Task<LoginResponseDto> LoginDiscenteAsync(LoginDiscente login)
         {
-            Contract.Requires(login != null, nameof(login));
-
             if (login == null) throw new ArgumentNullException(nameof(login));
 
+            Contract.Requires(login.Email != null, "Email não pode ser nulo ou vazio.");
+            Contract.Requires(login.Senha != null, "Senha não pode ser nula ou vazia.");
+
             var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == login.Email);
-            
-            Contract.Requires(discente != null);
-            Contract.Requires(discente.Senha != null);
-            Contract.Requires(discente.Salt);
 
             if (discente == null || string.IsNullOrEmpty(discente.Senha) || string.IsNullOrEmpty(discente.Salt))
             {
@@ -177,10 +144,17 @@ namespace Back_end.Services
                    || await _context.Profissionais.AnyAsync(p => p.Email == email);
         }
 
-        // RF010 e RF011 - Método que Registra um Profissional
-        public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
+       public async Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registro)
         {
             if (registro == null) throw new ArgumentNullException(nameof(registro));
+
+            Contract.Requires(registro.Nome != null, nameof(registro.Nome));
+            Contract.Requires(registro.Email != null, nameof(registro.Email));
+            Contract.Requires(
+                registro.Email.EndsWith("@ufersa.edu.br"),
+                "O Email deve conter o domínio '@ufersa.edu.br'.");
+            Contract.Requires(registro.Senha != null, nameof(registro.Senha));
+            Contract.Requires(registro.ServicoId != null, nameof(registro.ServicoId));
 
             // Verificar se o ServicoId é válido
             var servicoExiste = await _context.ServicoDisponivel.AnyAsync(s => s.IdServico == registro.ServicoId);
@@ -197,27 +171,27 @@ namespace Back_end.Services
                 Email = registro.Email,
                 Senha = senhaCriptografada,
                 Salt = salt,
-                ServicoId = registro.ServicoId // Associar o ServicoId ao profissional
+                ServicoId = registro.ServicoId, // Associar o ServicoId ao profissional
+                Descricao = registro.descricao
+                
             };
 
             _context.Profissionais.Add(profissional);
             await _context.SaveChangesAsync();
 
+            Contract.Ensures(profissional != null, "O objeto Profissional não deve ser nulo ao final do método.");
+            Contract.Ensures(profissional.Email.EndsWith("@ufersa.edu.br"), "O email deve conter o domínio correto após a inserção.");
+
             return profissional;
         }
-
-        // RF0Extra - Login do Profissional
         public async Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional login)
         {
-            Contract.Requires(login != null, nameof(login));
-
             if (login == null) throw new ArgumentNullException(nameof(login));
 
-            var profissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == login.Email);
+            Contract.Requires(login.Email != null, "Email não pode ser nulo ou vazio.");
+            Contract.Requires(login.Senha != null, "Senha não pode ser nula ou vazia.");
 
-            Contract.Requires(profissional != null);
-            Contract.Requires(profissional.Senha != null);
-            Contract.Requires(profissional.Salt);
+            var profissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == login.Email);
 
             if (profissional == null || string.IsNullOrEmpty(profissional.Senha) || string.IsNullOrEmpty(profissional.Salt))
             {
@@ -237,12 +211,12 @@ namespace Back_end.Services
                 Token = token
             };
         }
-
-        //RF012
         public async Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil)
         {
             // Buscando o discente no banco de dados
             var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == atualizarPerfil.Email);
+
+            Contract.Requires(atualizarPerfil != null, "O objeto atualizarPerfil não pode ser nulo.");
 
             if (usuarioDiscente != null)
             {
@@ -263,13 +237,18 @@ namespace Back_end.Services
                 return true;
             }
 
+            Contract.Ensures(usuarioDiscente != null, "O perfil do usuário foi atualizado com sucesso.");
+            Contract.Ensures(usuarioDiscente.Nome != null, "O perfil do usuário foi atualizado com sucesso.");
+
             return false; // Se o usuário não for encontrado
         }
-        //RF012
         public async Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha)
+        {
             // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
             var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == alterarSenha.Email);
             var usuarioProfissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == alterarSenha.Email);
+
+            Contract.Requires(alterarSenha != null, "O objeto alterarSenha não pode ser nulo.");
 
             if (usuarioDiscente != null && VerificarSenha(alterarSenha.SenhaAtual, usuarioDiscente.Senha, usuarioDiscente.Salt))
             {
@@ -279,6 +258,9 @@ namespace Back_end.Services
                 usuarioDiscente.Salt = novoSalt;
 
                 await _context.SaveChangesAsync();
+
+                Contract.Ensures(usuarioDiscente.Senha != null, "A senha do usuário foi atualizada com sucesso.");
+
                 return true;
             }
             else if (usuarioProfissional != null && VerificarSenha(alterarSenha.SenhaAtual, usuarioProfissional.Senha, usuarioProfissional.Salt))
@@ -289,6 +271,9 @@ namespace Back_end.Services
                 usuarioProfissional.Salt = novoSalt;
 
                 await _context.SaveChangesAsync();
+
+                Contract.Ensures(usuarioProfissional.Senha != null, "A senha do usuário foi atualizada com sucesso.");
+
                 return true;
             }
 
@@ -401,27 +386,26 @@ namespace Back_end.Services
             return false; // Se o usuário não for encontrado
         }
 
-        public async Task<bool> DeletarUsuarioAsync(int id)
+       public async Task<bool> DeletarUsuarioAsync(int id, string senha)
         {
+            // Verifica se o discente existe no banco de dados
             var discente = await _context.Discentes.FindAsync(id);
-            if (discente != null)
+            if (discente == null)
             {
-                _context.Discentes.Remove(discente);
-                await _context.SaveChangesAsync();
-                return true;
+                return false; // Discente não encontrado
             }
 
-            var profissional = await _context.Profissionais.FindAsync(id);
-            if (profissional != null)
+            // Verifica se a senha fornecida corresponde ao hash e salt armazenados
+            if (!VerificarSenha(senha, discente.Senha, discente.Salt))
             {
-                _context.Profissionais.Remove(profissional);
-                await _context.SaveChangesAsync();
-                return true;
+                return false; // Senha incorreta
             }
 
-            return false;
-}
+            // Se a senha estiver correta, remover o discente
+            _context.Discentes.Remove(discente);
+            await _context.SaveChangesAsync();
 
-    }
-    
+            return true; // Exclusão realizada com sucesso
+        }
+    }  
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tiago\\OneDrive\\Documentos\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\Back-end.csproj": {}
+    "C:\\Users\\eriky\\OneDrive\\Documentos\\Teste\\Back-end\\Back-end.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tiago\\OneDrive\\Documentos\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\Back-end.csproj": {
+    "C:\\Users\\eriky\\OneDrive\\Documentos\\Teste\\Back-end\\Back-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tiago\\OneDrive\\Documentos\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\Back-end.csproj",
+        "projectUniqueName": "C:\\Users\\eriky\\OneDrive\\Documentos\\Teste\\Back-end\\Back-end.csproj",
         "projectName": "Back-end",
-        "projectPath": "C:\\Users\\tiago\\OneDrive\\Documentos\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\Back-end.csproj",
-        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tiago\\OneDrive\\Documentos\\sistema-de-agendamento-de-servicos-academicos\\Back-end\\obj\\",
+        "projectPath": "C:\\Users\\eriky\\OneDrive\\Documentos\\Teste\\Back-end\\Back-end.csproj",
+        "packagesPath": "C:\\Users\\eriky\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\eriky\\OneDrive\\Documentos\\Teste\\Back-end\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\eriky\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -120,7 +119,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
