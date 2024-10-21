@@ -144,7 +144,7 @@
                         <p class="paragraph-size weight-500" style="color: var(--black-gray);">Atualize os dados da sua conta aqui.</p>
                     </div>
 
-                    <EditForm Model="@contaUser">
+                    <EditForm Model="@contaUser" OnSubmit="@EditarDiscente">
                     <DataAnnotationsValidator />
                         <div class="edit-fields" style="flex-wrap: wrap;">
                             <span class="paragraph-size px-2 weight-500" style="width: 12rem">Matrícula <span style="color: #BA3838">*</span></span>
@@ -164,7 +164,7 @@
                                         <path d="M22 7L13.03 12.7C12.7213 12.8934 12.3643 12.996 12 12.996C11.6357 12.996 11.2787 12.8934 10.97 12.7L2 7" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
 
-                                    <InputText id="email" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Email"/>
+                                    <InputText id="email" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Email" disabled="true"/>
                                 </div>
                                 <br>
                                 <ValidationMessage For="@(() => contaUser.Email)" />
@@ -409,8 +409,21 @@
     }
 
     private void Cancelar(){
-        infosUser = infosUserAtual;
-        contaUser = contaUserAtual;
+        infosUser = new InfosUser
+        {
+            Nome = infosUserAtual.Nome,
+            Sobrenome = infosUserAtual.Sobrenome,
+            Curso = infosUserAtual.Curso,
+            DDI = infosUserAtual.DDI,
+            DDD = infosUserAtual.DDD,
+            Numero = infosUserAtual.Numero
+        };
+
+        contaUser = new Conta
+        {
+            Email = contaUserAtual.Email,
+            Matricula = contaUserAtual.Matricula
+        };
     }
 
     private string abaAtiva = "dadosPessoais"; // Estado inicial
