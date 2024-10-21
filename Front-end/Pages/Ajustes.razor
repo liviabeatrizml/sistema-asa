@@ -86,10 +86,10 @@
                                             </svg>
                                         </span>
                                         <span class="paragraph-size weight-600" style="color: var(--blue-ufersa); text-decoration: underline; width: 100%; margin-top: 10px;">Clique para realizar Upload</span>
-                                        <span class="paragraph-size weight-500" style="color: var(--black-gray); margin-bottom: 10px;">SVG, PNG, JPG ou GIF</span>
+                                        <span class="paragraph-size weight-500" style="color: var(--black-gray); margin-bottom: 10px;">SVG, PNG ou JPG</span>
 
                                     </label>
-                                    <InputFile id="fileupload" hidden class="upload-button" accept=".jpg,.svg,.png,.gif"/>
+                                    <InputFile id="fileupload" hidden class="upload-button" accept=".jpg,.svg,.png"/>
 
                                 </div>
                         </div>
@@ -152,7 +152,7 @@
                                 <span class="input-icon">
                                     <img style="height: 1.5rem; width: 1.5rem;" src="..\\css\\images\\u.svg" />
                                 </span>
-                                <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Matricula" maxlength="10"/>
+                                <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Matricula" maxlength="10" disabled="true"/>
                             </div>
                                 <ValidationMessage For="@(() => contaUser.Matricula)" />
                         </div>
