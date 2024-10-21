@@ -1,6 +1,6 @@
-# Sistema de Agendamento de Serviços Acadêmicos (ASA) - Back-End
+# Sistema de Agendamento de Serviços Acadêmicos (ASA) - Contracts
 
-Este repositório contém o back-end do **Sistema de Agendamento de Serviços Acadêmicos (ASA)**, desenvolvido em C# utilizando a **ASP.NET Core Web API**. O sistema tem como objetivo centralizar e automatizar os processos de agendamento de serviços acadêmicos disponibilizados pela **Ufersa**.
+Este repositório contém o back-end com os contratos feitos em **Code Contracts** do **Sistema de Agendamento de Serviços Acadêmicos (ASA)**, desenvolvido em C# utilizando a **ASP.NET Core Web API**. O sistema tem como objetivo centralizar e automatizar os processos de agendamento de serviços acadêmicos disponibilizados pela **Ufersa**. Os contratos foram usados para verificar a eficácia do tratamento dos requisitos.
 
 ## 📋 Visão Geral
 
