@@ -6,6 +6,18 @@ Este repositório contém o back-end com os contratos feitos em **Code Contracts
 
 O back-end do ASA gerencia todas as requisições relacionadas ao agendamento de serviços acadêmicos, permitindo que estudantes e profissionais agendem, editem e visualizem horários disponíveis de forma centralizada. A aplicação segue boas práticas de desenvolvimento, utilizando **Verificação e Validação** para garantir a qualidade, bem como **Métodos Formais** para modelar o sistema de forma precisa.
 
+**Code Contracts** são uma ferramenta no desenvolvimento de software que permite especificar condições que devem ser cumpridas pelo código durante sua execução. Essas condições podem ser aplicadas para verificar as entradas (pré-condições), saídas (pós-condições), e estados intermediários (invariantes) de métodos e classes, ajudando a detectar erros mais cedo e aumentando a confiabilidade do software.
+
+No contexto do ASA, onde contratos são usados durante o desenvolvimento, eles ajudam a garantir que o sistema de agendamento funcione corretamente, verificando:
+
+Pré-condições: Validam que os parâmetros passados para métodos estão corretos antes de a execução começar. Por exemplo, ao agendar um horário, garantir que a data e o serviço existam e estejam disponíveis.
+
+Pós-condições: Asseguram que, após a execução do método, o estado do sistema esteja conforme esperado. Por exemplo, ao concluir um agendamento, verificar que ele realmente foi registrado no sistema.
+
+Invariantes: Garantem que certas condições se mantenham verdadeiras durante a execução de um objeto. Isso pode ser útil para garantir, por exemplo, que uma agenda nunca tenha conflitos de horários.
+
+Durante o desenvolvimento do ASA, esses contratos podem ser inseridos no código para validação automática. Contudo, como os contratos impactam no desempenho, eles geralmente são removidos ou desativados na versão final do software, quando a validação já está concluída, por isso, essa branch existe, separando a versão final da versão com contratos.
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **C#**
