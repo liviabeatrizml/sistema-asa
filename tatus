@@ -1,0 +1,6 @@
+[33mcf281ac[m[33m ([m[1;36mHEAD -> [m[1;32mback-end[m[33m, [m[1;31morigin/back-end[m[33m)[m HEAD@{0}: checkout: moving from contracts to back-end
+[33m2e4459b[m[33m ([m[1;31morigin/contracts[m[33m, [m[1;32mcontracts[m[33m)[m HEAD@{1}: reset: moving to HEAD
+[33m2e4459b[m[33m ([m[1;31morigin/contracts[m[33m, [m[1;32mcontracts[m[33m)[m HEAD@{2}: reset: moving to HEAD
+[33m2e4459b[m[33m ([m[1;31morigin/contracts[m[33m, [m[1;32mcontracts[m[33m)[m HEAD@{3}: checkout: moving from contracts to contracts
+[33m2e4459b[m[33m ([m[1;31morigin/contracts[m[33m, [m[1;32mcontracts[m[33m)[m HEAD@{4}: checkout: moving from main to contracts
+[33m16144df[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{5}: clone: from https://github.com/liviabeatrizml/sistema-asa.git
