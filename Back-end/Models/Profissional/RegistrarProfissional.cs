@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Model que complementa informações relacionadas ao profissional 
-/// para a construção da API de Registro
+/// Representa os dados necessários para registrar um profissional.
 /// </summary>
 public class RegistrarProfissional
 {
@@ -13,4 +12,5 @@ public class RegistrarProfissional
     [StringLength(99, MinimumLength = 6)]
     public string Senha { get; set; }
     public string AreaAtuacao { get; set; } // Campo para a área de atuação
+    public int ServicoId { get; set; }
 }

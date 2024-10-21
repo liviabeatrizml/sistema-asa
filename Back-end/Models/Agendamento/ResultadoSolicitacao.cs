@@ -1,7 +1,7 @@
 namespace Back_end.Models
 {
     /// <summary>
-    /// Model que complementa informações necessarias para a construção das APIs de Agendamento
+    /// Representa o resultado de uma solicitação de agendamento.
     /// </summary>
     public class ResultadoSolicitacao
     {

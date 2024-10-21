@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Back-end.csproj": {}
+    "/home/caueoliveira/Área de Trabalho/Documentacao Final (17ª cópia)/sistema-asa/Back-end/Back-end.csproj": {}
   },
   "projects": {
-    "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Back-end.csproj": {
+    "/home/caueoliveira/Área de Trabalho/Documentacao Final (17ª cópia)/sistema-asa/Back-end/Back-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Back-end.csproj",
+        "projectUniqueName": "/home/caueoliveira/Área de Trabalho/Documentacao Final (17ª cópia)/sistema-asa/Back-end/Back-end.csproj",
         "projectName": "Back-end",
-        "projectPath": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Back-end.csproj",
+        "projectPath": "/home/caueoliveira/Área de Trabalho/Documentacao Final (17ª cópia)/sistema-asa/Back-end/Back-end.csproj",
         "packagesPath": "/home/caueoliveira/.nuget/packages/",
-        "outputPath": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/",
+        "outputPath": "/home/caueoliveira/Área de Trabalho/Documentacao Final (17ª cópia)/sistema-asa/Back-end/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/caueoliveira/.nuget/NuGet/NuGet.Config"
@@ -112,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

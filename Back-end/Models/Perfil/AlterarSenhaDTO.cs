@@ -1,6 +1,5 @@
 /// <summary>
-/// Classe responsavel para definir atributos para alterar email e senha
-/// do usuario que serão usados na API de AtualizarPerfil
+/// Representa os dados necessários para alterar a senha de um discente.
 /// </summary>
 public class AlterarSenhaDto
 {

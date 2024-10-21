@@ -4,10 +4,9 @@ using Back_end.Dtos;
 using Back_end.Models;
 
 namespace Back_end.Services
-{   
+{
     /// <summary>
-    /// Interface que define os contratos que devem ser implementados pela
-    /// classe AgendamentoService
+    /// Define os métodos para o serviço de agendamento.
     /// </summary>
     public interface IAgendamentoService
     {

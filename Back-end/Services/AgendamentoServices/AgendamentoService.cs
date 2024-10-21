@@ -5,35 +5,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Back_end.Services
 {
-    /// <summary>
-    /// Responsavel por gerenciar as operações relacionadas a agendamento de serviço no sistema
-    /// </summary>
     public class AgendamentoService : IAgendamentoService
     {
         /// <summary>
-        /// Atributo privado que representa o contexto do banco de dados
+        /// Contexto do banco de dados para operações de agendamento.
         /// </summary>
-        /// <param name="context">Construtor que recebe o banco de dados</param>
+        /// <param name="context">O contexto do banco de dados.</param>
         private readonly ApiDbContext _context;
 
+        /// <summary>
+        /// Inicializa uma nova instância da classe <see cref="AgendamentoService"/>.
+        /// </summary>
+        /// <param name="context">O contexto do banco de dados.</param>
         public AgendamentoService(ApiDbContext context)
         {
             _context = context;
         }
-        
+
         /// <summary>
-        /// Permite que o discente solicita um novo agendamento com base no horario disponivel 
-        /// para o profissional e serviço especificado
+        /// Solicita um novo agendamento.
         /// </summary>
-        /// <param name="dto">Representar conexão com banco de dados</param>
-        /// <returns>Um novo agentademento ou um erro</returns>
-        // Solicitar agendamento
+        /// <param name="dto">Os dados do agendamento a serem solicitados.</param>
+        /// <returns>Um objeto <see cref="Agendamento"/> resultante da solicitação.</returns>
         public async Task<Agendamento> SolicitarAgendamentoAsync(SolicitarAgendamentoDto dto)
         {
             // Verifica se o horário está disponível
             var horarioDisponivel = await _context.HorarioDisponivel
                 .FirstOrDefaultAsync(h => h.IdHorario == dto.HorarioId && h.ProfissionalId == dto.ProfissionalId);
-
 
             if (horarioDisponivel == null)
             {
@@ -57,11 +55,10 @@ namespace Back_end.Services
         }
 
         /// <summary>
-        /// Cancela o agendamento
+        /// Cancela um agendamento existente.
         /// </summary>
-        /// <param name="agendamentoId">Busca o id agendamento para cancela-lo</param>
-        /// <returns>Cancela o agendamente de acordo com o id, se ele não existir retorna falso</returns>
-        // Cancelar agendamento
+        /// <param name="agendamentoId">O ID do agendamento a ser cancelado.</param>
+        /// <returns>Um valor indicando se o cancelamento foi bem-sucedido.</returns>
         public async Task<bool> CancelarAgendamentoAsync(int agendamentoId)
         {
             var agendamento = await _context.Agendamento.FindAsync(agendamentoId);
@@ -76,11 +73,10 @@ namespace Back_end.Services
         }
 
         /// <summary>
-        /// Lista os agendamentos disponiveis
+        /// Lista os agendamentos de um discente específico.
         /// </summary>
-        /// <param name="discenteId">Id que o discente ira mandar para receber a lista</param>
-        /// <returns>Retorna os agendamentos disponiveis de acordo com id dos discentes</returns>
-        // Listar agendamentos por discente
+        /// <param name="discenteId">O ID do discente cujos agendamentos serão listados.</param>
+        /// <returns>Uma lista de agendamentos do discente.</returns>
         public async Task<List<Agendamento>> ListarAgendamentosPorDiscenteAsync(int discenteId)
         {
             return await _context.Agendamento
@@ -89,11 +85,10 @@ namespace Back_end.Services
         }
 
         /// <summary>
-        /// Lista os horarios disponiveis
+        /// Lista os horários disponíveis para um profissional específico.
         /// </summary>
-        /// <param name="profissionalId">Id dos profissionais para saber quais estão disponiveis</param>
-        /// <returns>Retorna os horarios disponiveis de um profissional especifico de acordo com seu id</returns>
-        // Listar horários disponíveis de um profissional
+        /// <param name="profissionalId">O ID do profissional cujos horários disponíveis serão listados.</param>
+        /// <returns>Uma lista de horários disponíveis para o profissional.</returns>
         public async Task<List<HorarioDisponivel>> ListarHorariosDisponiveisAsync(int profissionalId)
         {
             return await _context.HorarioDisponivel

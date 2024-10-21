@@ -3,7 +3,7 @@ using System;
 namespace Back_end.Dtos
 {
     /// <summary>
-    /// Model que complementa informações necessarias para a construção das APIs de Agendamento
+    /// Representa os dados necessários para solicitar um agendamento.
     /// </summary>
     public class SolicitarAgendamentoDto
     {

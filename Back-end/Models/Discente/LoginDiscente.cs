@@ -3,7 +3,7 @@
 namespace Back_end.Models
 {
     /// <summary>
-    /// Model que complementa informações necessarias para a construção da API de Login
+    /// Representa os dados necessários para o login de um discente.
     /// </summary>
     public class LoginDiscente
     {
@@ -15,5 +15,6 @@ namespace Back_end.Models
         [Required]
         [StringLength(99, MinimumLength = 6)]
         public string Senha { get; set; }
+        
     }
 }

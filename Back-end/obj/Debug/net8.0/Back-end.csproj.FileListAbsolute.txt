@@ -1,360 +1,239 @@
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/appsettings.Development.json
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/appsettings.json
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Back-end.staticwebassets.runtime.json
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Back-end.exe
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Back-end.deps.json
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Back-end.runtimeconfig.json
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Back-end.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Back-end.pdb
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Humanizer.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Mono.TextTemplating.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/MySqlConnector.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/System.CodeDom.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/System.Composition.AttributedModel.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/System.Composition.Convention.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/System.Composition.Hosting.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/System.Composition.Runtime.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/System.Composition.TypedParts.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.csproj.AssemblyReference.cache
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.GeneratedMSBuildEditorConfig.editorconfig
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.AssemblyInfoInputs.cache
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.AssemblyInfo.cs
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.csproj.CoreCompileInputs.cache
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.MvcApplicationPartsAssemblyInfo.cache
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.RazorAssemblyInfo.cache
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.RazorAssemblyInfo.cs
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/staticwebassets.build.json
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/staticwebassets.development.json
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.Back-end.Microsoft.AspNetCore.StaticWebAssets.props
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.build.Back-end.props
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Back-end.props
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Back-end.props
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/staticwebassets.pack.json
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/scopedcss/Pages/Shared/_Layout.cshtml.rz.scp.css
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/scopedcss/bundle/Back-end.styles.css
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/scopedcss/projectbundle/Back-end.bundle.scp.css
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.csproj.Up2Date
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/refint/Back-end.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.pdb
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.genruntimeconfig.cache
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/ref/Back-end.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Microsoft.OpenApi.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/obj/Debug/net8.0/Back-end.MvcApplicationPartsAssemblyInfo.cs
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/BCrypt.Net-Next.dll
-C:/Users/tiago/source/repos/Back-end/Back-end/bin/Debug/net8.0/ScottBrady91.AspNetCore.Identity.BCryptPasswordHasher.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/appsettings.Development.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/appsettings.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.staticwebassets.runtime.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.exe
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.deps.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.runtimeconfig.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.pdb
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/BCrypt.Net-Next.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Humanizer.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.OpenApi.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Mono.TextTemplating.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/MySqlConnector.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ScottBrady91.AspNetCore.Identity.BCryptPasswordHasher.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.CodeDom.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.AttributedModel.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.Convention.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.Hosting.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.Runtime.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.TypedParts.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.csproj.AssemblyReference.cache
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.GeneratedMSBuildEditorConfig.editorconfig
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.AssemblyInfoInputs.cache
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.AssemblyInfo.cs
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.csproj.CoreCompileInputs.cache
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.MvcApplicationPartsAssemblyInfo.cs
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.MvcApplicationPartsAssemblyInfo.cache
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.RazorAssemblyInfo.cache
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.RazorAssemblyInfo.cs
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.sourcelink.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets.build.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets.development.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.Back-end.Microsoft.AspNetCore.StaticWebAssets.props
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.build.Back-end.props
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Back-end.props
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Back-end.props
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets.pack.json
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/Pages/Shared/_Layout.cshtml.rz.scp.css
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/bundle/Back-end.styles.css
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/projectbundle/Back-end.bundle.scp.css
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.csproj.Up2Date
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/refint/Back-end.dll
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.pdb
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.genruntimeconfig.cache
-C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/ref/Back-end.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/appsettings.Development.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/appsettings.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.staticwebassets.runtime.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.deps.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.runtimeconfig.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.pdb
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/BCrypt.Net-Next.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Humanizer.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Microsoft.OpenApi.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Mono.TextTemplating.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/MySqlConnector.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ScottBrady91.AspNetCore.Identity.BCryptPasswordHasher.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.CodeDom.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.AttributedModel.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.Convention.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.Hosting.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.Runtime.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.Composition.TypedParts.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.csproj.AssemblyReference.cache
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.GeneratedMSBuildEditorConfig.editorconfig
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.AssemblyInfoInputs.cache
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.AssemblyInfo.cs
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.csproj.CoreCompileInputs.cache
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.MvcApplicationPartsAssemblyInfo.cs
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.MvcApplicationPartsAssemblyInfo.cache
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.RazorAssemblyInfo.cache
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.RazorAssemblyInfo.cs
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.sourcelink.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets.build.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets.development.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.Back-end.Microsoft.AspNetCore.StaticWebAssets.props
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.build.Back-end.props
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Back-end.props
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Back-end.props
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/staticwebassets.pack.json
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/Pages/Shared/_Layout.cshtml.rz.scp.css
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/bundle/Back-end.styles.css
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/scopedcss/projectbundle/Back-end.bundle.scp.css
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.csproj.CopyComplete
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/refint/Back-end.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.pdb
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/Back-end.genruntimeconfig.cache
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/obj/Debug/net8.0/ref/Back-end.dll
-/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/bin/Debug/net8.0/Back-end.xml
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\appsettings.json
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Back-end.staticwebassets.runtime.json
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Back-end.exe
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Back-end.deps.json
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Back-end.runtimeconfig.json
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Back-end.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Back-end.pdb
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Humanizer.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.csproj.AssemblyReference.cache
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.AssemblyInfoInputs.cache
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.AssemblyInfo.cs
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.csproj.CoreCompileInputs.cache
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.RazorAssemblyInfo.cache
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.RazorAssemblyInfo.cs
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.Back-end.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.build.Back-end.props
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Back-end.props
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Back-end.props
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\scopedcss\bundle\Back-end.styles.css
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\scopedcss\projectbundle\Back-end.bundle.scp.css
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.csproj.Up2Date
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\refint\Back-end.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.pdb
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.genruntimeconfig.cache
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\ref\Back-end.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\obj\Debug\net8.0\Back-end.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\tiago\source\repos\Back-end\Back-end\bin\Debug\net8.0\ScottBrady91.AspNetCore.Identity.BCryptPasswordHasher.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\appsettings.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Back-end.staticwebassets.runtime.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Back-end.exe
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Back-end.deps.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Back-end.runtimeconfig.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Back-end.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Back-end.pdb
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Humanizer.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ScottBrady91.AspNetCore.Identity.BCryptPasswordHasher.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.csproj.AssemblyReference.cache
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.AssemblyInfoInputs.cache
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.AssemblyInfo.cs
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.csproj.CoreCompileInputs.cache
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.RazorAssemblyInfo.cache
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.RazorAssemblyInfo.cs
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.sourcelink.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.Back-end.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.build.Back-end.props
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Back-end.props
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Back-end.props
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\scopedcss\bundle\Back-end.styles.css
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\scopedcss\projectbundle\Back-end.bundle.scp.css
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.csproj.Up2Date
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\refint\Back-end.dll
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.pdb
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\Back-end.genruntimeconfig.cache
+C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Back-end\obj\Debug\net8.0\ref\Back-end.dll

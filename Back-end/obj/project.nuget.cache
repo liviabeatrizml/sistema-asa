@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KtDwdh5w6RLbWSJhDcaT7EC+FRO8pBELiRv8XGGzHyu64kI0BK3c7dhKljs2EgGd6+bHhZVCkBgab6t3SKCQGg==",
+  "dgSpecHash": "6pjUqhWVy4CFGD7mGVqpNBGj7oRb2uW8R2BetIbgdSKfEUW6rZiOOwimiVoozSTfBW/fzn/cm91ZurKGfZZXcA==",
   "success": true,
-  "projectFilePath": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Back-end/Back-end.csproj",
+  "projectFilePath": "/home/caueoliveira/Área de Trabalho/Documentacao Final (17ª cópia)/sistema-asa/Back-end/Back-end.csproj",
   "expectedPackageFiles": [
     "/home/caueoliveira/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/caueoliveira/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",

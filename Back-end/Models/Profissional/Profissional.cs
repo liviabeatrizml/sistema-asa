@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Back_end.Models
 {
     /// <summary>
-    /// Representação da tabela Profissional no banco de dados em model
+    /// Representa o profissional que pode prestar serviços.
     /// </summary>
     [Table("profissional")] // Define o nome da tabela no banco de dados
     public class Profissional
@@ -32,5 +32,13 @@ namespace Back_end.Models
         [StringLength(255)]
         [Column("salt")]
         public string Salt { get; set; }
+
+        [Column("servico_id")]
+        public int ServicoId { get; set; }
+
+        [ForeignKey("ServicoId")]
+        public ServicoDisponivel Servico { get; set; }
+
+
     }
 }

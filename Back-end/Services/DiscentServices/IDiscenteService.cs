@@ -2,15 +2,19 @@
 using Back_end.Models;
 
 /// <summary>
-/// Interface que define os contratos que devem ser implementados pela
-/// classe DiscenteService
+/// Interface que define os serviços disponíveis para gerenciar discentes e profissionais.
 /// </summary>
 public interface IDiscenteService
 {
     Task<Discente> RegistrarDiscenteAsync(RegistrarDiscente registrarDiscente);
-    Task<string> LoginDiscenteAsync(LoginDiscente loginDiscente);
-    Task<bool> EmailJaCadastradoAsync(string email); // Verificar se o email já foi cadastrado
+    Task<LoginResponseDto> LoginDiscenteAsync(LoginDiscente loginDiscente);
+    Task<bool> EmailJaCadastradoAsync(string email);
     Task<Profissional> RegistrarProfissionalAsync(RegistrarProfissional registrarProfissional);
-    Task<string> LoginProfissionalAsync(LoginProfissional loginProfissional);
-
+    Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional loginProfissional);
+    Task<bool> AtualizarPerfilAsync(AtualizarPerfilDto atualizarPerfil);
+    Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha);
+    Task<DiscenteDto> ObterDiscentePorIdAsync(int id);
+    Task<bool> AtualizarPerfilCompletoAsync(AtualizarPerfilDto atualizarPerfil);
+    Task<bool> AtualizarPerfilParcialAsync(AtualizarPerfilDto atualizarPerfil);
+    Task<bool> DeletarUsuarioAsync(int id);
 }

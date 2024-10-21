@@ -1,6 +1,5 @@
 /// <summary>
-/// Model que complementa informações relacionadas ao profissional 
-/// para a construção da API de Login
+/// Representa um modelo para o login de um profissional.
 /// </summary>
 public class LoginProfissional
 {

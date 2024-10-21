@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Back_end.Models
 {
     /// <summary>
-    /// Representação da tabela HorarioDisponivel no banco de dados em model
+    /// Representa um horário disponível para agendamento.
     /// </summary>
     public class HorarioDisponivel
     {
@@ -19,7 +19,7 @@ namespace Back_end.Models
         public TimeSpan HoraFim { get; set; }
 
         [Column("diaDaSemana")]
-        public string DiaDaSemana { get; set; }
+        public int DiaDaSemana { get; set; }
 
         [ForeignKey("Profissional")]
         [Column("profissional_id")]

@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_end.Models
-{
+{   
     /// <summary>
-    /// Representação da tabela ServicoDisponivel no banco de dados em model
+    /// Representa um serviço disponível no sistema.
     /// </summary>
     public class ServicoDisponivel
     {
@@ -15,10 +15,7 @@ namespace Back_end.Models
         [Column("tipo")]
         public string Tipo { get; set; }
 
-        [Column("descricao")]
-        public string Descricao { get; set; }
-
-        [Column("tipoAtendimento")]
-        public string TipoAtendimento { get; set; }
+        [Column("status")]
+        public string status { get; set; }
     }
 }

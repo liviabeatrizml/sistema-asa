@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Front-end.csproj": {}
+    "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj": {}
   },
   "projects": {
-    "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Front-end.csproj": {
+    "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Front-end.csproj",
+        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj",
         "projectName": "Front-end",
-        "projectPath": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Front-end.csproj",
-        "packagesPath": "/home/caueoliveira/.nuget/packages/",
-        "outputPath": "/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/obj/",
+        "projectPath": "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\Front-end.csproj",
+        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tiago\\source\\repos\\sistema-de-agendamento-de-servicos-academicos\\Front-end\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/caueoliveira/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -82,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

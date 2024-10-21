@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Back_end.Models
-{   
+{
     /// <summary>
-    /// Model que complementa informações necessarias para a construção da API de Registro
+    /// Representa os dados necessários para registrar um novo discente.
     /// </summary>
     public class RegistrarDiscente
     {
@@ -22,13 +22,8 @@ namespace Back_end.Models
 
         [Required]
         public int Matricula { get; set; }
-
-        [Required]
-        public int Telefone { get; set; }
-
-        [Required]
-        [StringLength(14)]
-        public string Cpf { get; set; }
+        
+        public string? Telefone { get; set; }
 
         [StringLength(100)]
         public string Curso { get; set; }

@@ -13,39 +13,39 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = Front-end
 build_property.RootNamespace = Front-end
-build_property.ProjectDir = /home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/
+build_property.ProjectDir = C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Front-end\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end
+build_property.MSBuildProjectDirectory = C:\Users\tiago\OneDrive\Documentos\sistema-de-agendamento-de-servicos-academicos\Front-end
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/App.razor]
+[C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Front-end/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
+[C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Front-end/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Pages/Home.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZS5yYXpvcg==
+[C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Front-end/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvV2VhdGhlci5yYXpvcg==
+[C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Front-end/Pages/Weather.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/_Imports.razor]
+[C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Front-end/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Layout/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L01haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-1zdsuvrylw
+[C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Front-end/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-y3n1h5844m
 
-[/home/caueoliveira/Área de Trabalho/sistema-de-agendamento-de-servicos-academicos/Front-end/Layout/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L05hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-zyalzjq9uk
+[C:/Users/tiago/OneDrive/Documentos/sistema-de-agendamento-de-servicos-academicos/Front-end/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-4bmn9d8dhc

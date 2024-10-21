@@ -4,34 +4,42 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Xml;
 
-//namespace contendo API do sistema Back-end
 namespace Back_end.Controllers
 {
     /// <summary>
-    /// Contém os controladores da API do sistema Back-end, 
-    /// responsáveis por gerenciar as operações relacionadas aos discentes e profissionais.
+    /// Controlador para gerenciar discentes e profissionais.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class DiscenteController : ControllerBase
     {
         /// <summary>
-        /// Inicializa uma nova instância da classe <see cref="DiscenteController"/> e configura o serviço de discentes.
+        /// Serviço para gerenciar discentes.
         /// </summary>
-        /// <param name="discenteService">O serviço de discente que será utilizado para as operações de registro e login.</param>
         private readonly IDiscenteService _discenteService;
-        public DiscenteController(IDiscenteService discenteService)
+        
+        /// <summary>
+        /// Serviço para gerenciar profissionais.
+        /// </summary>
+        private readonly IProfissionalService _profissionalService;
+
+        /// <summary>
+        /// Construtor do DiscenteController.
+        /// </summary>
+        /// <param name="discenteService">Serviço injetado para operações de discentes.</param>
+        /// <param name="profissionalService">Serviço injetado para operações de profissionais.</param>
+        public DiscenteController(IDiscenteService discenteService, IProfissionalService profissionalService)
         {
             _discenteService = discenteService;
+            _profissionalService = profissionalService;
         }
 
         /// <summary>
-        /// Registra um novo discente no sistema.
+        /// Rota para registrar um novo discente.
         /// </summary>
-        /// <param name="registrarDiscente">Objeto contendo os dados do discente a ser registrado.</param>
-        /// <returns>Retorna o ID e o email do discente registrado ou um erro de registro.</returns>
+        /// <param name="registrarDiscente">Dados do discente a ser registrado.</param>
+        /// <returns>Resultado da operação de registro.</returns>
         [HttpPost("registrar")]
         [Consumes("application/json")]
         public async Task<IActionResult> Registrar([FromBody] RegistrarDiscente registrarDiscente)
@@ -51,10 +59,10 @@ namespace Back_end.Controllers
         }
 
         /// <summary>
-        /// Realiza o login de um discente no sistema e gera um token de autenticação.
+        /// Rota para login de discente.
         /// </summary>
-        /// <param name="loginDiscente">Objeto contendo as credenciais do discente para login.</param>
-        /// <returns>Retorna um token de autenticação ou um erro se as credenciais forem inválidas.</returns>
+        /// <param name="loginDiscente">Dados para o login do discente.</param>
+        /// <returns>Resultado do login.</returns>
         [HttpPost("login")]
         [Consumes("application/json")]
         public async Task<IActionResult> Login([FromBody] LoginDiscente loginDiscente)
@@ -64,20 +72,19 @@ namespace Back_end.Controllers
                 return BadRequest("Dados inválidos.");
             }
 
-            // Tenta logar o usuário e gerar o token
-            var token = await _discenteService.LoginDiscenteAsync(loginDiscente);
+            var response = await _discenteService.LoginDiscenteAsync(loginDiscente);
 
-            if (token == null)
+            if (response == null)
                 return Unauthorized("Login inválido");
 
-            return Ok(new { Token = token });
+            return Ok(response);
         }
 
         /// <summary>
-        /// Registra um novo profissional no sistema.
+        /// Rota para registrar um novo profissional.
         /// </summary>
-        /// <param name="registrarProfissional">Objeto contendo os dados do profissional a ser registrado.</param>
-        /// <returns>Retorna os detalhes do profissional registrado ou um erro se os dados forem inválidos ou se o e-mail já estiver cadastrado.</returns>
+        /// <param name="registrarProfissional">Dados do profissional a ser registrado.</param>
+        /// <returns>Resultado do registro do profissional.</returns>
         [HttpPost("registrar-profissional")]
         public async Task<IActionResult> RegistrarProfissional([FromBody] RegistrarProfissional registrarProfissional)
         {
@@ -101,10 +108,10 @@ namespace Back_end.Controllers
         }
 
         /// <summary>
-        /// Realiza o login de um profissional no sistema e gera um token de autenticação.
+        /// Rota para login de profissional.
         /// </summary>
-        /// <param name="loginProfissional">Objeto contendo as credenciais do profissional (email e senha).</param>
-        /// <returns>Retorna um token de autenticação se o login for bem-sucedido ou um erro se os dados forem inválidos ou o login falhar.</returns>
+        /// <param name="loginProfissional">Dados para o login do profissional.</param>
+        /// <returns>Resultado do login.</returns>
         [HttpPost("login-profissional")]
         public async Task<IActionResult> LoginProfissional([FromBody] LoginProfissional loginProfissional)
         {
@@ -113,18 +120,18 @@ namespace Back_end.Controllers
                 return BadRequest("Dados inválidos.");
             }
 
-            var token = await _discenteService.LoginProfissionalAsync(loginProfissional);
+            var response = await _discenteService.LoginProfissionalAsync(loginProfissional);
 
-            if (token == null)
+            if (response == null)
                 return Unauthorized("Login inválido");
 
-            return Ok(new { Token = token });
+            return Ok(response);
         }
 
         /// <summary>
-        /// Obtém as informações do usuário autenticado, retornando o ID do usuário.
+        /// Rota para obter informações do usuário atual autenticado.
         /// </summary>
-        /// <returns>Retorna o ID do usuário autenticado ou um erro se o usuário não estiver autenticado.</returns>
+        /// <returns>Dados do usuário autenticado.</returns>
         [HttpGet("me")]
         public IActionResult GetMe()
         {
@@ -137,6 +144,144 @@ namespace Back_end.Controllers
             }
 
             return Ok(new { UserId = userId });
+        }
+
+        /// <summary>
+        /// Rota para alteração de senha.
+        /// </summary>
+        /// <param name="alterarSenha">Dados para a alteração da senha.</param>
+        /// <returns>Resultado da alteração de senha.</returns>
+        [HttpPut("alterar-senha")]
+        public async Task<IActionResult> AlterarSenha([FromBody] AlterarSenhaDto alterarSenha)
+        {
+            if (alterarSenha == null)
+            {
+                return BadRequest("Dados inválidos.");
+            }
+
+            var resultado = await _discenteService.AlterarSenhaAsync(alterarSenha);
+
+            if (!resultado)
+            {
+                return BadRequest("Falha ao alterar a senha. Verifique suas credenciais.");
+            }
+
+            return Ok("Senha alterada com sucesso.");
+        }
+
+        /// <summary>
+        /// Rota para atualização de dados pessoais.
+        /// </summary>
+        /// <param name="atualizarPerfil">Dados do perfil a ser atualizado.</param>
+        /// <returns>Resultado da atualização do perfil.</returns>
+        [HttpPut("atualizar-perfil")]
+        public async Task<IActionResult> AtualizarPerfil([FromBody] AtualizarPerfilDto atualizarPerfil)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var resultado = await _discenteService.AtualizarPerfilCompletoAsync(atualizarPerfil);
+
+            if (resultado)
+            {
+                return Ok("Perfil atualizado com sucesso.");
+            }
+
+            return NotFound("Discente não encontrado.");
+        }
+
+        /// <summary>
+        /// Rota para atualização parcial de dados pessoais.
+        /// </summary>
+        /// <param name="atualizarPerfil">Dados do perfil a serem atualizados.</param>
+        /// <returns>Resultado da atualização parcial do perfil.</returns>
+        [HttpPatch("atualizar-perfil-parcial")]
+        public async Task<IActionResult> AtualizarPerfilParcial([FromBody] AtualizarPerfilDto atualizarPerfil)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var resultado = await _discenteService.AtualizarPerfilParcialAsync(atualizarPerfil);
+
+            if (resultado)
+            {
+                return Ok("Perfil atualizado com sucesso.");
+            }
+
+            return NotFound("Discente não encontrado.");
+        }
+
+        /// <summary>
+        /// Rota para obter um discente específico pelo ID.
+        /// </summary>
+        /// <param name="id">ID do discente a ser obtido.</param>
+        /// <returns>Dados do discente, se encontrado.</returns>
+        [HttpGet("obter-discente/{id}")]
+        public async Task<IActionResult> ObterDiscentePorId(int id)
+        {
+            // Procurar o discente pelo ID
+            var discente = await _discenteService.ObterDiscentePorIdAsync(id);
+
+            if (discente == null)
+            {
+                return NotFound("Discente não encontrado.");
+            }
+
+            // Retornar os dados do discente
+            return Ok(discente);
+        }
+
+        /// <summary>
+        /// Rota para obter um profissional específico pelo ID.
+        /// </summary>
+        /// <param name="id">ID do profissional a ser obtido.</param>
+        /// <returns>Dados do profissional, se encontrado.</returns>
+        [HttpGet("obter-profissional/{id}")]
+        public async Task<IActionResult> ObterProfissional(int id)
+        {
+            var profissional = await _profissionalService.ObterProfissionalPorIdAsync(id);
+
+            if (profissional == null)
+            {
+                return NotFound("Profissional não encontrado.");
+            }
+
+            return Ok(profissional);
+        }
+        
+        /// <summary>
+        /// Endpoint para listar todos os profissionais.
+        /// </summary>
+        /// <returns>Uma lista de profissionais disponíveis.</returns>
+        [HttpGet("listar-profissionais")]
+        public async Task<ActionResult<IEnumerable<ProfissionalDto>>> ListarProfissionais()
+        {
+            var profissionais = await _profissionalService.ListarProfissionaisAsync();
+            return Ok(profissionais);
+        }
+        
+        /// <summary>
+        /// Rota para deletar um usuário pelo ID.
+        /// </summary>
+        /// <param name="id">ID do usuário a ser deletado.</param>
+        /// <returns>Resultado da operação de deleção.</returns>
+        [HttpDelete("deletar-usuario/{id}")]
+        public async Task<IActionResult> DeletarUsuario(int id)
+        {
+            var resultado = await _discenteService.DeletarUsuarioAsync(id);
+            
+            if (resultado)
+            {
+                return Ok(new { mensagem = "Usuário deletado com sucesso" });
+            }
+            else
+            {
+                return NotFound(new { mensagem = "Usuário não encontrado" });
+            }
         }
     }
 }
