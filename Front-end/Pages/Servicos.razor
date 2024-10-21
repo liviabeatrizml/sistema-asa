@@ -26,7 +26,7 @@
                         
                         <div style="height: 26rem; overflow: auto; scrollbar-width: none;">
                             <p class="paragraph-size weight-500" style="color: var(--black-gray); text-align: justify;">
-                                @((MarkupString)ConvertNewLinesToHtml(servico_escolhido.Descricao))
+                                @((MarkupString)servico_escolhido.Descricao.Replace("\n", "<br>"))
                             </p>
                         </div>
                     }
