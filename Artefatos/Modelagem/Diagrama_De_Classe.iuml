@@ -1,0 +1,113 @@
+@startuml
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+class Usuario {
+    - string Nome
+    - string Email
+    -string Senha
+    + void cadastrar()
+    + void login()
+    + void alterarSenha()
+}
+
+class Discente {
+    -int IdDiscente
+    -string Salt
+    -int Matricula
+    + string Telefone
+    + string Curso
+}
+
+class Profissional {
+    -int IdProfissional
+    -string Salt
+    -int ServicoId
+    -string Descricao
+}
+
+class Agendamento {
+    -int IdAgendamento
+    -Date Data
+    -int DiscenteId
+    -int ProfissionalId
+    -int ServicoId
+    -int HorarioId
+    -string Status
+}
+
+class HorarioDisponivel {
+    -int IdHorario
+    -Time HoraInicio
+    -Time HoraFim
+    -string DiaDaSemana
+    -int ProfissionalId
+}
+
+class ServicoDisponivel {
+    -int IdServico
+    -string Tipo
+    -string TipoAtendimento
+}
+
+class AlterarSenhaDTO {
+    -string SenhaAtual
+    -string NovaSenha
+}
+
+class AtualizarPerfilDTO {
+    -string Nome
+    -string Email
+    -string Telefone
+    -string Curso
+}
+
+class ResultadoSolicitacao {
+    -bool Sucesso
+    -string Mensagem
+}
+
+class LoginDiscente {
+    -string Email
+    -string Senha
+}
+
+class LoginProfissional {
+    -string Email
+    -string Senha
+}
+
+class RegistrarDiscente {
+    -string Nome
+    -string Email
+    -string Senha
+    -int Matricula
+    -string Curso
+    -string Telefone
+}
+
+class RegistrarProfissional {
+    -string Nome
+    -string Email
+    -string Senha
+    -int ServicoId
+    -string Descricao
+}
+
+Discente --|> Usuario
+Profissional --|> Usuario
+
+Profissional "1" -- "0..*" HorarioDisponivel : "Define horários"
+Profissional "1" -- "0..*" ServicoDisponivel : "Oferece serviços"
+
+Agendamento "0..*" -- "1" Discente : "Marcado por"
+Agendamento "0..*" -- "1" Profissional : "Realizado por"
+Agendamento "0..*" -- "1" ServicoDisponivel : "Relacionado a"
+Agendamento "0..*" -- "1" HorarioDisponivel : "Agendado no"
+
+LoginDiscente --|> Discente
+LoginProfissional --|> Profissional
+RegistrarDiscente --|> Discente
+RegistrarProfissional --|> Profissional
+
+@enduml
