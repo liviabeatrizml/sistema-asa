@@ -1,0 +1,228 @@
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div style="scrollbar-width: none; user-select: none; overflow-y: auto; height: 52.813rem;">
+    <div style="display: flex;">
+        <!-- Tabela de horários -->
+        <div class="time-slots">
+            @foreach (var time in TimeSlots)
+            {
+                <div class="time-slot">@time</div>
+            }
+        </div>
+    
+        <!-- Tabela do calendário -->
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="day-of-week">@DiaSelecionado.ToString("ddd").ToUpper().TrimEnd('.')</div>
+                        <div class="day-number">@DiaSelecionado.Day</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var time in TimeSlots)
+                {
+                        var eventItem = GetEventForDayAndTime(DiaSelecionado, time);
+                    <tr>
+                        @if (eventItem != null)
+                        {
+                            <td title="@eventItem.Title">
+                                <div class="event" style="background-color:@eventItem.Colors[0]; color: @eventItem.Colors[1]; border-color: @eventItem.Colors[2];">
+                                    <div style="display: flex; padding: 10px 0px;">
+                                        <div class="event-title">@eventItem.Title</div>
+                                        <div class="event-title">&nbsp;| @eventItem.Person</div>
+                                    </div>
+                                    <div class="event-time" style="display: flex; align-items: center;">
+                                        <svg width="1rem" height="1rem" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_1083_1911)">
+                                            <path d="M8.00016 14.6666C11.6821 14.6666 14.6668 11.6818 14.6668 7.99992C14.6668 4.31802 11.6821 1.33325 8.00016 1.33325C4.31826 1.33325 1.3335 4.31802 1.3335 7.99992C1.3335 11.6818 4.31826 14.6666 8.00016 14.6666Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8.00016 4V8L5.3335 9.33333" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_1083_1911">
+                                            <rect width="1rem" height="1rem" fill="white"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <span style="padding-left: 5px;">
+                                            @eventItem.TimeInicio - @eventItem.TimeFim
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
+    private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
+
+    private List<string> pink, green, orange, blue, gray;
+    private List<CompromissoModel> compromissos;
+    private List<EventItem> Events = new List<EventItem>();
+
+
+    protected override async Task OnParametersSetAsync(){
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+        gray = new List<string> { "#A9A9A980", "#6E6E6E", "#A9A9A9" };
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscenteHoje(userId, DiaSelecionado);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan horaInicio = @compromisso.HoraInicio;
+                string horaFormatadaInicio = (horaInicio.Hours % 12).ToString("D2") + ":" + horaInicio.Minutes.ToString("D2") + " " + (horaInicio.Hours >= 12 ? "PM" : "AM");
+                TimeSpan horaFim = @compromisso.HoraFim;
+                string horaFormatadaFim = (horaFim.Hours % 12).ToString("D2") + ":" + horaFim.Minutes.ToString("D2") + " " + (horaFim.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagogia"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista" || compromisso.Servico == "Nutrição"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Assistente Social"){
+                    colors = new List<string> (orange);
+                } else{
+                    colors = new List<string> (gray);
+                }
+
+                var evento = new EventItem { Day = compromisso.Data, TimeInicio = horaFormatadaInicio, TimeFim = horaFormatadaFim, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscenteHoje(userId, DiaSelecionado);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan horaInicio = @compromisso.HoraInicio;
+                string horaFormatadaInicio = (horaInicio.Hours % 12).ToString("D2") + ":" + horaInicio.Minutes.ToString("D2") + " " + (horaInicio.Hours >= 12 ? "PM" : "AM");
+                TimeSpan horaFim = @compromisso.HoraFim;
+                string horaFormatadaFim = (horaFim.Hours % 12).ToString("D2") + ":" + horaFim.Minutes.ToString("D2") + " " + (horaFim.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagogia"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista" || compromisso.Servico == "Nutrição"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Assistente Social"){
+                    colors = new List<string> (orange);
+                }
+
+                var evento = new EventItem { Day = compromisso.Data, TimeInicio = horaFormatadaInicio, TimeFim = horaFormatadaFim, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+
+        }
+    }
+
+    private EventItem GetEventForDayAndTime(DateTime day, string time) => Events.FirstOrDefault(e => e.Day.Date == day.Date && e.TimeInicio == time);
+
+    private class EventItem
+    {
+        public DateTime Day { get; set; }
+        public string TimeInicio { get; set; }
+        public string TimeFim { get; set; }
+        public string Title { get; set; }
+        public string Person { get; set; }
+        public List<string> Colors { get; set; }
+    }
+}
+
+<style>
+    .time-slots {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem;
+        margin-top: 0.65rem;
+    }
+
+    .time-slot {
+        height: 4rem;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--black-gray);
+        box-sizing: border-box;
+    }
+
+    .calendar {
+        border-collapse: collapse;
+        margin: 0;
+    }
+
+    th, td {
+        width: 40.188rem;
+        height: 4rem;
+        border: 2px solid var(--black-gray);
+        padding: 0;
+        box-sizing: border-box;
+        vertical-align: top;
+    }
+
+    .calendar tr:first-child th {
+        border-top: none;
+    }
+
+    .calendar tr:last-child td {
+        border-bottom: none;
+    }
+
+    .calendar th:first-child, .calendar td:first-child {
+        border-left: none;
+    }
+
+    .calendar th:last-child, .calendar td:last-child {
+        border-right: none;
+    }
+
+    .day-of-week {
+        font-weight: 500;
+        font-size: 0.75rem;
+        color: var(--black-gray);
+    }
+
+    .day-number {
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+</style>

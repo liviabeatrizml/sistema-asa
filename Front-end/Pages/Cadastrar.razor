@@ -1,0 +1,309 @@
+@page "/cadastrar"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager Navigation
+@inject DiscenteService DiscenteService
+@using System.Text.RegularExpressions
+@inject IJSRuntime JS
+
+<PageTitle>Cadastrar</PageTitle>
+
+<div id="opacidade"></div>
+
+<Header />
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; margin-bottom: 9.375rem;">
+    <div class="container-form bg-white border-radius-20">
+
+            <h1 class="display-5 weight-700">Cadastre-se</h1>
+        
+
+        @if(!FirstAcceptAndRegister){
+            <p class="paragraph-size weight-500">Crie sua conta para acessar os serviços especializados da Ufersa de maneira prática e segura.</p>
+        
+            <EditForm Model="@user" OnValidSubmit="@AcceptAndRegisterValidSubmit">
+            <DataAnnotationsValidator />
+        
+                <ValidationMessage For="@(() => user.Email)" />
+                <div class="mb-3 ">
+                    <InputText id="email" class="custom-input form-control border-radius-10" @bind-Value="user.Email" placeholder="Email"/>
+                </div>
+
+                <ValidationMessage For="@(() => user.Password)" />
+                <div class="password-container mb-3">
+                    <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="user.Password" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
+                    <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                        <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "..\\css\\images\\eye-on.svg" : "..\\css\\images\\eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                    </span>
+                </div>
+
+                <div style="color: var(--cinza-escuro);" class="paragraph-size py-1">
+                    <div class="py-1">
+                        <img src="@(HasMinimumLength() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasMinimumLength() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                        <span class="@(!HasMinimumLength() ? "text-gray" : "text-green")">Mínimo 8 caracteres</span>
+                    </div>
+                    <div class="py-1">
+                        <img src="@(HasNumber() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasNumber() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                        <span class="@(!HasNumber() ? "text-gray" : "text-green")">Número</span>
+                    </div>
+                    <div class="py-1">
+                        <img src="@(HasSpecialCharacter() ? "..\\css\\images\\check-verde.svg" : "..\\css\\images\\check-cinza.svg")" alt="@(HasSpecialCharacter() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                        <span class="@(!HasSpecialCharacter() ? "text-gray" : "text-green")">Caractere especial</span>
+                    </div>
+                </div>
+
+                <p class="paragraph-size weight-500 py-4" style="text-align: center;">Ao clicar em Aceite e cadastre-se, você aceita os <b style="text-decoration: underline; cursor: pointer;" @onclick="@(() => ToggleDisplayById("termos"))">Termos de Uso</b> e as <b style="text-decoration: underline; cursor: pointer;" @onclick="@(() => ToggleDisplayById("politicas"))">Políticas de Privacidade</b></p>
+        
+                <div class="d-grid gap-2 py-2">
+                    <button type="submit" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Aceite e cadastre-se</button>
+                </div>
+        
+            </EditForm>
+        } else{
+            <p class="paragraph-size weight-500">Preencha seus dados para criar sua conta e acessar o sistema de agendamento de serviços acadêmicos.</p>
+            <EditForm Model="@infosUser" OnValidSubmit="@RegistrarDiscente">
+            <DataAnnotationsValidator />
+        
+                <ValidationMessage For="@(() => infosUser.Nome)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">Nome <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="nome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Nome"/>
+                </div>
+                <ValidationMessage For="@(() => infosUser.Sobrenome)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">Sobrenome <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="sobrenome" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Sobrenome"/>
+                </div>
+                <ValidationMessage For="@(() => infosUser.Matricula)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">Matrícula <span style="color: var(--black-gray);">*</span></span>
+                    <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Matricula" maxlength="10"/>
+                </div>
+                <ValidationMessage For="@(() => infosUser.Telefone)" />
+                <div class="mb-3">
+                    <span class="paragraph-size px-2">Telefone</span>
+                    <InputText id="telefone" class="custom-input form-control border-radius-10 my-1" @bind-Value="infosUser.Telefone" oninput="formatTelefone(this)" onkeydown="handleKeyDown(event, this)" maxlength="20" placeholder="+xx (xx) xxxxx-xxxx" />
+                </div>
+        
+                <div class="d-grid gap-2 py-2">
+                    <button type="submit" class="btn btn-primary weight-700 px24 border-radius-30" style="height: 4rem;">Continuar</button>
+                </div>
+        
+            </EditForm>
+        }
+    
+        <div id="politicas" class="termos-politicas-container">
+            <header class="termos-politicas-header">
+                <div>
+                    <h1 class="termos-politicas-h1">
+                        Política de Privacidade
+                    </h1>
+                    <h2 class="termos-politicas-h2">
+                        Agendamento de Serviços Acadêmicos - ASA
+                    </h2>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;" @onclick="@(() => ToggleDisplayById("politicas"))">
+                <path d="M18 6L6 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </header>
+
+            <section class="termos-politicas-sec">
+                <div>
+                    Bem-vindo ao Sistema de Agendamento de Serviços Acadêmicos (ASA). Estes Termos de Uso regem o acesso e uso do nosso sistema. Ao utilizar este serviço, você concorda com os termos descritos abaixo.
+                </div>
+                <ol style="padding: 0px 0px 0px 20px; margin: 0;">
+                    <li>
+                        Aceitação dos Termos <br>
+                        Ao acessar ou usar o ASA, você concorda com estes Termos de Uso. Se você não concordar com qualquer parte destes termos, não poderá utilizar os serviços oferecidos pelo sistema.
+                    </li>
+
+                    <li>
+                        Objetivo do Sistema <br>
+                        O ASA foi desenvolvido para facilitar o agendamento de serviços acadêmicos na UFERSA, como atendimento psicológico, nutricional e outros serviços de assistência estudantil. O objetivo é centralizar e automatizar o processo de agendamento de forma segura e eficiente.
+                    </li>
+                    
+                    <li>
+                        Elegibilidade <br>
+                        Este sistema é destinado a estudantes, profissionais e funcionários da UFERSA. Para utilizar o sistema, você deve fornecer informações válidas durante o cadastro.
+                    </li>
+
+                    <li>
+                        Cadastro <br>
+                        Ao se cadastrar no ASA, você concorda em fornecer informações precisas e atualizadas. O uso de informações falsas pode resultar na suspensão ou cancelamento do acesso ao sistema.
+                    </li>
+
+                    <li>
+                        Responsabilidades do Usuário <br>
+                        Você é responsável por manter a confidencialidade da sua senha e por todas as atividades que ocorrerem em sua conta. Se você perceber qualquer uso não autorizado da sua conta, entre em contato com o suporte imediatamente.
+                    </li>
+
+                    <li>
+                        Cancelamento de Agendamento <br>
+                        O cancelamento de um agendamento só será permitido até 1 hora antes do horário marcado, conforme nossas regras de negócio. Após esse período, o cancelamento não poderá ser realizado via sistema.
+                    </li>
+
+                    <li>
+                        Suspensão e Encerramento de Conta <br>
+                        Nós nos reservamos o direito de suspender ou encerrar o acesso ao ASA em casos de violação destes Termos de Uso ou por uso inadequado do sistema.
+                    </li>
+
+                    <li>
+                        Alterações nos Termos <br>
+                        Os Termos de Uso podem ser modificados a qualquer momento. Você será informado de qualquer alteração significativa, e seu uso contínuo do sistema após essas mudanças implicará em aceitação dos novos termos.
+                    </li>
+
+                    <li>
+                        Suporte e Contato <br>
+                        Se você tiver alguma dúvida sobre os Termos de Uso ou sobre o funcionamento do sistema, entre em contato com a equipe de suporte da UFERSA.
+                    </li>
+                </ol>
+            </section>
+        </div>
+
+        <div id="termos" class="termos-politicas-container">
+            <header class="termos-politicas-header">
+                <div>
+                    <h1 class="termos-politicas-h1">
+                        Termos de Uso
+                    </h1>
+                    <h2 class="termos-politicas-h2">
+                        Agendamento de Serviços Acadêmicos - ASA
+                    </h2>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;" @onclick="@(() => ToggleDisplayById("termos"))">
+                <path d="M18 6L6 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </header>
+
+            <section class="termos-politicas-sec">
+                <div>
+                    Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações ao utilizar o Sistema de Agendamento de Serviços Acadêmicos (ASA).
+                </div>
+                <ol style="padding: 0px 0px 0px 20px; margin: 0;">
+                    <li>
+                        Coleta de Informações <br>
+                        Coletamos informações pessoais que você fornece durante o processo de cadastro, como nome, e-mail, matrícula e telefone. Esses dados são essenciais para o funcionamento do sistema.
+                    </li>
+
+                    <li>
+                        Uso das Informações <br>
+                        As informações coletadas são utilizadas para:
+
+                        <ul style="list-style-type:disc;">
+                            <li>Gerenciar seu acesso ao ASA;</li>
+                            <li>Facilitar o agendamento de serviços;</li>
+                            <li>Comunicar-se com você sobre atualizações no sistema;</li>
+                            <li>Melhorar nossos serviços com base em análises agregadas e feedback.</li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        Compartilhamento de Informações <br>
+                        Seus dados não serão compartilhados com terceiros sem o seu consentimento, exceto quando exigido por lei ou para a prestação de serviços diretamente relacionados ao ASA (como profissionais de atendimento).
+                    </li>
+
+                    <li>
+                        Retenção de Dados <br>
+                        Manteremos suas informações enquanto sua conta estiver ativa ou conforme necessário para fornecer os serviços. 
+                    </li>
+                </ol>
+            </section>
+        </div>
+    
+    </div>
+</div>
+
+<Footer />
+
+@code{
+    public class User
+    {
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@alunos\.ufersa\.edu\.br$", ErrorMessage = "O Email deve ser do domínio @alunos.ufersa.edu.br")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Password { get; set; }
+    }
+    public class InfosUser
+    {
+
+        [Required(ErrorMessage = "O campo Nome é obrigatório.")]
+        public string Nome { get; set; }
+
+        [Required(ErrorMessage = "O campo Sobrenome é obrigatório.")]
+        public string Sobrenome { get; set; }
+
+        [Required(ErrorMessage = "O campo Matrícula é obrigatório.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "A Matrícula deve ter exatamente 10 dígitos.")]
+        public string Matricula { get; set; }
+
+        [RegularExpression(@"^\+\d{2} \(\d{2}\) \d{5}-\d{4}$", ErrorMessage = "O número de telefone deve estar no formato +xx (xx) xxxxx-xxxx.")]
+        public string Telefone { get; set; } = "";
+    }
+
+    private User user = new User();
+    private InfosUser infosUser = new InfosUser();
+
+    private bool isPasswordVisible = false;
+
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+
+    private bool FirstAcceptAndRegister = false;
+    private bool HasMinimumLength() => user.Password?.Length >= 8;
+    private bool HasNumber() => user.Password?.Any(char.IsDigit) ?? false;
+    private bool HasSpecialCharacter() => user.Password?.Any(ch => !char.IsLetterOrDigit(ch)) ?? false;
+
+    private async Task AcceptAndRegisterValidSubmit()
+    {
+        if(HasMinimumLength() && HasNumber() && HasSpecialCharacter()){
+
+            FirstAcceptAndRegister = true;
+        } else{
+            FirstAcceptAndRegister = false;
+        }
+    }
+
+    private async Task ToggleDisplayById(string id)
+    {
+        await JS.InvokeVoidAsync("toggleDisplayById", id);
+        await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
+    }
+
+    private bool submitted = false;
+
+    private async Task RegistrarDiscente()
+    {
+        submitted = true;
+
+        var modelDiscente = new DiscenteRegistroModel
+        {
+            Nome = infosUser.Nome + " " + infosUser.Sobrenome,
+            Email = user.Email,
+            Senha = user.Password,
+            Matricula = int.TryParse(infosUser.Matricula, out var matricula) ? matricula : 0,
+            Telefone = infosUser.Telefone,
+            Curso = ""
+        };
+
+        var result = await DiscenteService.RegistrarDiscente(modelDiscente);
+
+        if (result.IsSuccessStatusCode)
+            {
+                FirstAcceptAndRegister = true;
+                Navigation.NavigateTo("/entrar");
+            }
+            else
+            {
+                FirstAcceptAndRegister = false;
+                var errorMessage = await result.Content.ReadAsStringAsync();
+
+                // Exibir a mensagem de erro no console
+                Console.WriteLine($"Erro ao registrar: {errorMessage}");
+            }
+    }
+}

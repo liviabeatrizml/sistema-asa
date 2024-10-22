@@ -1,0 +1,260 @@
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div style="scrollbar-width: none; user-select: none; overflow-y: auto; height: 52.813rem;">
+    <div style="display: flex;">
+        <!-- Tabela de horários -->
+        <div class="time-slots">
+            @foreach (var time in TimeSlots)
+            {
+                <div class="time-slot">@time</div>
+            }
+        </div>
+    
+        <!-- Tabela do calendário -->
+        <table class="calendar">
+            <thead>
+                <tr>
+                    @foreach (var day in WeekDays)
+                    {
+                        bool isToday = day.Date == DiaSelecionado;
+                        <th style="@(isToday ? "background-color: #ABC8E24D;" : "")">
+                            <div class="day-of-week">@day.ToString("ddd").ToUpper().TrimEnd('.')</div>
+                            <div class="day-number">@day.Day</div>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var time in TimeSlots)
+                {
+                    <tr>
+                        @foreach (var day in WeekDays)
+                        {
+                            var eventItem = GetEventForDayAndTime(day, time);
+                            bool isToday = day.Date == DiaSelecionado;
+    
+                            if (eventItem != null)
+                            {
+                                <td title="@eventItem.Title">
+                                    <div class="event" style="background-color:@(eventItem.Colors.Count > 0 ? eventItem.Colors[0] : "defaultColor"); color:@(eventItem.Colors.Count > 1 ? eventItem.Colors[1] : "defaultTextColor"); border-color:@(eventItem.Colors.Count > 2 ? eventItem.Colors[2] : "defaultBorderColor");">
+                                        <div class="event-title">@eventItem.Title</div>
+                                        <div class="event-person">@eventItem.Person</div>
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="empty-slot" style="@(isToday ? "background-color: #ABC8E24D;" : "")"></td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
+    private List<DateTime> WeekDays { get; set; } = new List<DateTime>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+        gray = new List<string> { "#A9A9A980", "#6E6E6E", "#A9A9A9" };
+
+        WeekDays = Enumerable.Range(0, 7)
+        .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
+        .ToList();
+
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan hora = @compromisso.HoraInicio;
+                string horaFormatada = (hora.Hours % 12).ToString("D2") + ":" + hora.Minutes.ToString("D2") + " " + (hora.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagogia"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista" || compromisso.Servico == "Nutrição"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Assistente Social"){
+                    colors = new List<string> (orange);
+                } else{
+                    colors = new List<string> (gray);
+                }
+
+                var evento = new EventItem { Day = compromisso.Data, Time = horaFormatada, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+
+        }
+    }
+
+    private List<string> TimeSlots = new() { "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM" };
+
+    private List<string> pink, green, orange, blue, gray;
+    private List<CompromissoModel> compromissos;
+    private List<EventItem> Events = new List<EventItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        pink = new List<string> { "#F884D780", "#A85891", "#F884D7" };
+        green = new List<string> { "#D6F89480", "#9EB570", "#D6F894" };
+        orange = new List<string> { "#F6C4AF80", "#A58273", "#F6C4AF" };
+        blue = new List<string> { "#95BBF880", "#5E77A0", "#95BBF8" };
+        gray = new List<string> { "#A9A9A980", "#6E6E6E", "#A9A9A9" };
+
+        WeekDays = Enumerable.Range(0, 7)
+        .Select(i => DiaSelecionado.AddDays(i - (int)DiaSelecionado.DayOfWeek))
+        .ToList();
+
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        if(userId != -1){
+            compromissos = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
+        }
+
+        if (compromissos != null && compromissos.Count > 0){
+            foreach(var compromisso in compromissos){
+                TimeSpan hora = @compromisso.HoraInicio;
+                string horaFormatada = (hora.Hours % 12).ToString("D2") + ":" + hora.Minutes.ToString("D2") + " " + (hora.Hours >= 12 ? "PM" : "AM");
+                List<string> colors = new List<string>();
+
+                if(compromisso.Servico == "Psicóloga" || compromisso.Servico == "Psicólogo" || compromisso.Servico == "Psicóloga(o)" || compromisso.Servico == "Psicólogo(a)" || compromisso.Servico == "Psicologia"){
+                    colors = new List<string> (pink);
+                } else if(compromisso.Servico == "Pedagoga" || compromisso.Servico == "Pedagogo" || compromisso.Servico == "Pedagoga(o)" || compromisso.Servico == "Pedagogo(a)" || compromisso.Servico == "Pedagogia"){
+                    colors = new List<string> (blue);
+                } else if(compromisso.Servico == "Nutricionista" || compromisso.Servico == "Nutrição"){
+                    colors = new List<string> (green);
+                } else if(compromisso.Servico == "Assistente Social"){
+                    colors = new List<string> (orange);
+                } else{
+                    colors = new List<string> (gray);
+                }
+
+                var evento = new EventItem { Day = compromisso.Data, Time = horaFormatada, Title = compromisso.Servico, Person = compromisso.Profissional_Nome, Colors = colors };
+                Events.Add(evento);
+            }
+
+        }
+    }
+
+
+    private EventItem GetEventForDayAndTime(DateTime day, string time) => Events.FirstOrDefault(e => e.Day.Date == day.Date && e.Time == time);
+
+    private class EventItem
+    {
+        public DateTime Day { get; set; }
+        public string Time { get; set; }
+        public string Title { get; set; }
+        public string Person { get; set; }
+        public List<string> Colors { get; set; }
+    }
+}
+
+<style>
+    /* Flex container para horários e calendário */
+    .time-slots {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem; /* Espaço entre os horários e a tabela */
+        margin-top: 0.65rem;
+    }
+
+    .time-slot {
+        height: 4rem;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--black-gray);
+        box-sizing: border-box; /* Inclui padding e borda nas dimensões */
+    }
+
+    .calendar {
+        border-collapse: collapse;
+        margin: 0; /* Remove margens se houver */
+    }
+
+    th, td {
+        width: 5.688rem;
+        height: 4rem;
+        border: 2px solid var(--black-gray); /* Bordas uniformes */
+        padding: 0;
+        box-sizing: border-box; /* Inclui padding e borda nas dimensões */
+        vertical-align: top; /* Mantém o alinhamento das células no topo */
+    }
+
+    .calendar tr:first-child th {
+        border-top: none;
+    }
+
+    .calendar tr:last-child td {
+        display: none;
+    }
+
+    .calendar th:first-child, .calendar td:first-child {
+        border-left: none;
+    }
+
+    .calendar th:last-child, .calendar td:last-child {
+        border-right: none;
+    }
+
+    /* Cor da coluna de Domingo (primeira coluna) */
+    .calendar th:first-child, 
+    .calendar td:first-child,
+    .calendar th:last-child, 
+    .calendar td:last-child {
+        background-color: #D9D9D940; /* Altere para a cor desejada */
+    }
+
+    /* Estilo do conteúdo */
+    .day-of-week {
+        font-weight: 500;
+        font-size: 0.75rem;
+        color: var(--black-gray);
+    }
+
+    .day-number {
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .event {
+        border-radius: 4px;
+        border-left: 4px solid;
+        width: 100%;
+        height: 100%;
+        padding: 0px 10px;
+    }
+
+    .event-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .event-person {
+        font-size: 0.5em;
+        font-weight: 500;
+    }
+
+</style>

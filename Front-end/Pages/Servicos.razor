@@ -1,0 +1,131 @@
+@page "/servicos"
+@attribute [Authorize]
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@inject ServicoService ServicoService
+
+<div id="opacidade"></div>
+
+<PageTitle>Serviços</PageTitle>
+
+<div class="page" style="background-color: var(--blue-ufersa); height: auto;">
+    <NavMenu />
+
+    <div style="padding-top: 29px; border-radius: 15px 0px 0px 15px; width: 100%; background-color: white;">
+        <Header />
+        
+        <main class="page" style="padding-left: 4rem; padding-right: 3rem; padding-top: 20px; display: flex; flex-wrap: wrap;">
+
+            <div style="display: flex; align-items: start; width: 90%;">
+                <img class="servico-img" src="..\css\images\img-perfil-padrao.svg">
+
+                <div style="padding-top: 10px;">
+                    @if(servicos != null){
+                        <h1 class="weight-700" style="font-size: 3rem; color: var(--blue-ufersa);">@servico_escolhido.Nome_Profissional</h1>
+                        <h2 class="weight-500" style="font-size: 1.375rem; padding-bottom: 20px; color: var(--black-gray);">@servico_escolhido.Tipo_Servico - CRP 17/0000</h2>
+                        
+                        <div style="height: 26rem; overflow: auto; scrollbar-width: none;">
+                            <p class="paragraph-size weight-500" style="color: var(--black-gray); text-align: justify;">
+                                @((MarkupString)servico_escolhido.Descricao.Replace("\n", "<br>"))
+                            </p>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <div id="parent-container" style="width: 90%; justify-content: center; padding-top: 10px;" @ref="parentDivRef">
+                <div style="display: flex; align-items: center; padding-bottom: 15px;">
+                    <h1 class="weight-700" style="padding: 0px 20px; font-size: 1.5rem;">Serviços</h1>
+                    <div class="horizontal-bar" style="background-color: var(--blue-ufersa);"></div>
+                </div>
+
+                <div id="scroll-container" style="@($"width: {scrollContainerWidth}px; overflow-x: auto; display: flex; scrollbar-width: none; user-select: none; margin: 0 auto;")">
+                    @if(servicos != null){
+                        @for(int i = 0; i < servicos.Count; i++){
+                            var index = i;
+
+                            <div class="service" style="@(i != 0 ? "margin-left: 30px;" : "margin-left: 0px;")" @onclick="() => ativarServico(servicos[index], index)">
+                                <img class="@(i == id_servico_escolhido ? "background-service-active" : "background-service") no-select" style="width: 11.75rem; height: 11.75rem;" src="..\css\images\img-servico@(i%4).svg">
+                                <div class="service-people no-select">
+                                    <div style="padding-left: 10px;">
+                                        <h3 class="weight-700" style="font-size: 0.875rem; color: var(--blue-ufersa); margin: 0px; padding-bottom: 5px; text-align: left;">@servicos[i].Nome_Profissional</h3>
+                                        <p class="weight-500" style="font-size: 0.5rem; color: var(--blue-ufersa); margin: 0px;">@servicos[i].Tipo_Servico</p>
+                                    </div>
+                                    <img class="servicos-img" src="..\css\images\img-perfil-padrao.svg">
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</div>
+
+@code {
+    private List<ServicoProfissionalModel> servicos;
+    private ServicoProfissionalModel servico_escolhido;
+    private int id_servico_escolhido = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        servicos = await ServicoService.ListServicos();
+        servico_escolhido = servicos[0];
+    }
+
+    public void ativarServico(ServicoProfissionalModel servico, int id_servico){
+        servico_escolhido = servico;
+        id_servico_escolhido = id_servico;
+    }
+
+    // Variável para armazenar a largura do scroll-container
+    private double scrollContainerWidth;
+
+    // Referência ao elemento pai (parent-container)
+    private ElementReference parentDivRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Habilita a rolagem com o drag
+            await JS.InvokeVoidAsync("enableDragScroll", "scroll-container");
+
+            // Inicia o ResizeObserver e passa a referência ao método Blazor para ser invocado
+            await JS.InvokeVoidAsync("resizeHelper.init", DotNetObjectReference.Create(this), "parent-container");
+
+            // Obtém a largura inicial
+            scrollContainerWidth = await JS.InvokeAsync<double>("domHelper.getElementWidth", parentDivRef);
+            StateHasChanged(); // Atualiza a interface com o novo valor
+        }
+    }
+
+    [JSInvokable]
+    public async Task UpdateScrollContainerWidth()
+    {
+        // Atualiza a largura do scroll-container com a largura atual do elemento pai
+        var newWidth = await JS.InvokeAsync<double>("domHelper.getElementWidth", parentDivRef);
+        
+        // Verifica se a nova largura é válida antes de atualizar
+        if (newWidth > 0 && newWidth != scrollContainerWidth)
+        {
+            scrollContainerWidth = newWidth;
+            StateHasChanged(); // Atualiza a interface com o novo valor
+        }
+    }
+
+    public void Dispose()
+    {
+        // Desconecta o ResizeObserver quando o componente for destruído
+        JS.InvokeVoidAsync("resizeHelper.disconnect");
+    }
+
+        private string ConvertNewLinesToHtml(string input)
+        {
+            return input?.Replace("\n", "<br />") ?? string.Empty;
+        }
+}

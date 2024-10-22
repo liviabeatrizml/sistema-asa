@@ -1,0 +1,445 @@
+@inject NavigationManager Navigation
+@inject AgendamentoService AgendamentoService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="calendario @HeightClass" style="user-select: none;">
+    <div class="calendario-height">
+        <div class="header">
+            <span class="weight-600" style="font-size: 1.25rem; color: var(--white);">@(char.ToUpper(DiaSelecionado.ToString("MMM", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "")[0]) + DiaSelecionado.ToString("MMM yyyy", new System.Globalization.CultureInfo("pt-BR")).Replace(".", "").Substring(1))</span>
+            <div>
+                <svg @onclick="() => MudarMes(-1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg @onclick="() => MudarMes(1)" style="cursor: pointer;" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="horizontal-bar"></div>
+        <div class="nomes-dias">
+            @foreach (var nome in NomesDiasSemana)
+            {
+                <div class="nome-dia weight-600">@nome</div>
+            }
+        </div>
+        @foreach (var semana in Semanas)
+        {
+            <div class="semana">
+                @foreach (var dia in semana)
+                {
+                    var classeDia = (dia.DayOfWeek == DayOfWeek.Saturday || dia.DayOfWeek == DayOfWeek.Sunday)
+                        ? (dia.Month == DiaSelecionado.Month ? "dia sab-dom" : "dia outro-mes sab-dom")
+                        : (dia.Month == DiaSelecionado.Month ? "dia mes-atual" : "dia outro-mes");
+
+                    @if(Navigation.ToBaseRelativePath(Navigation.Uri) == "reserva"){
+                        if (dia.Date == data_clicada.Date)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+
+                    } else if(Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio"){
+                        if (dia.Date == DateTime.Today)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+                        
+                    }else{
+                        if (dia.Date == DateTime.Today)
+                        {
+                            classeDia += " dia-hoje"; // Adiciona a classe "dia-hoje"
+                        }
+
+                        if (dia.Date == data_clicada.Date)
+                        {
+                            classeDia += " dia-selecionado"; // Adiciona a classe "dia-hoje"
+                        }
+                    }
+
+                    @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio"){
+                        foreach(var compromisso in compromissos){
+                            if(dia.Date == compromisso.Data){
+                                classeDia += " dia-compromisso";
+                            }
+                        }
+                        
+                    }
+        
+                    <div class="@classeDia weight-600" style="@Cursor()" @onclick="() => MudarDataSelecionada(dia.Date)">
+                        @dia.Day
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="horizontal-bar final-calendario"></div>
+    @if (Navigation.ToBaseRelativePath(Navigation.Uri) == "inicio")
+    {
+        <div class="agendar-relatar">
+            @if(legenda){
+                <div class="legenda-calendario">
+                    <div style="display: flex; align-items: center; padding-left: 15px;">
+                        <div class="legenda-cor" style="background-color: #ABC8E2;"></div>
+                        <span>Hoje</span>
+                    </div>
+                    <div style="display: flex; align-items: center; padding-right: 15px;">
+                        <div class="legenda-cor" style="background-color: #D9D9D9;"></div>
+                        <span>Agendamento</span>
+                    </div>
+                </div>
+                
+            } else{
+                <a href="/agenda" style="cursor: pointer;">
+                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 2V6" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 10H21" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 14H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 14H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 14H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 18H8.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 18H12.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 18H16.01" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>                
+            }
+                <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" @onclick="mostrarLegenda" style="cursor: pointer; margin-left: 10px;">
+                    <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 16V12" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8H11.99" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+        </div>
+    } else if(Navigation.ToBaseRelativePath(Navigation.Uri) == "agenda")
+    {
+        @if(compromissosSemanais != null){
+            @for (int i = 0; i < Math.Min(compromissosSemanais.Count, 4); i++)
+            {
+                var cor= "";
+                @if(compromissosSemanais[i].Servico == "Psicóloga" || compromissosSemanais[i].Servico == "Psicólogo" || compromissosSemanais[i].Servico == "Psicóloga(o)" || compromissosSemanais[i].Servico == "Psicólogo(a)" || compromissosSemanais[i].Servico == "Psicologia"){
+                    cor = "#F884D7";
+                } else if(compromissosSemanais[i].Servico == "Pedagoga" || compromissosSemanais[i].Servico == "Pedagogo" || compromissosSemanais[i].Servico == "Pedagoga(o)" || compromissosSemanais[i].Servico == "Pedagogo(a)" || compromissosSemanais[i].Servico == "Pedagogia"){
+                    cor = "#95BBF8";
+                } else if(compromissosSemanais[i].Servico == "Nutricionista" || compromissosSemanais[i].Servico == "Nutrição"){
+                    cor = "#D6F894";
+                } else if(compromissosSemanais[i].Servico == "Assistente Social"){
+                    cor = "#F6C4AF";
+                }
+                <div>
+                    @if(compromissosSemanais[i].Data.Date >= DiaSelecionado && compromissosSemanais[i].Data.Date <= DiaFimDaSemana){
+                        @if (DataCompromisso.Date != compromissosSemanais[i].Data.Date)
+                        {
+                            DataCompromisso = compromissosSemanais[i].Data;
+                            <h1 class="weight-700" style="color: var(--white); font-size: 1rem; margin: 0; padding-top: 10px;">@ObterTituloData(DataCompromisso)</h1>
+                            <span class="weight-500" style="font-size: 0.75rem; color: var(--black-gray);">@DataCompromisso.ToString("dd/MM/yyyy")</span>
+                        }
+                        <div style="padding: 15px;">
+                            <span style="display: flex; align-items: center; font-size: 0.688rem; color: var(--white);">
+                                <div style="width: 0.75rem; height: 0.75rem; background-color: @cor; border-radius: 50%; padding-top: 10px; margin-right: 10px;"></div>
+                                @(($"{(@compromissosSemanais[i].HoraInicio.Hours % 12):D2}:{@compromissosSemanais[i].HoraInicio.Minutes:D2} {( @compromissosSemanais[i].HoraInicio.Hours >= 12 ? "PM" : "AM") }")) - @(($"{(@compromissosSemanais[i].HoraFim.Hours % 12):D2}:{@compromissosSemanais[i].HoraFim.Minutes:D2} {( @compromissosSemanais[i].HoraFim.Hours >= 12 ? "PM" : "AM") }"))
+                            </span>
+                            <span style="font-size: 0.75rem; padding-left: 0.75rem; margin-left: 10px; color: var(--black-gray);">@compromissosSemanais[i].Servico - @compromissosSemanais[i].Profissional_Nome</span>
+                        </div>
+                        
+                    }
+                </div>
+            }
+
+        }
+    }
+
+    
+</div>
+
+@code {
+    [Parameter]
+    public DateTime DiaSelecionado { get; set; }
+    [Parameter]
+    public bool MostrarDatasSugeridas { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime> OnDiaSelecionadoChange { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnMostrarDatasSugeridasChange { get; set; }
+    private DateTime DataCompromisso { get; set; }
+    private DateTime DiaInicioDaSemana { get; set; }
+    private DateTime DiaFimDaSemana { get; set; }
+
+    private List<List<DateTime>> Semanas { get; set; } = new();
+    private List<string> NomesDiasSemana { get; set; } = new() { "D", "S", "T", "Q", "Q", "S", "S" };
+    private string HeightClass { get; set; } = "";
+
+    private List<CompromissoModel> compromissos;
+    private List<CompromissoModel> compromissosSemanais;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+        
+        // Obtém o userId
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+
+        // Atualiza os dias da semana
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        
+        if (relativePath == "inicio" || relativePath == "reserva")
+        {
+            HeightClass = "";
+        }else{
+            HeightClass = "calendario-services-height";
+
+        }
+
+        if (relativePath == "inicio")
+        {
+            if (userId != -1)
+            {
+                compromissos = await AgendamentoService.GetCompromissosDiscente(userId, DiaSelecionado);
+            }
+        }
+        else
+        {
+            if (userId != -1)
+            {
+                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
+                compromissosSemanais = compromissosSemanais
+                    .Where(compromisso => compromisso.Data.Date >= DiaSelecionado)
+                    .ToList();
+            }
+
+            if (compromissosSemanais != null && compromissosSemanais.Count > 0)
+            {
+                DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
+            }
+
+        }
+
+        GerarCalendario(DiaSelecionado);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        int userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+        DiaInicioDaSemana = DiaSelecionado.Date.AddDays(-(int)DiaSelecionado.DayOfWeek);
+        DiaFimDaSemana = DiaInicioDaSemana.AddDays(6);
+
+        
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        if (relativePath == "reserva" || relativePath == "agenda")
+        {
+            data_clicada = DateTime.MinValue;
+        }
+
+        if (relativePath == "inicio")
+        {
+            if(userId != -1){
+                compromissos = await AgendamentoService.GetCompromissosDiscente(userId, DiaSelecionado);
+            }
+            HeightClass = "";
+        } else{
+            if(userId != -1){
+                compromissosSemanais = await AgendamentoService.GetCompromissosDiscenteSemanaAtual(userId, DiaSelecionado);
+                compromissosSemanais = compromissosSemanais
+                .Where(compromisso => compromisso.Data.Date >= DiaSelecionado)
+                .ToList();
+            }
+            if(compromissosSemanais != null && compromissosSemanais.Count > 0){
+                DataCompromisso = compromissosSemanais[0].Data.AddDays(-1);
+
+            }
+            HeightClass = "calendario-services-height";
+        }
+        GerarCalendario(DiaSelecionado);
+    }
+
+    private async Task AtualizarCompromissos(){
+
+    }
+
+    private void GerarCalendario(DateTime date)
+    {
+        Semanas.Clear();
+        var primeiroDiaDoMes = new DateTime(date.Year, date.Month, 1);
+        var diasNoMes = DateTime.DaysInMonth(date.Year, date.Month);
+        var primeiroDiaDaSemana = (int)primeiroDiaDoMes.DayOfWeek;
+
+        var diaAtual = primeiroDiaDoMes.AddDays(-primeiroDiaDaSemana);
+        int totalDias = diasNoMes + primeiroDiaDaSemana;
+        int numeroDeSemanas = (int)Math.Ceiling(totalDias / 7.0);
+        for (int i = 0; i < numeroDeSemanas; i++)
+        {
+            var semana = new List<DateTime>();
+            for (int j = 0; j < 7; j++)
+            {
+                semana.Add(diaAtual);
+                diaAtual = diaAtual.AddDays(1);
+            }
+            Semanas.Add(semana);
+        }
+    }
+
+    private string ObterTituloData(DateTime data)
+    {
+        DateTime hoje = DiaSelecionado;
+        DateTime amanha = hoje.AddDays(1);
+
+        if (data.Date == hoje)
+            return "HOJE";
+        else if (data.Date == amanha)
+            return "AMANHÃ";
+        else
+            return data.ToString("dddd").ToUpper(); // Converte o dia da semana para maiúsculas
+
+    }
+
+    private void MudarMes(int meses)
+    {
+        DiaSelecionado = DiaSelecionado.AddMonths(meses);
+        GerarCalendario(DiaSelecionado);
+    }
+
+    private bool legenda = false;
+    private void mostrarLegenda()
+    {
+        legenda = !legenda;
+    }
+
+    private DateTime data_clicada = DateTime.Today;
+
+    private async Task MudarDataSelecionada(DateTime data){
+        data_clicada = data;
+        await OnDiaSelecionadoChange.InvokeAsync(data_clicada);
+        await OnMostrarDatasSugeridasChange.InvokeAsync(false);
+    }
+
+    private string Cursor()
+    {
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        
+        // Aplica o estilo somente se não estiver na página 'inicio'
+        if (relativePath != "inicio")
+        {
+            return "cursor: pointer;";
+        }
+        
+        // Se estiver na página 'inicio', retorna um estilo vazio ou diferente
+        return string.Empty;
+    }
+}
+
+<style>
+    .calendario {
+        width: 19.063rem;
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        background: linear-gradient(334.3deg, #243E64 36.47%, #3B67A7 98.35%);
+        box-shadow: 0px 4px 4px 0px #00000040;
+    }
+
+    .calendario-height{
+        height: 25.5rem;
+    }
+
+    .calendario-services-height{
+        min-height: 56.563rem;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .nomes-dias, .semana {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .nome-dia, .dia {
+        text-align: center;
+        padding: 2px;
+        margin: 4px;
+        color: var(--black-gray);
+        font-size: 1.25rem;
+    }
+
+    .dia-hoje {
+        background-color: var(--light-blue) !important;
+        border-radius: 50%;
+        color: var(--blue-ufersa) !important;
+    }
+
+    .dia-selecionado {
+        background-color: var(--green-ufersa);
+        border-radius: 50%;
+        color: #FAF9F6 !important;
+    }
+
+    .dia-compromisso {
+        background-color: #D9D9D9;
+        border-radius: 50%;
+        color: var(--blue-ufersa) !important;
+    }
+
+    .mes-atual {
+        color: var(--white);
+    }
+
+    .outro-mes {
+        color: transparent !important;
+        background-color: transparent !important;
+    }
+
+    .sab-dom {
+        color: var(--black-gray); 
+    }
+
+    .agendar-relatar{
+        width: 86%;
+        position: absolute;
+        bottom: 20px;
+        text-align: right;
+        align-content: end;
+        justify-content: flex-end;
+        display: flex;
+    }
+
+    .final-calendario{
+        width: 86%;
+        position: absolute;
+        top: 23rem;
+        text-align: right;
+        align-content: end;
+    }
+
+    .agendar-relatar > svg{
+        margin: 0px 5px;
+    }
+
+    .legenda-calendario{
+        width: 9.5rem;
+        height: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        color: var(--blue-ufersa);
+        background-color: #FAF9F6;
+        font-size: 0.5rem;
+        border-radius: 4px;
+    }
+
+    .legenda-cor{
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+</style>

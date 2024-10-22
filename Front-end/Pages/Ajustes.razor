@@ -1,0 +1,590 @@
+@page "/ajustes"
+@attribute [Authorize]
+@inject NavigationManager Navigation
+@using System.ComponentModel.DataAnnotations
+@using System.Collections.Generic
+@using System.Text.RegularExpressions
+@using Blazored.LocalStorage
+@inject DiscenteService DiscenteService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
+@inject ILocalStorageService localStorage
+
+<PageTitle>Ajustes</PageTitle>
+
+<div id="opacidade"></div>
+
+<div class="page" style="background-color: var(--blue-ufersa); height: auto;">
+    <NavMenu />
+
+    <div style="padding-top: 29px; border-radius: 15px 0px 0px 15px; width: 100%; background-color: white;">
+        <Header />
+
+        <main class="page" style="padding-left: 4rem; padding-right: 3rem; padding-top: 20px; margin-bottom: 50px; display: flex; justify-content: space-between; flex-wrap: wrap;">
+
+            <div style="width: 100%; margin: 20px; display: flex; user-select: none;">
+                <div style="padding: 0px 10px; cursor: pointer; @(abaAtiva != "dadosPessoais" ? "color: var(--black-gray)" : "")" @onclick="() => AlternarAba(dadosPessoais)">
+                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 21V19C19 17.9391 18.5786 16.9217 17.8284 16.1716C17.0783 15.4214 16.0609 15 15 15H9C7.93913 15 6.92172 15.4214 6.17157 16.1716C5.42143 16.9217 5 17.9391 5 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                    <span style="font-size: 0.75rem; font-weight: 600; text-align: left;">DADOS PESSOAIS</span>
+                    <div style="@(abaAtiva == "dadosPessoais" ? "height: 3px; background-color: #1E1E1E; border-radius: 3px;)" : "")"></div>
+                </div>
+                <div style="cursor: pointer; @(abaAtiva != "conta" ? "color: var(--black-gray)" : "")" @onclick="() => AlternarAba(conta)">
+                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+
+                    <span style="font-size: 0.75rem; font-weight: 600; text-align: left;">CONTA</span>
+                    <div style="@(abaAtiva == "conta" ? "height: 3px; background-color: #1E1E1E; border-radius: 3px;)" : "")"></div>
+                </div>
+
+            </div>
+
+            @if (abaAtiva == "dadosPessoais"){
+
+                <div class="div-form-edit">
+                    <div class="div-form-header">
+                        <h1 class="div-form-h1">Dados Pessoais</h1>
+                        <p class="paragraph-size weight-500" style="color: var(--black-gray);">Atualize sua foto e seus dados pessoais aqui.</p>
+                    </div>
+
+                    <EditForm Model="@infosUser" OnValidSubmit="@EditarDiscente">
+                    <DataAnnotationsValidator />
+                        <div class="edit-fields" style="flex-wrap: wrap;">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Nome <span style="color: #BA3838">*</span></span>
+                                <div class="mb-3">
+                                    <InputText id="nome" class="custom-input form-control border-radius-10 my-1" style="width: 12.875rem;" @bind-Value="infosUser.Nome"/>
+                                </div>
+                                <div class="mb-3">
+                                    <InputText id="sobrenome" class="custom-input form-control border-radius-10 my-1" style="width: 33.125rem; margin-left: 1.5rem;" @bind-Value="infosUser.Sobrenome"/>
+                                </div>
+                                <ValidationMessage For="@(() => infosUser.Nome)" style="width: 100%"/>
+                                <ValidationMessage For="@(() => infosUser.Sobrenome)" style="width: 100%"/>
+                        </div>
+                        <div class="edit-fields" style="display: flex; justify-content: flex-start; align-items: flex-start; padding-bottom: 20px;">
+                                <span class="paragraph-size px-2 weight-500" style="width: 20rem">Foto
+                                    <br>
+                                    <span class="paragraph-size weight-500" style="color: var(--black-gray);">Isso será exibido em seu perfil</span>
+                                </span>
+                                
+                                <img class="edit-img" src="..\\css\\images\\img-perfil-padrao.svg" style="margin-right: 2.5rem;">
+                                
+                                <div>
+
+                                    <label for="fileupload" class="upload-button">
+                                        
+                                        <span style="border: 2px solid var(--black-gray); border-radius: 10px; padding: 3px 7px; margin-top: 10px;">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.66699 8V13.3333C2.66699 13.687 2.80747 14.0261 3.05752 14.2761C3.30756 14.5262 3.6467 14.6667 4.00033 14.6667H12.0003C12.3539 14.6667 12.6931 14.5262 12.9431 14.2761C13.1932 14.0261 13.3337 13.687 13.3337 13.3333V8" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10.6663 4L7.99967 1.33333L5.33301 4" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 1.33333V10" stroke="#243E64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                        <span class="paragraph-size weight-600" style="color: var(--blue-ufersa); text-decoration: underline; width: 100%; margin-top: 10px;">Clique para realizar Upload</span>
+                                        <span class="paragraph-size weight-500" style="color: var(--black-gray); margin-bottom: 10px;">SVG, PNG ou JPG</span>
+
+                                    </label>
+                                    <InputFile id="fileupload" hidden class="upload-button" accept=".jpg,.svg,.png"/>
+
+                                </div>
+                        </div>
+                        <div class="edit-fields" style="flex-wrap: wrap;">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Telefone</span>
+
+                                <div class="mb-3">
+                                    <InputText id="ddi" class="custom-input form-control border-radius-10 my-1" style="width: 5em; text-align: center;" @bind-Value="infosUser.DDI" maxlength="3" oninput="formatDDI(this)" placeholder="+xx"/>
+                                </div>
+                                <div class="mb-3">
+                                    <InputText id="ddd" class="custom-input form-control border-radius-10 my-1" style="width: 5rem; text-align: center; margin-left: 1.5rem;" @bind-Value="infosUser.DDD" maxlength="4" oninput="formatDDD(this)" placeholder="(xx)"/>
+                                </div>
+                                <div class="mb-3">
+                                    <InputText id="numero" class="custom-input form-control border-radius-10 my-1" style="width: 34.5rem; margin-left: 1.5rem;" @bind-Value="infosUser.Numero" maxlength="10" oninput="formatNumero(this)" placeholder="xxxxx-xxxx"/>
+                                </div>
+                                
+                                <ValidationMessage For="@(() => infosUser.DDI)" style="width: 100%"/>
+                                <ValidationMessage For="@(() => infosUser.DDD)" style="width: 100%"/>
+                                <ValidationMessage For="@(() => infosUser.Numero)" style="width: 100%"/>
+                                @if (!string.IsNullOrEmpty(infosUser.ErroTelefone))
+                                {
+                                    <div class="text-danger">@infosUser.ErroTelefone</div>
+                                }
+                        </div>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Curso</span>
+                                <div class="mb-3">
+                                    <InputSelect id="curso" class="custom-input form-control border-radius-10 my-1 input-select-arrow" style="width: 47.5rem;" @bind-Value="infosUser.Curso">
+                                        <option value="">Selecione um curso</option> <!-- Opção padrão -->
+                                        <option value="Arquitetura e Urbanismo">Arquitetura e Urbanismo</option>
+                                        <option value="Bacharelado Interdisciplinar em Ciência e Tecnologia">Bacharelado Interdisciplinar em Ciência e Tecnologia</option>
+                                        <option value="Engenharia Ambiental e Sanitária">Engenharia Ambiental e Sanitária</option>
+                                        <option value="Engenharia Civil">Engenharia Civil</option>
+                                        <option value="Engenharia de Computação">Engenharia de Computação</option>
+                                        <option value="Engenharia de Software">Engenharia de Software</option>
+                                        <option value="Tecnologia da Informação">Tecnologia da Informação</option>
+                                    </InputSelect>
+                                </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; padding: 20px 40px 0px 10px;">
+                            <button style="background-color: transparent;" class="button-edit" @onclick="Cancelar" type="button">Cancelar</button>
+                            <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-edit" type="submit">Salvar</button>
+                        </div>
+                    </EditForm>
+                </div>
+            } else if (abaAtiva == "conta"){
+
+                <div class="div-form-edit">
+                    <div class="div-form-header">
+                        <h1 class="div-form-h1">Conta</h1>
+                        <p class="paragraph-size weight-500" style="color: var(--black-gray);">Atualize os dados da sua conta aqui.</p>
+                    </div>
+
+                    <EditForm Model="@contaUser" OnSubmit="@EditarDiscente">
+                    <DataAnnotationsValidator />
+                        <div class="edit-fields" style="flex-wrap: wrap;">
+                            <span class="paragraph-size px-2 weight-500" style="width: 12rem">Matrícula <span style="color: #BA3838">*</span></span>
+                            <div class="mb-3 input-with-icon">
+                                <span class="input-icon">
+                                    <img style="height: 1.5rem; width: 1.5rem;" src="..\\css\\images\\u.svg" />
+                                </span>
+                                <InputText id="matricula" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Matricula" maxlength="10" disabled="true"/>
+                            </div>
+                                <ValidationMessage For="@(() => contaUser.Matricula)" />
+                        </div>
+                        <div class="edit-fields" style="flex-wrap: wrap;">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Email <span style="color: #BA3838">*</span></span>
+                                <div class="mb-3 input-with-icon">
+                                    <svg class="input-icon" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 7L13.03 12.7C12.7213 12.8934 12.3643 12.996 12 12.996C11.6357 12.996 11.2787 12.8934 10.97 12.7L2 7" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                    <InputText id="email" class="custom-input form-control border-radius-10 my-1" style="width: 47.5rem; padding-left: 3.25rem;" @bind-Value="contaUser.Email" disabled="true"/>
+                                </div>
+                                <br>
+                                <ValidationMessage For="@(() => contaUser.Email)" />
+                        </div>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Senha</span>
+                                <div style="display: flex; flex-wrap: wrap;">
+                                    <span class="weight-500 paragraph-size" style="color: var(--black-gray); width: 100%;">Crie uma nova senha para garantir a segurança da sua conta.</span>
+                                    <button style="background-color: var(--blue-ufersa); color: #FAF9F6; margin: 20px 0px; font-weight: 600;" class="button-edit" type="button" @onclick="@(() => ToggleDisplayById("editar-senha"))">Alterar Senha</button>
+                                </div>
+                        </div>
+                        <div class="edit-fields">
+                                <span class="paragraph-size px-2 weight-500" style="width: 12rem">Excluir Perfil</span>
+                                <div style="display: flex; flex-wrap: wrap;">
+                                    <span class="weight-500 paragraph-size" style="color: var(--black-gray); width: 100%;">Exclua sua conta e todos os seus dados de origem. Isso é irreversível.</span>
+                                    <button style="background-color: var(--white); color: var(--blue-ufersa);border: 2px solid var(--blue-ufersa); margin: 20px 0px; font-weight: 600;" class="button-edit" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Excluir Conta</button>
+                                </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; padding: 20px 40px 0px 10px;">
+                            <button style="background-color: transparent;" @onclick="Cancelar" class="button-edit" type="button">Cancelar</button>
+                            <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-edit" type="submit">Salvar</button>
+                        </div>
+                    </EditForm>
+                </div>
+            }
+
+
+        </main>
+
+    </div>
+
+    <div id="excluir-usuario" class="container-excluir">
+        <h1 class="pop-up-h1">
+            Verificação
+        </h1>
+        <p class="pop-up-p pb-4">O Sistema Agendamento está a tentar excluir conta. Escreva a sua senha atual para permitir esta ação.</p>
+        <EditForm Model="@excluirUsuario" OnValidSubmit="@ExcluirUsuario">
+            <DataAnnotationsValidator />
+            
+            <div class="password-container mb-2">
+                <InputText id="password" class="custom-input form-control border-radius-10" @bind-Value="excluirUsuario.Senha" type="@(isPasswordVisible ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisible ? "../css/images/eye-on.svg" : "../css/images/eye-off.svg")" alt="@(isPasswordVisible ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+            <ValidationMessage For="@(() => excluirUsuario.Senha)" />
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="text-danger py-3">
+                    @errorMessage
+                </div>
+            }
+
+            <a href="/recuperar-senha" class="weight-700 paragraph-size underline">Esqueceu sua senha?</a>
+            <div style="display: flex; justify-content: space-between; width: 100%; padding-top: 1rem">
+                <button style="background-color: transparent; border: 2px solid #C3C3C340" class="button-senha" type="button" @onclick="@(() => ToggleDisplayById("excluir-usuario"))">Cancelar</button>
+                <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-senha" type="submit">Confirmar</button>
+            </div>
+        </EditForm>
+    </div>
+
+    <div id="editar-senha" class="container-excluir">
+        <h1 class="pop-up-h1">
+            Alterar Senha
+        </h1>
+        <p class="pop-up-p pb-3">Insira sua senha atual para validar a troca.</p>
+        <EditForm Model="@alterarSenha" OnValidSubmit="@AlterarSenhaUsuario">
+            <DataAnnotationsValidator />
+
+            <div class="password-container mb-2">
+                <InputText class="custom-input form-control border-radius-10" @bind-Value="alterarSenha.Senha" type="@(isPasswordVisibleSenha ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibilitySenha">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisibleSenha ? "../css/images/eye-on.svg" : "../css/images/eye-off.svg")" alt="@(isPasswordVisibleSenha ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+            <ValidationMessage For="@(() => alterarSenha.Senha)" />
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="text-danger py-3">
+                    @errorMessage
+                </div>
+            }
+            
+            <div class="container-hr" style="padding: 30px 0px 20px 0px;">
+                <hr class="custom-hr">
+                <span class="texto-hr" style="color: #D9D9D9;">Nova Senha</span>
+                <hr class="custom-hr">
+            </div>
+            <p class="pop-up-p pb-3">Crie uma nova senha para garantir a segurança da sua conta.</p>
+            <div class="password-container mb-2">
+                <InputText class="custom-input form-control border-radius-10" @bind-Value="alterarSenha.NovaSenha" type="@(isPasswordVisibleNovaSenha ? "text" : "password")"  placeholder="Senha"/>
+                <span class="toggle-password" @onclick="TogglePasswordVisibilityNovaSenha">
+                    <img style="height: 1.5rem; width: 1.5rem;" src="@(isPasswordVisibleNovaSenha ? "../css/images/eye-on.svg" : "../css/images/eye-off.svg")" alt="@(isPasswordVisibleNovaSenha ? "Esconder Senha" : "Mostrar Senha")" id="eyeIcon" />
+                </span>
+            </div>
+            <ValidationMessage For="@(() => alterarSenha.NovaSenha)" />
+            <div style="color: var(--cinza-escuro);" class="paragraph-size py-1">
+                <div class="py-1">
+                    <img src="@(HasMinimumLength() ? "../css/images/check-verde.svg" : "../css/images/check-cinza.svg")" alt="@(HasMinimumLength() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasMinimumLength() ? "text-gray" : "text-green")">Mínimo 8 caracteres</span>
+                </div>
+                <div class="py-1">
+                    <img src="@(HasNumber() ? "../css/images/check-verde.svg" : "../css/images/check-cinza.svg")" alt="@(HasNumber() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasNumber() ? "text-gray" : "text-green")">Número</span>
+                </div>
+                <div class="py-1">
+                    <img src="@(HasSpecialCharacter() ? "../css/images/check-verde.svg" : "../css/images/check-cinza.svg")" alt="@(HasSpecialCharacter() ? "Restrição cumprida" : "Restrição não está sendo cumprida")">
+                    <span class="@(!HasSpecialCharacter() ? "text-gray" : "text-green")">Caractere especial</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; width: 100%; padding-top: 1rem">
+                <button style="background-color: transparent; border: 2px solid #C3C3C340" class="button-senha" type="button" @onclick="@(() => ToggleDisplayById("editar-senha"))">Cancelar</button>
+                <button style="background-color: var(--blue-ufersa); color: var(--white); margin-left: 20px;" class="button-senha" type="submit">Salvar</button>
+            </div>
+        </EditForm>
+    </div>
+
+</div>
+
+@code{
+    private DiscenteRegistroModel discente;
+    public int userId = -1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtenha o ID do usuário do localStorage usando o CustomAuthStateProvider
+        userId = await ((CustomAuthStateProvider)AuthenticationStateProvider).GetUserIdFromLocalStorage();
+
+        if (userId != -1)
+        {
+            // Chame o método GetDiscente e armazene o resultado
+            discente = await DiscenteService.GetDiscente(userId); 
+            alterarSenha.Email = discente.Email;
+            contaUser.Email = discente.Email;
+            contaUser.Matricula = discente.Matricula.ToString();
+
+            if(discente.Telefone == null || discente.Telefone == ""){
+                infosUser.DDI = null;
+                infosUser.DDD = null;
+                infosUser.Numero = null;
+            } else{
+                DividirTelefone(discente.Telefone);
+
+            }
+            var (primeiroNome, sobrenome) = DividirNome(discente.Nome);
+            infosUser.Nome = primeiroNome;
+            infosUser.Sobrenome = sobrenome;
+            infosUser.Curso = discente.Curso;
+
+            infosUserAtual = new InfosUser
+            {
+                Nome = infosUser.Nome,
+                Sobrenome = infosUser.Sobrenome,
+                Curso = infosUser.Curso,
+                DDI = infosUser.DDI,
+                DDD = infosUser.DDD,
+                Numero = infosUser.DDD
+            };
+
+            contaUserAtual = new Conta
+            {
+                Email = contaUser.Email,
+                Matricula = contaUser.Matricula
+            };
+        }
+    }
+
+    public class Conta
+    {
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@alunos\.ufersa\.edu\.br$", ErrorMessage = "O Email deve ser do domínio @alunos.ufersa.edu.br")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        [MinLength(8, ErrorMessage = "A senha deve ter no mínimo 8 caracteres.")]
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[!@#$%^&*(),.?{}|<>+=\-\\]).*$", ErrorMessage = "A senha deve conter pelo menos um número e um caractere especial.")]
+        public string Senha { get; set; }
+
+        [Required(ErrorMessage = "O campo Matrícula é obrigatório.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "A Matrícula deve ter exatamente 10 dígitos.")]
+        public string Matricula { get; set; }
+    }
+    public class InfosUser : IValidatableObject
+    {
+        [Required(ErrorMessage = "O campo Nome é obrigatório.")]
+        public string Nome { get; set; }
+        [Required(ErrorMessage = "O campo Sobrenome é obrigatório.")]
+        public string Sobrenome { get; set; }
+
+        public string Curso { get; set; }
+
+        [RegularExpression(@"^\+\d{1,3}$", ErrorMessage = "O DDI deve iniciar com '+' e ter até 3 dígitos.")]
+        public string DDI { get; set; }
+
+        [RegularExpression(@"^\(\d{2}\)$", ErrorMessage = "O DDD deve estar no formato '(XX)' com 2 dígitos.")]
+        public string DDD { get; set; }
+
+        [RegularExpression(@"^\d{4,5}-\d{4}$", ErrorMessage = "O número deve estar no formato 'XXXXX-XXXX' ou 'XXXX-XXXX'.")]
+        public string Numero { get; set; }
+        
+        // Propriedade para armazenar erro geral de telefone
+        public string ErroTelefone { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            // Limpa o erro anterior
+            ErroTelefone = null;
+
+            if (!string.IsNullOrEmpty(DDI) || !string.IsNullOrEmpty(DDD) || !string.IsNullOrEmpty(Numero))
+            {
+                if (string.IsNullOrEmpty(DDI) || string.IsNullOrEmpty(DDD) || string.IsNullOrEmpty(Numero))
+                {
+                    ErroTelefone = "Todos os campos de telefone (DDI, DDD e Número) devem ser preenchidos.";
+                    yield return new ValidationResult(
+                        ErroTelefone,
+                        new[] { "ErroTelefone" }); // Propriedade para o erro geral
+                }
+            }
+        }
+    }
+
+    private Conta contaUser = new Conta();
+    private Conta contaUserAtual = new Conta();
+    private InfosUser infosUser = new InfosUser();
+    private InfosUser infosUserAtual = new InfosUser();
+
+    private async Task EditarDiscente()
+    {
+        var modelDiscente = new DiscenteRegistroModel
+        {
+            Nome = infosUser.Nome + " " + infosUser.Sobrenome,
+            Email = contaUser.Email,
+            Senha = contaUser.Senha,
+            Matricula = int.TryParse(contaUser.Matricula, out var matricula) ? matricula : 0,
+            Telefone = infosUser.DDI + " " + infosUser.DDD + " " + infosUser.Numero,
+            Curso = infosUser.Curso
+        };
+
+        var result = await DiscenteService.EditarDiscente(modelDiscente);
+    }
+
+    private void Cancelar(){
+        infosUser = new InfosUser
+        {
+            Nome = infosUserAtual.Nome,
+            Sobrenome = infosUserAtual.Sobrenome,
+            Curso = infosUserAtual.Curso,
+            DDI = infosUserAtual.DDI,
+            DDD = infosUserAtual.DDD,
+            Numero = infosUserAtual.Numero
+        };
+
+        contaUser = new Conta
+        {
+            Email = contaUserAtual.Email,
+            Matricula = contaUserAtual.Matricula
+        };
+    }
+
+    private string abaAtiva = "dadosPessoais"; // Estado inicial
+    private string dadosPessoais = "dadosPessoais";
+    private string conta = "conta";
+
+    private void AlternarAba(string aba)
+    {
+        abaAtiva = aba; // Atualiza o estado ativo
+    }
+
+    public void DividirTelefone(string telefoneCompleto)
+    {
+        // Remove espaços em branco e caracteres desnecessários
+        telefoneCompleto = telefoneCompleto.Trim();
+
+        // Verifica se o telefone contém o DDI
+        if (telefoneCompleto.StartsWith("+"))
+        {
+            int primeiroEspaco = telefoneCompleto.IndexOf(' ');
+            if (primeiroEspaco > 0)
+            {
+                infosUser.DDI = telefoneCompleto.Substring(0, primeiroEspaco); // "+55"
+                telefoneCompleto = telefoneCompleto.Substring(primeiroEspaco + 1); // Resto do telefone
+            }
+        }
+
+        // Verifica se o telefone contém o DDD
+        int indiceDDDInicio = telefoneCompleto.IndexOf('(');
+        int indiceDDDFim = telefoneCompleto.IndexOf(')');
+        if (indiceDDDInicio >= 0 && indiceDDDFim > indiceDDDInicio)
+        {
+            infosUser.DDD = telefoneCompleto.Substring(indiceDDDInicio, indiceDDDFim - indiceDDDInicio + 1); // "(84)"
+            telefoneCompleto = telefoneCompleto.Substring(indiceDDDFim + 1).Trim(); // Resto do número
+        }
+
+        // O resto do telefone deve ser o número
+        infosUser.Numero = telefoneCompleto.Replace(" ", ""); // Remove espaços desnecessários
+    }
+
+    public (string PrimeiroNome, string Sobrenome) DividirNome(string nomeCompleto)
+    {
+        // Remove espaços em branco desnecessários
+        nomeCompleto = nomeCompleto.Trim();
+
+        // Divide o nome em partes
+        var partes = nomeCompleto.Split(' ', 2); // Divide em no máximo 2 partes
+
+        // Se não houver sobrenome, retornamos apenas o primeiro nome
+        if (partes.Length < 2)
+        {
+            return (partes[0], string.Empty); // Sem sobrenome
+        }
+
+        // O primeiro nome é a primeira parte, e o sobrenome é o restante
+        return (partes[0], partes[1]);
+    }
+
+    private bool isPasswordVisible = false;
+    private bool isPasswordVisibleSenha = false;
+    private bool isPasswordVisibleNovaSenha = false;
+
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+
+    private void TogglePasswordVisibilitySenha()
+    {
+        isPasswordVisibleSenha = !isPasswordVisibleSenha;
+    }
+
+    private void TogglePasswordVisibilityNovaSenha()
+    {
+        isPasswordVisibleNovaSenha = !isPasswordVisibleNovaSenha;
+    }
+
+    private async Task ToggleDisplayById(string id)
+    {
+        await JS.InvokeVoidAsync("toggleDisplayById", id);
+        await JS.InvokeVoidAsync("toggleDisplayById", "opacidade");
+        alterarSenha.Senha = null;
+        alterarSenha.NovaSenha = null;
+        errorMessage = null;
+    }
+
+    private AlterarSenha alterarSenha = new AlterarSenha();
+    
+        public class AlterarSenha{
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Senha { get; set; }
+
+        [Required(ErrorMessage = "O campo da nova senha é obrigatório.")]
+        public string NovaSenha { get; set; }
+    }
+
+    private ExcluirUsuarioModel excluirUsuario = new ExcluirUsuarioModel();
+    private string errorMessage;
+    public class ExcluirUsuarioModel{
+        [Required(ErrorMessage = "O campo ID é obrigatório.")]
+        public int ID { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
+        public string Senha { get; set; }
+    }
+
+    private bool HasMinimumLength() => alterarSenha.NovaSenha?.Length >= 8;
+    private bool HasNumber() => alterarSenha.NovaSenha?.Any(char.IsDigit) ?? false;
+    private bool HasSpecialCharacter() => alterarSenha.NovaSenha?.Any(ch => !char.IsLetterOrDigit(ch)) ?? false;
+
+    private async Task AlterarSenhaUsuario()
+    {
+        var modelDiscente = new DiscenteEditarSenhaModel
+        {
+            Email = alterarSenha.Email,
+            SenhaAtual = alterarSenha.Senha,
+            NovaSenha = alterarSenha.NovaSenha
+        };
+
+        var result = await DiscenteService.EditarSenha(modelDiscente);
+
+        if (result.IsSuccessStatusCode)
+            {
+                ToggleDisplayById("editar-senha");
+            }
+            else
+            {
+                var errorMessage = await result.Content.ReadAsStringAsync();
+            }
+    }
+
+    private async Task ExcluirUsuario(){
+
+        var modelDiscente = new ExcluirDiscenteModel
+        {
+            IdUsuario = userId,
+            Senha = excluirUsuario.Senha
+        };
+
+        var result = await DiscenteService.ExcluirDiscente(modelDiscente);
+
+        if (result.IsSuccessStatusCode)
+        {
+            await localStorage.RemoveItemAsync("authToken");
+
+            // Notifica que o estado de autenticação mudou
+            var customAuthStateProvider = (CustomAuthStateProvider)AuthenticationStateProvider;
+            customAuthStateProvider.NotifyUserLogout();
+        }
+        else
+        {
+            var errorMessage = await result.Content.ReadAsStringAsync();
+        }
+    }
+}
+
+<style>
+    .custom-input{
+        border: 2px solid var(--black-gray);
+    }
+</style>
