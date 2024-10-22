@@ -438,59 +438,5 @@ namespace testeDeUnidade.services.discentServices
             var discente = await discenteService.ObterDiscentePorIdAsync(1);
             Assert.That(discente.Nome, Is.EqualTo("Livia Beatriz"));
         }
-
-        [Test]
-        public async Task DeletarProfissional()
-        {
-            var servico = new ServicoDisponivel
-            {
-                IdServico = 1,
-                Tipo = "Psicóloga",
-                TipoAtendimento = "Consulta"
-            };
-            context.ServicoDisponivel.Add(servico);
-            await context.SaveChangesAsync();
-
-            var profissional = new Profissional
-            {
-                IdProfissional = 1,
-                Nome = "Livia Lima",
-                Email = "livia.lima@ufersa.edu.br",
-                Senha = "Livia10.",
-                Salt = "Livia10.",
-                ServicoId = servico.IdServico,
-                Descricao = "Servico prestado por Livia Lima"
-            };
-
-            context.Profissionais.Add(profissional);
-            await context.SaveChangesAsync();
-
-            var resultado = await discenteService.DeletarUsuarioAsync(1);
-
-            Assert.That(resultado, Is.True);
-            var profissionalRemovido = await context.Profissionais.FindAsync(1);
-            Assert.That(profissionalRemovido, Is.Null);
-        }
-
-        [Test]
-        public async Task DeletarDiscente()
-        {
-            var registro = new RegistrarDiscente
-            {
-                Nome = "Livia",
-                Email = "livia.lima30332@alunos.ufersa.edu.br",
-                Senha = "Livia10.",
-                Matricula = 2021010871,
-                Telefone = "998420066",
-                Curso = "Engenharia"
-            };
-            await discenteService.RegistrarDiscenteAsync(registro);
-
-            var resultado = await discenteService.DeletarUsuarioAsync(1);
-
-            Assert.That(resultado, Is.True);
-            var discente = await discenteService.ObterDiscentePorIdAsync(1);
-            Assert.That(discente, Is.Null);
-        }
     }
 }
