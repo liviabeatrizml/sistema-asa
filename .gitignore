@@ -1,7 +1,6 @@
 # Ignore arquivos de build
 bin/
 obj/
-Back-end/
 Path/
 TestResults/
 
