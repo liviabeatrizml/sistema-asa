@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
+using System.Diagnostics.Contracts;
 
 namespace Back_end.Controllers
 {
@@ -11,6 +13,7 @@ namespace Back_end.Controllers
     [Route("api/[controller]")]
     public class ServicoController : ControllerBase
     {
+
         private readonly ApiDbContext _context;
 
         public ServicoController(ApiDbContext context)
@@ -22,6 +25,9 @@ namespace Back_end.Controllers
         [HttpPost("cadastrar")]
         public async Task<ActionResult<ServicoDisponivel>> CadastrarServico(ServicoDto servicoDto)
         {
+            Contract.Requires(!string.IsNullOrEmpty(servicoDto.Tipo), "O tipo do serviço não pode ser nulo ou vazio.");
+            Contract.Requires(!string.IsNullOrEmpty(servicoDto.TipoAtendimento), "O tipo de atendimento não pode ser nulo ou vazio.");
+
             var novoServico = new ServicoDisponivel
             {
                 Tipo = servicoDto.Tipo,

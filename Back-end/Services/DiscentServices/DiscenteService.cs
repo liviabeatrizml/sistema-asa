@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿﻿using System.Text;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Back_end.Data;
 using Back_end.Models;
 using Back_end.Helpers;
+using System;
+using System.Diagnostics.Contracts;
 
 namespace Back_end.Services
 {
@@ -27,6 +29,14 @@ namespace Back_end.Services
             // Verificação de nulidade
             if (registro == null) throw new ArgumentNullException(nameof(registro));
 
+            Contract.Requires(registro.Nome != null, nameof(registro.Nome));
+            Contract.Requires(registro.Email != null, nameof(registro.Email));
+            Contract.Requires(
+                registro.Email.EndsWith("@alunos.ufersa.edu.br"),
+                "O Email deve conter o domínio '@alunos.ufersa.edu.br'.");
+            Contract.Requires(registro.Senha != null, nameof(registro.Senha));
+            Contract.Requires(registro.Matricula != null, nameof(registro.Matricula));
+
             // Criptografar a senha e gerar o salt
             var (senhaCriptografada, salt) = CriptografarSenha(registro.Senha);
 
@@ -39,10 +49,13 @@ namespace Back_end.Services
                 Matricula = registro.Matricula,
                 Telefone = string.IsNullOrEmpty(registro.Telefone) ? null : registro.Telefone,
                 Curso = registro.Curso
-            };
+        };
 
             _context.Discentes.Add(discente);
             await _context.SaveChangesAsync();
+
+            Contract.Ensures(discente != null, "O objeto Discente não deve ser nulo ao final do método.");
+            Contract.Ensures(discente.Email.EndsWith("@alunos.ufersa.edu.br"), "O email deve conter o domínio correto após a inserção.");
 
             return discente;
         }
@@ -51,6 +64,9 @@ namespace Back_end.Services
         public async Task<LoginResponseDto> LoginDiscenteAsync(LoginDiscente login)
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
+
+            Contract.Requires(login.Email != null, "Email não pode ser nulo ou vazio.");
+            Contract.Requires(login.Senha != null, "Senha não pode ser nula ou vazia.");
 
             var discente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == login.Email);
 
@@ -132,6 +148,14 @@ namespace Back_end.Services
         {
             if (registro == null) throw new ArgumentNullException(nameof(registro));
 
+            Contract.Requires(registro.Nome != null, nameof(registro.Nome));
+            Contract.Requires(registro.Email != null, nameof(registro.Email));
+            Contract.Requires(
+                registro.Email.EndsWith("@ufersa.edu.br"),
+                "O Email deve conter o domínio '@ufersa.edu.br'.");
+            Contract.Requires(registro.Senha != null, nameof(registro.Senha));
+            Contract.Requires(registro.ServicoId != null, nameof(registro.ServicoId));
+
             // Verificar se o ServicoId é válido
             var servicoExiste = await _context.ServicoDisponivel.AnyAsync(s => s.IdServico == registro.ServicoId);
             if (!servicoExiste)
@@ -155,11 +179,17 @@ namespace Back_end.Services
             _context.Profissionais.Add(profissional);
             await _context.SaveChangesAsync();
 
+            Contract.Ensures(profissional != null, "O objeto Profissional não deve ser nulo ao final do método.");
+            Contract.Ensures(profissional.Email.EndsWith("@ufersa.edu.br"), "O email deve conter o domínio correto após a inserção.");
+
             return profissional;
         }
         public async Task<LoginResponseDto> LoginProfissionalAsync(LoginProfissional login)
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
+
+            Contract.Requires(login.Email != null, "Email não pode ser nulo ou vazio.");
+            Contract.Requires(login.Senha != null, "Senha não pode ser nula ou vazia.");
 
             var profissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == login.Email);
 
@@ -186,6 +216,8 @@ namespace Back_end.Services
             // Buscando o discente no banco de dados
             var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == atualizarPerfil.Email);
 
+            Contract.Requires(atualizarPerfil != null, "O objeto atualizarPerfil não pode ser nulo.");
+
             if (usuarioDiscente != null)
             {
                 // Atualizando campos que não são nulos
@@ -205,6 +237,9 @@ namespace Back_end.Services
                 return true;
             }
 
+            Contract.Ensures(usuarioDiscente != null, "O perfil do usuário foi atualizado com sucesso.");
+            Contract.Ensures(usuarioDiscente.Nome != null, "O perfil do usuário foi atualizado com sucesso.");
+
             return false; // Se o usuário não for encontrado
         }
         public async Task<bool> AlterarSenhaAsync(AlterarSenhaDto alterarSenha)
@@ -212,6 +247,8 @@ namespace Back_end.Services
             // Buscando em ambas as tabelas: Discentes e Profissionais separadamente
             var usuarioDiscente = await _context.Discentes.SingleOrDefaultAsync(d => d.Email == alterarSenha.Email);
             var usuarioProfissional = await _context.Profissionais.SingleOrDefaultAsync(p => p.Email == alterarSenha.Email);
+
+            Contract.Requires(alterarSenha != null, "O objeto alterarSenha não pode ser nulo.");
 
             if (usuarioDiscente != null && VerificarSenha(alterarSenha.SenhaAtual, usuarioDiscente.Senha, usuarioDiscente.Salt))
             {
@@ -221,6 +258,9 @@ namespace Back_end.Services
                 usuarioDiscente.Salt = novoSalt;
 
                 await _context.SaveChangesAsync();
+
+                Contract.Ensures(usuarioDiscente.Senha != null, "A senha do usuário foi atualizada com sucesso.");
+
                 return true;
             }
             else if (usuarioProfissional != null && VerificarSenha(alterarSenha.SenhaAtual, usuarioProfissional.Senha, usuarioProfissional.Salt))
@@ -231,6 +271,9 @@ namespace Back_end.Services
                 usuarioProfissional.Salt = novoSalt;
 
                 await _context.SaveChangesAsync();
+
+                Contract.Ensures(usuarioProfissional.Senha != null, "A senha do usuário foi atualizada com sucesso.");
+
                 return true;
             }
 
