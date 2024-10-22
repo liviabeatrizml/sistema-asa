@@ -70,3 +70,7 @@ Agora você pode rodar os testes com o seguinte comando:
 cd teste/testeDeUnidade ou cd teste/testeDeSistema
 dotnet test
 ```
+
+### 5. Resultados dos Testes
+
+O arcabouço construído sobre os testes realizados pode ser visualizado por meio do site: [Relatório de testes - Sistema ASA](https://sites.google.com/alunos.ufersa.edu.br/relatorio-de-testes-asa/p%C3%A1gina-inicial).
