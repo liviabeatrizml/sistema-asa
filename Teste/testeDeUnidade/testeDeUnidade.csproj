@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Back-end\Back-end.csproj" />
+    <ProjectReference Include="..\..\Back-end\Back-end.csproj" />
   </ItemGroup>
 
 </Project>
